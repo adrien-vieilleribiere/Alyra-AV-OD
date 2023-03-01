@@ -107,3 +107,6 @@ dist
 artifacts/
 cache/
 package-lock.json
+
+#truffle
+build/

@@ -18,6 +18,7 @@
   "homepage": "https://github.com/adrien-vieilleribiere/Alyra-AV-OD#readme",
   "devDependencies": {
     "@openzeppelin/contracts": "^4.8.1",
+    "@openzeppelin/test-helpers": "^0.5.16",
     "hardhat": "^2.12.7",
     "solidity-coverage": "^0.8.2"
   }
