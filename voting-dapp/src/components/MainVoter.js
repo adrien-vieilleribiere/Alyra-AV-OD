@@ -6,7 +6,7 @@ import {
   InputLabel,
   Select,
   MenuItem,
-	Divider,
+  Divider,
 } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 
@@ -33,7 +33,7 @@ function MainVoter({ step, hasVoted }) {
       {step == 1 &&
         /* input + button to add proposals */
         <>
-					<Divider sx={{ my:2 }}/>
+          <Divider sx={{ my: 2 }} />
           <h3>Add a proposal</h3>
           <>form</>
         </>
@@ -42,7 +42,7 @@ function MainVoter({ step, hasVoted }) {
       {/* vote started */}
       {step > 2 && !hasVoted &&
         <>
-					<Divider sx={{ my:2 }}/>
+          <Divider sx={{ my: 2 }} />
           <h3>Vote</h3>
           <FormControl fullWidth>
             <InputLabel id="proposition-id" fullWidth>Vote For</InputLabel>
@@ -61,7 +61,7 @@ function MainVoter({ step, hasVoted }) {
       {step > 2 && hasVoted &&
         /* Vote value recap */
         <>
-					<Divider sx={{ my:2 }}/>
+          <Divider sx={{ my: 2 }} />
           <h3>Your vote</h3>
           proposal
         </>
@@ -71,7 +71,7 @@ function MainVoter({ step, hasVoted }) {
       {step > 4 &&
         /* Check vote from another user: select? */
         <>
-					<Divider sx={{ my:2 }}/>
+          <Divider sx={{ my: 2 }} />
           <h3>Check vote from a voter</h3>
           form
         </>
