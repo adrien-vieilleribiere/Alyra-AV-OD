@@ -13,6 +13,7 @@ function Footer() {
         sx={{ p: 2, border: '1px solid grey', borderRadius: '10px' }}
         className="App-footer"
       >
+        <div>Made with &#10084; for Alyra</div>
         <Divider variant="middle" ><br /><br /></Divider>
         <a
             className="App-link"

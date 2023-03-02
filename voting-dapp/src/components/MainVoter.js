@@ -10,7 +10,7 @@ import {
 import AddIcon from '@mui/icons-material/Add';
 
 // props needed : proposals
-function MainVoter(step) {
+function MainVoter({step}) {
 
   return (
     <>

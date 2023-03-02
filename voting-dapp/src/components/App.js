@@ -3,22 +3,8 @@ import React, { useState, useEffect } from 'react';
 import {
   Alert,
   Container,
-  FormControl,
-  FormHelperText,
-  MenuItem,
-  Button,
-  TextField,
-  InputLabel,
-  Select,
-  Input,
   Box,
-  Icon,
-  Stepper,
-  Step,
-  StepLabel,
-  Divider
 } from '@mui/material';
-import AddIcon from '@mui/icons-material/Add';
 
 import logo from '../assets/images/logo.svg';
 
@@ -52,9 +38,9 @@ function App() {
 
   useEffect(() => {
     // FOR TEST
-    setCurrentStep(2);
+    setCurrentStep(3);
     setUserConnected(1);
-    setUserRole(roles.OWNER);
+    setUserRole(roles.VOTER);
     // --- 
   }, []);
 
@@ -100,7 +86,7 @@ function App() {
             variant="outlined"
             severity="info"
           >
-            You should be connected with your wallet to interact with the application
+            You should be connected with your wallet to interact with the application.
           </Alert>
         }
 
