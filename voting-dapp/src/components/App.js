@@ -22,10 +22,11 @@ import AddIcon from '@mui/icons-material/Add';
 
 import logo from '../assets/images/logo.svg';
 
+import Header from './Header';
 import MainOwner from './MainOwner';
 import MainVoter from './MainVoter';
+import Footer from './Footer';
 import './App.css';
-
 
 // Need an array of object with short label, description?
 const steps = [
@@ -59,28 +60,8 @@ function App() {
 
   return (
     <Container className="App">
-      <Box
-        component="header"
-        sx={{ p: 2, border: '1px solid grey', borderRadius: '10px' }}
-        className="App-header"
-      >
-        {/* <img src={logo} className="App-logo" alt="logo" /> */}
-        <h1>Voting app</h1>
-        <Box sx={{ width: '100%' }}>
-          <Stepper activeStep={currentStep} alternativeLabel>
-            {steps.map((label) => (
-              <Step key={label}>
-                <StepLabel>{label}</StepLabel>
-              </Step>
-            ))}
-          </Stepper>
-        </Box>
-
-        {/* <Divider variant="middle" ><br /><br /></Divider>
-        <Divider variant="middle" ><br /><br /></Divider>
-            <Divider variant="middle" ><br /><br /></Divider> */}
-
-      </Box> {/* end of header */}
+      
+      <Header step={currentStep} steps={steps}/>
       
       <Box
         component="main"
@@ -106,7 +87,7 @@ function App() {
             }
             {/* user voter */}
             {userRole == roles.VOTER  &&
-              <MainVoter/>
+              <MainVoter step={currentStep}/>
             }
             {/* user owner */}
             {userRole == roles.OWNER  &&
@@ -124,23 +105,9 @@ function App() {
         }
 
       </Box>{/* end of main */}
+      
+      <Footer/>
 
-      <Box
-        component="footer"
-        mt={2}
-        sx={{ p: 2, border: '1px solid grey', borderRadius: '10px' }}
-        className="App-footer"
-      >
-        <Divider variant="middle" ><br /><br /></Divider>
-        <a
-            className="App-link"
-            href="https://github.com/adrien-vieilleribiere/Alyra-AV-OD"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Github sources
-          </a>
-      </Box> {/* end of footer */}
     </Container >
   );
 }
