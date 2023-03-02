@@ -1,18 +1,26 @@
 # Dapp Voting
 
+## Contrats Solidity 
 ```bash
 npm install
 truffle migrate
 ```
 
-## Tests
-
-### Contrats Solidity 
+### Tests
 ```
 truffle test
 npx hardhat test 
 npx hardhat coverage
 ```
+
+## Front
+```
+cd voting-dapp
+npm install
+npm start
+```
+
+
 
 
 Adrien Vieilleribière, Olivier David
