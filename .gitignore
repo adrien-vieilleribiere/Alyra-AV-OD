@@ -107,6 +107,7 @@ dist
 artifacts/
 cache/
 package-lock.json
+coverage.json
 
 #truffle
 build/
