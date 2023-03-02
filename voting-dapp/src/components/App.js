@@ -27,7 +27,7 @@ import MainVoter from './MainVoter';
 import './App.css';
 
 
-// Need an array of object with id, label, description?
+// Need an array of object with short label, description?
 const steps = [
   'Registering Voters',
   'Proposals Registration Started',
@@ -51,7 +51,7 @@ function App() {
 
   useEffect(() => {
     // FOR TEST
-    setCurrentStep(0);
+    setCurrentStep(2);
     setUserConnected(1);
     setUserRole(roles.OWNER);
     // --- 
@@ -67,7 +67,7 @@ function App() {
         {/* <img src={logo} className="App-logo" alt="logo" /> */}
         <h1>Voting app</h1>
         <Box sx={{ width: '100%' }}>
-          <Stepper activeStep={0} alternativeLabel>
+          <Stepper activeStep={currentStep} alternativeLabel>
             {steps.map((label) => (
               <Step key={label}>
                 <StepLabel>{label}</StepLabel>
