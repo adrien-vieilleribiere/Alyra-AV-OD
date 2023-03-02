@@ -31,7 +31,7 @@ function MainVoter({ step, hasVoted }) {
         <>
 					<Divider sx={{ my:2 }}/>
           <h3>Add a proposal</h3>
-          <>List or no proposal yet</>
+          <>form</>
         </>
       }
 
@@ -62,7 +62,7 @@ function MainVoter({ step, hasVoted }) {
         <>
 					<Divider sx={{ my:2 }}/>
           <h3>Your vote</h3>
-          Already voted
+          proposal
         </>
       }
 
@@ -72,7 +72,7 @@ function MainVoter({ step, hasVoted }) {
         <>
 					<Divider sx={{ my:2 }}/>
           <h3>Check vote from a voter</h3>
-          Already voted
+          form
         </>
       }
     </>
