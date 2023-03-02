@@ -40,9 +40,9 @@ function App() {
 
   useEffect(() => {
     // FOR TEST
-    setCurrentStep(3);
+    setCurrentStep(5);
     setUserConnected(true);
-    setUserRole(roles.VOTER);
+    setUserRole(roles.OWNER);
     setHasVoted(false);
     // --- 
   }, []);

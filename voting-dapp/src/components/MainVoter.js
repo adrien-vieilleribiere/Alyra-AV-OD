@@ -17,6 +17,10 @@ function MainVoter({ step, hasVoted }) {
     <>{/* TODO : use step label */}
       <h2>Main Voter component</h2>
       {/* Conditionnal display depending on the current status */}
+      {step == 0 &&
+        /* recap proposals submitted from voter */
+        <>Nothing to display yet. Come back later!</>
+      }
 
       {/* proposal registration started */}
       {step > 0 &&
@@ -36,11 +40,7 @@ function MainVoter({ step, hasVoted }) {
       }
 
       {/* vote started */}
-      {step > 2 &&
-
-        /* Conditionnal display depending if voter has voted or not */
-        !hasVoted
-        ?
+      {step > 2 && !hasVoted &&
         <>
 					<Divider sx={{ my:2 }}/>
           <h3>Vote</h3>
@@ -57,7 +57,8 @@ function MainVoter({ step, hasVoted }) {
             </Select>
           </FormControl>
         </>
-        :
+      }
+      {step > 2 && hasVoted &&
         /* Vote value recap */
         <>
 					<Divider sx={{ my:2 }}/>

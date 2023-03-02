@@ -10,11 +10,11 @@ import {
 import AddIcon from '@mui/icons-material/Add';
 
 
-function MainOwner(step) {
+function MainOwner({step}) {
 
 	return (
 		<>
-			<p>Main Owner component</p>
+			<h2>Main Owner component</h2>
 			{/* Button for changing step or in header ? */}
 			{/* Controls to perform:
             - one voter at least
@@ -25,8 +25,8 @@ function MainOwner(step) {
 			{/* Conditionnal display depending on the current status */}
 			{/* Voter list limited height with scroller */}
 			<>
-				<h3>Voters registered</h3>
-				<>Registered voters list</>
+				<h3>Voters already registered</h3>
+				<>Registered voters list or not yet</>
 			</>
 
 			{/* register voter */}
@@ -61,7 +61,15 @@ function MainOwner(step) {
 				<>
 					<Divider sx={{ my:2 }}/>
 					<h3>Numbers of votes</h3>
-					<>Recap number of votes not detailled</>
+					<>number of votes only</>
+				</>
+			}
+			{/* votes tallied */}
+			{step > 2 &&
+				<>
+					<Divider sx={{ my:2 }}/>
+					<h3>Result</h3>
+					<>Recap number of votes detailled</>
 				</>
 			}
 		</>
