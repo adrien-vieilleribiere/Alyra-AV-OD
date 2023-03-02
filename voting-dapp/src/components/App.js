@@ -25,7 +25,7 @@ const steps = [
 ];
 
 const roles = {
-  NONE:  0,
+  NONE: 0,
   VOTER: 1,
   OWNER: 2,
 };
@@ -35,20 +35,23 @@ function App() {
   const [currentStep, setCurrentStep] = useState(0);
   const [userConnected, setUserConnected] = useState(false);
   const [userRole, setUserRole] = useState(roles.NONE);
+  const [hasVoted, setHasVoted] = useState(false);
+  const [vote, setVote] = useState();
 
   useEffect(() => {
     // FOR TEST
     setCurrentStep(3);
-    setUserConnected(1);
+    setUserConnected(true);
     setUserRole(roles.VOTER);
+    setHasVoted(false);
     // --- 
   }, []);
 
   return (
     <Container className="App">
-      
-      <Header step={currentStep} steps={steps}/>
-      
+
+      <Header step={currentStep} steps={steps} />
+
       <Box
         component="main"
         mt={2}
@@ -59,30 +62,30 @@ function App() {
 
         {/* Conditionnal display */}
         {userConnected
-        ? 
-        /* user connected */
+          ?
+          /* user connected */
           <>
             {/* user unknown: connected but not voter or admin */}
-            {userRole == roles.NONE && 
+            {userRole == roles.NONE &&
               <Alert
                 variant="outlined"
                 severity="warning"
               >
-                  Your address is not registered!
+                Your address is not registered!
               </Alert>
             }
             {/* user voter */}
-            {userRole == roles.VOTER  &&
-              <MainVoter step={currentStep}/>
+            {userRole == roles.VOTER &&
+              <MainVoter step={currentStep} hasVoted={hasVoted} />
             }
             {/* user owner */}
-            {userRole == roles.OWNER  &&
-              <MainOwner step={currentStep}/>
+            {userRole == roles.OWNER &&
+              <MainOwner step={currentStep} />
             }
           </>
 
-        /* user not connected */
-        : <Alert
+          /* user not connected */
+          : <Alert
             variant="outlined"
             severity="info"
           >
@@ -91,8 +94,8 @@ function App() {
         }
 
       </Box>{/* end of main */}
-      
-      <Footer/>
+
+      <Footer />
 
     </Container >
   );
