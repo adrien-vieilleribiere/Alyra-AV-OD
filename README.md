@@ -1,16 +1,13 @@
 # Dapp Voting
 
-
-```
+```bash
 npm install
+truffle migrate
 ```
 
 ## Tests
 
-### Contrat
-Après avoir lancé une blockchain cohérente avec 
-`truffle-config.js`
-
+### Contrats Solidity 
 ```
 truffle test
 npx hardhat test 
