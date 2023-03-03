@@ -51,7 +51,6 @@ function MainOwner({ step }) {
           {/* register voter */}
           {step < 1 &&
             <>
-              <Divider sx={{ my: 2 }} />
               <h3>Add a voter</h3>
               <Box sx={{
                 display: 'flex',
@@ -63,6 +62,7 @@ function MainOwner({ step }) {
                   <AddIcon></AddIcon>
                 </Button>
               </Box>
+              <Divider sx={{ my: 2 }} />
             </>
           }
           {/* Voter list limited height with scroller */}
@@ -77,7 +77,6 @@ function MainOwner({ step }) {
           {/* proposal registration started */}
           {step > 0 &&
             <>
-              <Divider sx={{ my: 2 }} />
               <h3>Proposals registered</h3>
               <>Registered proposals list</>
             </>
@@ -90,7 +89,6 @@ function MainOwner({ step }) {
           {/* vote session started */}
           {step > 2 &&
             <>
-              <Divider sx={{ my: 2 }} />
               <h3>Numbers of votes</h3>
               <>number of votes only</>
             </>
@@ -102,7 +100,6 @@ function MainOwner({ step }) {
           {/* votes tallied */}
           {step > 2 &&
             <>
-              <Divider sx={{ my: 2 }} />
               <h3>Result</h3>
               <>Recap number of votes detailled and winning proposal</>
             </>
