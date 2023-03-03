@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types'
 
 import {
+  Typography,
   FormControl,
   InputLabel,
   Select,
@@ -15,7 +16,9 @@ function MainVoter({ step, hasVoted }) {
 
   return (
     <>{/* TODO : use step label */}
-      <h2>Main Voter component</h2>
+      <Typography component="h2" variant="h4" align="center">
+        Main Voter component
+      </Typography>
       {/* Conditionnal display depending on the current status */}
       {step == 0 &&
         /* recap proposals submitted from voter */
@@ -69,8 +72,13 @@ function MainVoter({ step, hasVoted }) {
 
       {/* vote ended */}
       {step > 4 &&
-        /* Check vote from another user: select? */
         <>
+          {/* Display winning proposal */}
+          <Divider sx={{ my: 2 }} />
+          <h3>Winning proposal</h3>
+          form
+
+          {/* Check vote from another user: select? */}
           <Divider sx={{ my: 2 }} />
           <h3>Check vote from a voter</h3>
           form

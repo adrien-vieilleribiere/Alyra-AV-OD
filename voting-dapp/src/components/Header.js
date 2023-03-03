@@ -2,6 +2,10 @@ import PropTypes from 'prop-types';
 
 import {
   Box,
+  AppBar,
+  Toolbar,
+  Typography,
+  Button,
   Stepper,
   Step,
   StepLabel,
@@ -15,12 +19,17 @@ function Header({ step, steps }) {
       sx={{ p: 2, border: '1px solid grey', borderRadius: '10px' }}
       className="App-header"
     >
-      {/* <img src={logo} className="App-logo" alt="logo" /> */}
-      <h1>Voting app</h1>
-
-      {/* TODO: Add Metamask connection widget
-            top right
-      */}
+      <Box sx={{ flexGrow: 1, mt:1, mb:4 }}>
+        <AppBar position="static">
+          <Toolbar>
+            <Typography variant="h5" component="h1" sx={{ flexGrow: 1 }}>
+              Voting app
+            </Typography>
+             {/* TODO: Add Metamask connection widget*/}
+            <Button color="inherit">Metamask widget</Button>
+          </Toolbar>
+        </AppBar>
+      </Box>
 
       {/* Stepper */}
       <Box sx={{ width: '100%' }}>
