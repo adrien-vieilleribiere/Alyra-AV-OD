@@ -6,10 +6,9 @@ import {
   Toolbar,
   Typography,
   Button,
-  Stepper,
-  Step,
-  StepLabel,
 } from '@mui/material';
+
+import HeaderStepper from './HeaderStepper';
 
 
 function Header({ step, steps }) {
@@ -26,26 +25,9 @@ function Header({ step, steps }) {
           </Toolbar>
         </AppBar>
       </Box>
+      
+      <HeaderStepper step={step} steps={steps} />
 
-      <Box
-        component="header"
-        sx={{ p: 2, border: '1px solid grey', borderRadius: '10px' }}
-        className="App-header"
-      >
-
-
-        {/* Stepper */}
-        <Box sx={{ width: '100%' }}>
-          <Stepper activeStep={step} alternativeLabel>
-            {steps.map((label) => (
-              <Step key={label}>
-                <StepLabel>{label}</StepLabel>
-              </Step>
-            ))}
-          </Stepper>
-        </Box>
-
-      </Box>
     </>
   );
 };
