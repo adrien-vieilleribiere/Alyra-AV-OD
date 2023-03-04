@@ -27,6 +27,6 @@ jobs:
       - run: npm install
         working-directory: voting-dapp
       - name: dapp tests
-        run: npm test
+        run: npm test 
         working-directory: voting-dapp
       - uses: actions/checkout@master
