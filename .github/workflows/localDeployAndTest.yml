@@ -17,7 +17,6 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-      # test smart contracts
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v3
         with:
@@ -26,6 +25,8 @@ jobs:
           cache-dependency-path: './voting-chain/package-lock.json'
           working-directory: voting-chain
       - run: npm install
+        working-directory: voting-chain
       - run: npx ganache > /dev/null &
-      - run: npm test      
+      - run: npm test
+        working-directory: ./voting-chain
       - uses: actions/checkout@master
