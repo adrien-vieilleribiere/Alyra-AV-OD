@@ -28,5 +28,5 @@ jobs:
         working-directory: voting-chain
       - run: npx ganache > /dev/null &
       - run: npm test
-        working-directory: ./voting-chain
+        working-directory: voting-chain
       - uses: actions/checkout@master
