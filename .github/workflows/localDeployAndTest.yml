@@ -25,7 +25,11 @@ jobs:
           cache-dependency-path: './voting-chain/package-lock.json'
           working-directory: ./voting-chain
         
-      - run: npm install 
+      - run: npm install
+        with:
+          working-directory: ./voting-chain
       - run: npx ganache > /dev/null &
       - run: npm test
+        with:
+          working-directory: ./voting-chain
       - uses: actions/checkout@master
