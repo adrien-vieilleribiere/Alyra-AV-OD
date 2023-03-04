@@ -22,7 +22,6 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: "npm"
-          working-directory: ./voting-chain/
           cache-dependency-path: './voting-chain/package-lock.json'
         
       - run: npm install
