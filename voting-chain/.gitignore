@@ -106,7 +106,7 @@ dist
 #hardhat
 artifacts/
 cache/
-package-lock.json
+# package-lock.json
 coverage.json
 
 #truffle
