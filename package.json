@@ -4,7 +4,7 @@
   "description": "Alyra Formation, Project 3",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 0"
+    "test": "npx truffle test --prefix voting-chain"
   },
   "repository": {
     "type": "git",
