@@ -26,9 +26,12 @@
     "@nomiclabs/hardhat-truffle5": "^2.0.7",
     "@openzeppelin/contracts": "^4.8.1",
     "@openzeppelin/test-helpers": "^0.5.16",
-    "hardhat": "^2.12.7",
     "ganache": "^7.7.5",
-    "truffle": "^5.7.7",
-    "solidity-coverage": "^0.8.2"
+    "hardhat": "^2.13.0",
+    "solidity-coverage": "^0.8.2",
+    "truffle": "^5.7.7"
+  },
+  "dependencies": {
+    "solidity-docgen": "^0.6.0-beta.35"
   }
 }
