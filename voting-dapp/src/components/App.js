@@ -3,12 +3,12 @@ import React, { useState, useEffect } from 'react';
 import {
   Alert,
   Container,
+  Grid,
   Box,
 } from '@mui/material';
 
-import logo from '../assets/images/logo.svg';
-
 import Header from './Header';
+import Aside from './Aside';
 import MainOwner from './MainOwner';
 import MainVoter from './MainVoter';
 import Footer from './Footer';
@@ -40,7 +40,7 @@ function App() {
 
   useEffect(() => {
     // FOR TEST
-    setCurrentStep(5);
+    setCurrentStep(0);
     setUserConnected(true);
     setUserRole(roles.OWNER);
     setHasVoted(false);
@@ -52,48 +52,57 @@ function App() {
 
       <Header step={currentStep} steps={steps} />
 
-      <Box
-        component="main"
-        mt={2}
-        sx={{ p: 2, border: '1px solid grey', borderRadius: '10px' }}
-        className="App-main"
-      >
-        {/* <h2>Title 2: needed ???</h2> */}
+      <Grid container spacing={3}>
 
-        {/* Conditionnal display */}
-        {userConnected
-          ?
-          /* user connected */
-          <>
-            {/* user unknown: connected but not voter or admin */}
-            {userRole == roles.NONE &&
-              <Alert
+        {/* Aside with vote statistics */}
+        <Grid item xs={2}>
+          <Aside />
+        </Grid>
+
+        {/* Main */}
+        <Grid item xs={10}>
+          <Box
+            component="main"
+            mt={2}
+            sx={{ p: 2, border: '1px solid grey', borderRadius: '10px' }}
+            className="App-main"
+          >
+            {/* Conditionnal display */}
+            {userConnected
+              ?
+              /* user connected */
+              <>
+                {/* user unknown: connected but not voter or admin */}
+                {userRole == roles.NONE &&
+                  <Alert
+                    variant="outlined"
+                    severity="warning"
+                  >
+                    Your address is not registered!
+                  </Alert>
+                }
+                {/* user voter */}
+                {userRole == roles.VOTER &&
+                  <MainVoter step={currentStep} hasVoted={hasVoted} />
+                }
+                {/* user owner */}
+                {userRole == roles.OWNER &&
+                  <MainOwner step={currentStep} />
+                }
+              </>
+
+              /* user not connected */
+              : <Alert
                 variant="outlined"
-                severity="warning"
+                severity="info"
               >
-                Your address is not registered!
+                You should be connected with your wallet to interact with the application.
               </Alert>
             }
-            {/* user voter */}
-            {userRole == roles.VOTER &&
-              <MainVoter step={currentStep} hasVoted={hasVoted} />
-            }
-            {/* user owner */}
-            {userRole == roles.OWNER &&
-              <MainOwner step={currentStep} />
-            }
-          </>
+          </Box>{/* end of main */}
 
-          /* user not connected */
-          : <Alert
-            variant="outlined"
-            severity="info"
-          >
-            You should be connected with your wallet to interact with the application.
-          </Alert>
-        }
-
-      </Box>{/* end of main */}
+        </Grid>
+      </Grid>
 
       <Footer />
 
