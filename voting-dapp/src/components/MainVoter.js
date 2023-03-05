@@ -23,6 +23,7 @@ function MainVoter({ step, hasVoted }) {
   const [currentTab, SetCurrentTab] = useState("0");
 
   const handleChange = (evt, val) => {
+    // TODO: set active tab using current step
     SetCurrentTab(val);
   }
   return (
@@ -72,15 +73,16 @@ function MainVoter({ step, hasVoted }) {
               <Divider sx={{ my: 2 }} />
               <h3>Vote</h3>
               <FormControl fullWidth>
-                <InputLabel id="proposition-id" fullWidth>Vote For</InputLabel>
+                <InputLabel id="proposal-select-label">Select a proposal</InputLabel>
                 <Select
-                  labelId="demo-simple-select-label"
-                  id="demo-simple-select"
+                  label="Select a proposal"
+                  labelId="proposal-select-label"
+                  id="proposal-select"
                 >
                   <MenuItem value={0}></MenuItem>
-                  <MenuItem value={1}>Proposition 1</MenuItem>
-                  <MenuItem value={2}>Proposition 2</MenuItem>
-                  <MenuItem value={3}>Proposition 3</MenuItem>
+                  <MenuItem value={1}>Proposal 1</MenuItem>
+                  <MenuItem value={2}>Proposal 2</MenuItem>
+                  <MenuItem value={3}>Proposal 3</MenuItem>
                 </Select>
               </FormControl>
             </>
