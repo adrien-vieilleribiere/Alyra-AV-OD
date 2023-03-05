@@ -39,8 +39,18 @@ function App() {
   const [vote, setVote] = useState();
 
   useEffect(() => {
+    /* TODO - getters needed :
+      - list of all voters registered : owner tab0 & voter tab2
+      - list of all proposals : voter tab1 & owner tab1
+      - list of current voter proposals : voter tab0
+      - winning proposal : voter tab 2 & 
+      - vote of current user : voter tab 2
+      - number of votes : owner tab2
+      - list of proposals with their votecount : owner tab3
+    */
+
     // FOR TEST
-    setCurrentStep(0);
+    setCurrentStep(5);
     setUserConnected(true);
     setUserRole(roles.OWNER);
     setHasVoted(false);
