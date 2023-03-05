@@ -50,7 +50,7 @@ function App() {
     */
 
     // FOR TEST
-    setCurrentStep(5);
+    setCurrentStep(0);
     setUserConnected(true);
     setUserRole(roles.OWNER);
     setHasVoted(false);

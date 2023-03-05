@@ -5,6 +5,8 @@ import {
   Typography,
   Box,
   Tab,
+  TextField,
+  Button,
   FormControl,
   InputLabel,
   Select,
@@ -13,6 +15,7 @@ import {
 } from '@mui/material';
 import { TabContext, TabPanel, TabList } from '@mui/lab';
 
+import AddIcon from '@mui/icons-material/Add';
 import PostAddIcon from '@mui/icons-material/PostAdd';
 import HowToVoteIcon from '@mui/icons-material/HowToVote';
 import PollIcon from '@mui/icons-material/Poll';
@@ -60,7 +63,16 @@ function MainVoter({ step, hasVoted }) {
             <>
               <Divider sx={{ my: 2 }} />
               <h3>Add a proposal</h3>
-              <>form</>
+              <Box sx={{
+                display: 'flex',
+                alignItems: 'center',
+                '& > :not(style)': { m: 1 },
+              }}>
+                <TextField fullWidth id="addProposal" label="Proposal description" variant="outlined" />
+                <Button variant="contained" size='large' title='Add'>
+                  <AddIcon></AddIcon>
+                </Button>
+              </Box>
             </>
           }
         </TabPanel>{/* end my proposals panel */}
@@ -70,7 +82,6 @@ function MainVoter({ step, hasVoted }) {
           {/* vote started */}
           {step > 2 && !hasVoted &&
             <>
-              <Divider sx={{ my: 2 }} />
               <h3>Vote</h3>
               <FormControl fullWidth>
                 <InputLabel id="proposal-select-label">Select a proposal</InputLabel>
@@ -78,6 +89,8 @@ function MainVoter({ step, hasVoted }) {
                   label="Select a proposal"
                   labelId="proposal-select-label"
                   id="proposal-select"
+                  // value={proposal}
+                  // onChange={handleChange}
                 >
                   <MenuItem value={0}></MenuItem>
                   <MenuItem value={1}>Proposal 1</MenuItem>
@@ -90,9 +103,8 @@ function MainVoter({ step, hasVoted }) {
           {step > 2 && hasVoted &&
             /* Vote value recap */
             <>
-              <Divider sx={{ my: 2 }} />
               <h3>Your vote</h3>
-              proposal
+              Proposal description
             </>
           }
         </TabPanel>{/* end my vote panel */}
@@ -103,29 +115,33 @@ function MainVoter({ step, hasVoted }) {
           {step > 4 &&
             <>
               {/* Display winning proposal */}
-              <Divider sx={{ my: 2 }} />
               <h3>Winning proposal</h3>
-              form
+              Proposal description, number of votes or detailled results?
 
               {/* Check vote from another user: select? */}
               <Divider sx={{ my: 2 }} />
               <h3>Check vote from a voter</h3>
-              form
+              <FormControl fullWidth>
+                <InputLabel id="voter-select-label">Select a voter</InputLabel>
+                <Select
+                  label="Select a voter"
+                  labelId="voter-select-label"
+                  id="voter-select"
+                  // value={voter}
+                  // onChange={handleChange}
+                >
+                  <MenuItem value={0}></MenuItem>
+                  <MenuItem value={1}>Voter 1</MenuItem>
+                  <MenuItem value={2}>Voter 2</MenuItem>
+                  <MenuItem value={3}>Voter 3</MenuItem>
+                </Select>
+              </FormControl>
+              Proposal description of the selected voter
             </>
           }
         </TabPanel>{/* end result panel */}
 
-
       </TabContext>
-
-
-
-
-
-
-
-
-
     </>
   );
 }

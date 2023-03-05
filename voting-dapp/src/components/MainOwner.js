@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 
 import {
   Typography,
+  Fab,
   Tab,
   Box,
   TextField,
@@ -11,6 +12,7 @@ import {
 } from '@mui/material';
 import { TabContext, TabPanel, TabList } from '@mui/lab';
 
+import ArrowForwardIcon from '@mui/icons-material/ArrowForwardIos';
 import AddIcon from '@mui/icons-material/Add';
 import PostAddIcon from '@mui/icons-material/PostAdd';
 import HowToRegIcon from '@mui/icons-material/HowToReg';
@@ -22,6 +24,7 @@ function MainOwner({ step }) {
   const [currentTab, SetCurrentTab] = useState("0");
 
   const handleChange = (evt, val) => {
+    // TODO: set active tab using current step
     SetCurrentTab(val);
   }
   return (
@@ -29,13 +32,19 @@ function MainOwner({ step }) {
       <Typography component="h2" variant="h4" align="center">
         Main Owner component
       </Typography>
-      {/* Button for changing step or in header ? */}
+
+      {/* Button for step changing */}
+      <Fab variant="extended" size="medium" color="primary" aria-label="add" sx={{ float:'right' }}>
+        Go to next step
+        <ArrowForwardIcon sx={{ ml: 1 }} />
+      </Fab>
       {/* Controls to perform:
             - one voter at least
             - one proposal at least
             - one vote at least
             => to be discusssed
         */}
+
       <TabContext value={currentTab}>
         <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
           <TabList onChange={handleChange} aria-label="icon label tabs example">
@@ -57,16 +66,16 @@ function MainOwner({ step }) {
                 alignItems: 'center',
                 '& > :not(style)': { m: 1 },
               }}>
-                <TextField fullWidth id="addVoterAddress" label="Address to add" variant="filled" />
-                <Button variant="contained">
+                <TextField fullWidth id="addVoterAddress" label="Voter address" variant="outlined" />
+                <Button variant="contained" size='large' title='Add'>
                   <AddIcon></AddIcon>
                 </Button>
               </Box>
-              <Divider sx={{ my: 2 }} />
             </>
           }
           {/* Voter list limited height with scroller */}
           <>
+            <Divider sx={{ my: 2 }} />
             <h3>Voters already registered</h3>
             <>Registered voters list or not yet</>
           </>
