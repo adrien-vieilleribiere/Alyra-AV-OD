@@ -23,9 +23,10 @@ jobs:
           node-version: ${{ matrix.node-version }}
           cache: "npm"
           cache-dependency-path: './truffle/package-lock.json'
-          # working-directory: truffle
+          working-directory: truffle
       - run: npm install
         working-directory: truffle
+      - run: npm install -g truffle    
       - name: launch ganache
         run: npx ganache > /dev/null &
       - name: Solidity tests

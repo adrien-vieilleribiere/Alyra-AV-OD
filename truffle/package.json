@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "description": "Truffle project with SimpleStorage contract",
   "scripts": {
-    "test": "npm run truffle test"
+    "test": "truffle test"
   },
   "dependencies": {
     "@openzeppelin/contracts": "^4.8.2",
