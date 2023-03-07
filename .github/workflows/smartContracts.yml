@@ -22,8 +22,8 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: "npm"
-          cache-dependency-path: './truffle/package-lock.json'
-          working-directory: truffle
+          # cache-dependency-path: './truffle/package-lock.json'
+          # working-directory: truffle
       - run: npm install
         working-directory: truffle
       - name: launch ganache
