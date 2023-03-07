@@ -4,7 +4,11 @@
 name: Smart Contracts CI
 
 on:
-  push
+  push:
+    branches:
+      - 'main'
+      - 'dev'
+      - '**sc-test**'
 
 jobs:
   build:
