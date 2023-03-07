@@ -6,10 +6,11 @@ function Footer() {
   return (
     <footer>
       <h2>More resources</h2>
-      <Link uri={"https://trufflesuite.com"} text={"Truffle"} />
+      <Link uri={"https://github.com/adrien-vieilleribiere/Alyra-AV-OD"} text={"Github"} />
+      {/* <Link uri={"https://trufflesuite.com"} text={"Truffle"} />
       <Link uri={"https://reactjs.org"} text={"React"} />
       <Link uri={"https://soliditylang.org"} text={"Solidity"} />
-      <Link uri={"https://ethereum.org"} text={"Ethereum"} />
+      <Link uri={"https://ethereum.org"} text={"Ethereum"} /> */}
     </footer >
   );
 }

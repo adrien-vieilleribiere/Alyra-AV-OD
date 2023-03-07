@@ -3,8 +3,8 @@
 // const { MNEMONIC, PROJECT_ID } = process.env;
 
 // const HDWalletProvider = require('@truffle/hdwallet-provider');
-
 module.exports = {
+  contracts_build_directory: "../client/src/contracts",
   networks: {
     development: {
       host: "127.0.0.1",     // Localhost (default: none)

@@ -3,6 +3,7 @@ import Intro from "./components/Intro/";
 import Setup from "./components/Setup";
 import Demo from "./components/Demo";
 import Footer from "./components/Footer";
+import Examples from "./components/Demo/Examples";
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
           <hr />
           <Setup />
           <hr />
+          <Examples />
           <Demo />
           <hr />
           <Footer />
