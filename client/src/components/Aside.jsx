@@ -19,15 +19,19 @@ import {
         className="App-aside"
       >
         Statistics
-        <Stack alignItems="center">
+        <Stack
+          direction={{ xs: 'row', md: 'column' }}
+          justifyContent='space-around'
+          alignItems='center'
+        >
           <Badge sx={{ my:2 }} badgeContent={5} color="primary">
-            <Chip icon={<HowToRegIcon />} label="Voters" />
+            <Chip icon={<HowToRegIcon />} label="Voters" title="Voters"/>
           </Badge>
           <Badge sx={{ my:2 }} badgeContent={3} color="primary">
-            <Chip icon={<PostAddIcon />} label="Proposals" />
+            <Chip icon={<PostAddIcon />} label="Proposals" title="Proposals"/>
           </Badge>
           <Badge sx={{ my:2 }} badgeContent={1} color="primary">
-            <Chip icon={<HowToVoteIcon />} label="Votes" />
+            <Chip icon={<HowToVoteIcon />} label="Votes" title="Votes"/>
           </Badge>
         </Stack>
       </Box>
