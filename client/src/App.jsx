@@ -1,25 +1,39 @@
+import {
+  Container,
+  Grid,
+} from '@mui/material';
+
 import { EthProvider } from "./contexts/EthContext";
-import Intro from "./components/Intro/";
-import Setup from "./components/Setup";
-import Demo from "./components/Demo";
-import Footer from "./components/Footer";
-import Examples from "./components/Demo/Examples";
+
+import Header from './components/Header/Header';
+import Aside from './components/Aside';
+import Main from './components/Main/Main';
+import Footer from './components/Footer';
+
 
 function App() {
   return (
     <EthProvider>
-      <div id="App">
-        <div className="container">
-          <Intro />
-          <hr />
-          <Setup />
-          <hr />
-          <Examples />
-          <Demo />
-          <hr />
-          <Footer />
-        </div>
-      </div>
+      <Container className="App">
+
+        <Header />
+
+        <Grid container spacing={3}>
+
+          {/* Aside with vote statistics */}
+          <Grid item xs={2}>
+            <Aside />
+          </Grid>
+
+          {/* Main */}
+          <Grid item xs={10}>
+            <Main />
+          </Grid>
+        </Grid>
+
+        <Footer />
+
+      </Container >
     </EthProvider>
   );
 }
