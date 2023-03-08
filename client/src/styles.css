@@ -1,25 +1,55 @@
-html {
-  font-size: 10px;
-  font-family: sans-serif;
-}
-
 * {
-  margin: 0;
-  padding: 0;
-}
-
-#App {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.6rem;
   --primary-color: ;
   --secondary-color: ;
   --flash-color: ;
   --gray: #999;
-  --light-gray: #e0e0e0;
+  --lighter-gray: #f1f2f3;
+  --light-gray: #dee1e7;
+  --mid-gray: #caccd1;
   --dark-gray: #777;
+  margin: 0;
+  padding: 0;
 }
 
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: var(--lighter-gray);
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+.App {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--light-gray);
+}
+
+.App-header,
+.App-aside,
+.App-main,
+.App-footer {
+  background-color: var(--mid-gray);
+}
+
+.App-header {
+  color: white;
+}
+
+.App-footer {
+  text-align: center;
+  color: white;
+}
+
+.App-link {
+  color: #000000;
+}
