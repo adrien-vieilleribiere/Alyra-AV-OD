@@ -47,7 +47,7 @@ code {
 
 .App-footer {
   text-align: center;
-  color: white;
+  color: var(--dark-gray);
 }
 
 .App-link {

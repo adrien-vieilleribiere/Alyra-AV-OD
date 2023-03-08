@@ -18,15 +18,15 @@ function App() {
 
         <Header />
 
-        <Grid container spacing={3}>
+        <Grid container spacing={{ xs: 0, md: 2 }}>
 
           {/* Aside with vote statistics */}
-          <Grid item xs={2}>
+          <Grid item xs={12} md={2}>
             <Aside />
           </Grid>
 
           {/* Main */}
-          <Grid item xs={10}>
+          <Grid item xs={12} md={10}>
             <Main />
           </Grid>
         </Grid>
