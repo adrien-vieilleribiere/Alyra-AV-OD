@@ -12,7 +12,7 @@ const initialState = {
   contract: null,
 
   // Vote process step
-  currentStep : 1,
+  currentStep : 0,
 
   // Dapp user
   user : {
