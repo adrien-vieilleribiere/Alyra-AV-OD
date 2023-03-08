@@ -1,5 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useReducer, useCallback, useEffect } from "react";
 import PropTypes from 'prop-types'
+import EthContext from "./../../contexts/EthContext";
+
+import useEth from "./../../contexts/EthContext/useEth";
+import { reducer, actions, initialState } from "./../../contexts/EthContext/state";
+
+
 
 import {
   Typography,
@@ -21,7 +27,69 @@ import PollIcon from '@mui/icons-material/Poll';
 
 
 function MainOwner({ step }) {
+  const [state, dispatch] = useReducer(reducer, initialState);
   const [currentTab, SetCurrentTab] = useState("0");
+
+  const { state: { contract, currentStep, accounts } } = useEth()
+
+
+
+  useEffect(() => {
+    (async function () {
+
+      const _wstate = await contract.methods.workflowStatus().call({ from: accounts[0] });
+      console.log(`UseEffect: ${_wstate}`);
+      dispatch({
+        type: actions.updateCurrentStep,
+        data: { _wstate }
+      });
+
+    })();
+  }, [contract])
+
+
+
+  const increaseWstate = async () => {
+    const _wstate = await contract.methods.workflowStatus().call({ from: accounts[0] });
+    console.log(_wstate);
+    switch (parseInt(await _wstate)) {
+      case 0:
+        contract.methods.startProposalsRegistering().send({ from: accounts[0] });
+        console.log(await contract.methods.workflowStatus().call({ from: accounts[0] }));
+        break;
+      case 1:
+        await contract.methods.endProposalsRegistering().send({ from: accounts[0] });
+        break;
+      case 2:
+        await contract.methods.startVotingSession().send({ from: accounts[0] });
+        break;
+      case 3:
+        await contract.methods.endVotingSession().send({ from: accounts[0] });
+        break;
+      case 4:
+        await contract.methods.tallyVotes().send({ from: accounts[0] });
+        break;
+      case 5:
+        console.log("no step after that");
+        break;
+
+      default:
+        console.log("vote inna bad state");
+
+    }
+    if (parseInt(_wstate) < 5) {
+      console.log("gogogo up");
+      //setWstate(parseInt(wstate) + 1);
+      //console.log(wstate);
+    }
+    else {
+      console.log("no step to go")
+    }
+    //setWstate(parseInt(wstate) + 1);
+    //console.log(wstate);
+    //setValue(value);
+  };
+
 
   const handleChange = (evt, val) => {
     // TODO: set active tab using current step
@@ -34,7 +102,14 @@ function MainOwner({ step }) {
       </Typography>
 
       {/* Button for step changing */}
-      <Fab variant="extended" size="medium" color="primary" aria-label="add" sx={{ float: 'right' }}>
+      <Fab
+        variant="extended"
+        size="medium"
+        color="primary"
+        aria-label="add"
+        sx={{ float: 'right' }}
+        onClick={increaseWstate}
+      >
         Go to next step
         <ArrowForwardIcon sx={{ ml: 1 }} />
       </Fab>
