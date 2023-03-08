@@ -21,7 +21,8 @@ import {
         Statistics
         <Stack
           direction={{ xs: 'row', md: 'column' }}
-          justifyContent="space-around"
+          justifyContent='space-around'
+          alignItems='center'
         >
           <Badge sx={{ my:2 }} badgeContent={5} color="primary">
             <Chip icon={<HowToRegIcon />} label="Voters" title="Voters"/>
