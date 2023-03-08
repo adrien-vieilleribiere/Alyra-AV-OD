@@ -19,7 +19,6 @@ function App() {
         <Header />
 
         <Grid container spacing={{ xs: 0, md: 2 }}>
-
           {/* Aside with vote statistics */}
           <Grid item xs={12} md={2}>
             <Aside />
