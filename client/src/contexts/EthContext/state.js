@@ -1,3 +1,5 @@
+import { roles } from "../../helper/const";
+
 const actions = {
   init: "INIT"
 };
@@ -7,7 +9,23 @@ const initialState = {
   web3: null,
   accounts: null,
   networkID: null,
-  contract: null
+  contract: null,
+
+  // Vote process step
+  currentStep : 0,
+
+  // Dapp user
+  user : {
+    connected: true,
+    address: "0x123",
+    role: roles.VOTER,
+    hasVoted: false,
+    proposals: []
+  },
+
+  // All proposals
+  proposals: []
+  
 };
 
 const reducer = (state, action) => {
