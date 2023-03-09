@@ -37,7 +37,7 @@ const reducer = (state, action) => {
       return { ...state, ...data };
 
     case actions.updateCurrentStep:
-      return { ...state, currentStep: parseInt(data.newWstate) };
+      return { ...state, currentStep: data.newWstate };
 
     default:
       throw new Error("Undefined reducer action type");

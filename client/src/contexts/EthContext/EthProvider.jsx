@@ -18,7 +18,7 @@ function EthProvider({ children }) {
         try {
           address = artifact.networks[networkID].address;
           contract = new web3.eth.Contract(abi, address);
-          currrentStep = await contract.methods.workflowStatus().call({ from: accounts[0] }) || 0;
+          currrentStep = await contract.methods.workflowStatus().call({ from: accounts[0] });
         } catch (err) {
           console.error(err);
         }
@@ -28,7 +28,7 @@ function EthProvider({ children }) {
         });
       }
     }, []);
-
+  
   useEffect(() => {
     const tryInit = async () => {
       try {
@@ -65,19 +65,23 @@ function EthProvider({ children }) {
             // TODO
     
             /* WorkflowStatusChange(WorkflowStatus previousStatus, WorkflowStatus newStatus) */
-            await state.contract.events.WorkflowStatusChange({fromBlock:"earliest"})
-            .on('data', event => {
-              // console.log(event)
-              const newWstate = event.returnValues.newStatus;
-              dispatch({
-                type: actions.updateCurrentStep,
-                data: { newWstate }
-              });
-            })          
-            .on('changed', changed => console.log(changed))
-            .on('error', err => console.log(err))
-            .on('connected', str => console.log(str))
-    
+            try {
+              await state.contract.events.WorkflowStatusChange({fromBlock:"earliest"})
+              .on('data', event => {
+                // console.log(event)
+                const newWstate = parseInt(event.returnValues.newStatus);
+                if (newWstate !== state.currentStep) {
+                  dispatch({
+                    type: actions.updateCurrentStep,
+                    data: { newWstate }
+                  });
+                }
+              })          
+              .on('error', err => console.log(err))
+            } catch (err) {
+              //console.error(err);
+            }
+
             // ProposalRegistered(uint proposalId);
             // TODO
     
