@@ -13,7 +13,10 @@ const initialState = {
   contract: null,
 
   // Vote process step
-  currentStep: 0,
+  currentStep: null,
+
+  // contract owner
+  owner: null,
 
   // Dapp user
   user: {
@@ -24,6 +27,9 @@ const initialState = {
     hasVoted: false,
     proposals: []
   },
+
+  // All voters
+  voters: [],
 
   // All proposals
   proposals: []
