@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import useEth from "./../../contexts/EthContext/useEth";
 
 import {
@@ -22,15 +22,20 @@ import PollIcon from '@mui/icons-material/Poll';
 
 function MainOwner({ step }) {
   const [currentTab, SetCurrentTab] = useState("0");
+  const [nextBtnDisabled, SetNextBtnDisabled] = useState(true);
 
-  const { state: { contract, currentStep, accounts } } = useEth()
+  const { state: { contract, currentStep, accounts } } = useEth();
 
+  useEffect(() => {
+    // Next Step Button status management
+    SetNextBtnDisabled(step > 3);
+  }, [step]);
 
   const increaseWstate = async () => {
-    const _wstate = await contract.methods.workflowStatus().call({ from: accounts[0] });
+    const _step = parseInt(await contract.methods.workflowStatus().call({ from: accounts[0] }));
 
-    console.log(_wstate);
-    switch (parseInt(await _wstate)) {
+    // console.log(_step);
+    switch (_step) {
       case 0:
         contract.methods.startProposalsRegistering().send({ from: accounts[0] });
         break;
@@ -46,19 +51,9 @@ function MainOwner({ step }) {
       case 4:
         await contract.methods.tallyVotes().send({ from: accounts[0] });
         break;
-      case 5:
-        console.log("no step after that");
-        break;
 
       default:
         console.log("vote inna bad state");
-
-    }
-    if (parseInt(_wstate) < 5) {
-      console.log("next step");
-    }
-    else {
-      console.log("no step to go")
     }
   };
 
@@ -81,6 +76,7 @@ function MainOwner({ step }) {
         aria-label="add"
         sx={{ float: 'right' }}
         onClick={increaseWstate}
+        disabled={nextBtnDisabled}
       >
         Go to next step
         <ArrowForwardIcon sx={{ ml: 1 }} />

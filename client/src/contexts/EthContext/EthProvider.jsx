@@ -60,33 +60,31 @@ function EthProvider({ children }) {
 */
   useEffect(() => {
     (async function () {
-      /* VoterRegistered(address voterAddress) */
-      // TODO
+      if (state.contract) {
+        /* New voter registered 
+          VoterRegistered(address voterAddress) */
+        // TODO
 
-      /* WorkflowStatusChange(WorkflowStatus previousStatus, WorkflowStatus newStatus) */
-      try {
+        /* Status change 
+          WorkflowStatusChange(WorkflowStatus previousStatus, WorkflowStatus newStatus) */
         await state.contract.events.WorkflowStatusChange({ fromBlock: "latest" })
           .on('data', event => {
-            // console.log(event)
-            const newWstate = parseInt(event.returnValues.newStatus);
-            if (newWstate !== state.currentStep) {
-              dispatch({
-                type: actions.updateCurrentStep,
-                data: { newWstate }
-              });
-            }
+            const newStep = parseInt(event.returnValues.newStatus);
+            dispatch({
+              type: actions.updateCurrentStep,
+              data: { newStep }
+            });
           })
           .on('error', err => console.log(err))
-      } catch (err) {
-        //console.error(err);
+
+        /* New propsal registered 
+          ProposalRegistered(uint proposalId) */
+        // TODO
+
+        /* Voter submit a vote 
+          Voted (address voter, uint proposalId) */
+        // TODO
       }
-
-      // ProposalRegistered(uint proposalId);
-      // TODO
-
-      // Voted (address voter, uint proposalId);
-      // TODO
-
     })();
   }, [state.contract])
 
