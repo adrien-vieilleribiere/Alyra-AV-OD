@@ -33,7 +33,6 @@ function MainOwner({ step }) {
     switch (parseInt(await _wstate)) {
       case 0:
         contract.methods.startProposalsRegistering().send({ from: accounts[0] });
-        //console.log(await contract.methods.workflowStatus().call({ from: accounts[0] }));
         break;
       case 1:
         await contract.methods.endProposalsRegistering().send({ from: accounts[0] });
@@ -56,16 +55,11 @@ function MainOwner({ step }) {
 
     }
     if (parseInt(_wstate) < 5) {
-      console.log("gogogo up");
-      //setWstate(parseInt(wstate) + 1);
-      //console.log(wstate);
+      console.log("next step");
     }
     else {
       console.log("no step to go")
     }
-    //setWstate(parseInt(wstate) + 1);
-    //console.log(wstate);
-    //setValue(value);
   };
 
 

@@ -87,31 +87,8 @@ function EthProvider({ children }) {
       // Voted (address voter, uint proposalId);
       // TODO
 
-      // example
-      if (false) {
-        let oldEvents = await state.contract.getPastEvents('valueChanged', {
-          fromBlock: 0,
-          toBlock: 'latest'
-        });
-        let oldies = [];
-        oldEvents.forEach(event => {
-          oldies.push(event.returnValues._val);
-        });
-        //setOldEvents(oldies);
-
-        await state.contract.events.valueChanged({ fromBlock: "earliest" })
-          .on('data', event => {
-            let lesevents = event.returnValues._val;
-            //setEventValue(lesevents);
-          })
-          .on('changed', changed => console.log(changed))
-          .on('error', err => console.log(err))
-          .on('connected', str => console.log(str))
-      }
-
     })();
   }, [state.contract])
-
 
   return (
     <EthContext.Provider value={{
