@@ -1,5 +1,6 @@
 import React, { useReducer, useCallback, useEffect } from "react";
 import Web3 from "web3";
+import { roles } from "../../helper/const";
 import EthContext from "./EthContext";
 import { reducer, actions, initialState } from "./state";
 
@@ -12,9 +13,14 @@ function EthProvider({ children }) {
       if (artifact) {
         const web3 = new Web3(Web3.givenProvider || "ws://localhost:8545");
         const accounts = await web3.eth.requestAccounts();
+        console.log(`[init] account: ${accounts[0]}`);
+
         const networkID = await web3.eth.net.getId();
         const { abi } = artifact;
         let address, contract, step, contractOwner;
+        /* TODO:
+          - add deployBlock: limit search, trough ABI?
+        */
         try {
           address = artifact.networks[networkID].address;
           contract = new web3.eth.Contract(abi, address);
@@ -25,10 +31,54 @@ function EthProvider({ children }) {
         }
         dispatch({
           type: actions.init,
-          data: { artifact, web3, accounts, networkID, contract, currentStep: step, owner: contractOwner }
+          data: {
+            artifact, web3, accounts, networkID, contract, 
+            currentStep: step, owner: contractOwner
+          }
         });
-      }
+
+      } /* else {
+        dispatch({
+          type: actions.reset,
+          data: {}
+        });
+      } */
     }, []);
+
+  useEffect(() => {
+    const getUserInfo = () => {
+      const user = {
+        connected: false,
+        role: roles.NONE,
+      };
+
+      if (state.accounts && state.accounts.length !== 0) {
+        user.connected = true;
+
+        if (state.accounts[0] === state.owner) {
+          user.role = roles.OWNER;
+          // console.log("owner");
+        } else {
+          const voter = state.voters.filter((voter) => 
+            voter.address === state.accounts[0]
+          )
+          if (voter.length !== 0) {
+            user.role = roles.VOTER;
+            // console.log("voter");
+          } else {
+            // console.log("none");
+          }
+        }
+      }
+      console.log(user);
+      dispatch({
+        type: actions.updateUserInfo,
+        data: user,
+      });
+    };
+
+    getUserInfo();
+  }, [state.accounts]);
 
   useEffect(() => {
     const tryInit = async () => {
