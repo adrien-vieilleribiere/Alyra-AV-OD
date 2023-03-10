@@ -3,6 +3,7 @@ import Web3 from "web3";
 import EthContext from "./EthContext";
 import { reducer, actions, initialState } from "./state";
 
+
 function EthProvider({ children }) {
   const [state, dispatch] = useReducer(reducer, initialState);
 
@@ -13,16 +14,18 @@ function EthProvider({ children }) {
         const accounts = await web3.eth.requestAccounts();
         const networkID = await web3.eth.net.getId();
         const { abi } = artifact;
-        let address, contract;
+        let address, contract, step, contractOwner;
         try {
           address = artifact.networks[networkID].address;
           contract = new web3.eth.Contract(abi, address);
+          step = parseInt(await contract.methods.workflowStatus().call({ from: accounts[0] }));
+          contractOwner = await contract.methods.owner().call({ from: accounts[0] });
         } catch (err) {
           console.error(err);
         }
         dispatch({
           type: actions.init,
-          data: { artifact, web3, accounts, networkID, contract }
+          data: { artifact, web3, accounts, networkID, contract, currentStep: step, owner: contractOwner }
         });
       }
     }, []);
@@ -51,6 +54,39 @@ function EthProvider({ children }) {
       events.forEach(e => window.ethereum.removeListener(e, handleChange));
     };
   }, [init, state.artifact]);
+
+  /* Smart contract events management 
+    used to update the state
+*/
+  useEffect(() => {
+    (async function () {
+      if (state.contract) {
+        /* New voter registered 
+          VoterRegistered(address voterAddress) */
+        // TODO
+
+        /* Status change 
+          WorkflowStatusChange(WorkflowStatus previousStatus, WorkflowStatus newStatus) */
+        await state.contract.events.WorkflowStatusChange({ fromBlock: "latest" })
+          .on('data', event => {
+            const newStep = parseInt(event.returnValues.newStatus);
+            dispatch({
+              type: actions.updateCurrentStep,
+              data: { newStep }
+            });
+          })
+          .on('error', err => console.log(err))
+
+        /* New propsal registered 
+          ProposalRegistered(uint proposalId) */
+        // TODO
+
+        /* Voter submit a vote 
+          Voted (address voter, uint proposalId) */
+        // TODO
+      }
+    })();
+  }, [state.contract])
 
   return (
     <EthContext.Provider value={{

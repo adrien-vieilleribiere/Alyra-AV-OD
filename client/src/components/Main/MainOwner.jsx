@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import PropTypes from 'prop-types'
+import React, { useEffect, useState } from "react";
+import useEth from "./../../contexts/EthContext/useEth";
 
 import {
   Typography,
@@ -22,6 +22,41 @@ import PollIcon from '@mui/icons-material/Poll';
 
 function MainOwner({ step }) {
   const [currentTab, SetCurrentTab] = useState("0");
+  const [nextBtnDisabled, SetNextBtnDisabled] = useState(true);
+
+  const { state: { contract, currentStep, accounts } } = useEth();
+
+  useEffect(() => {
+    // Next Step Button status management
+    SetNextBtnDisabled(step > 3);
+  }, [step]);
+
+  const increaseWstate = async () => {
+    const _step = parseInt(await contract.methods.workflowStatus().call({ from: accounts[0] }));
+
+    // console.log(_step);
+    switch (_step) {
+      case 0:
+        contract.methods.startProposalsRegistering().send({ from: accounts[0] });
+        break;
+      case 1:
+        await contract.methods.endProposalsRegistering().send({ from: accounts[0] });
+        break;
+      case 2:
+        await contract.methods.startVotingSession().send({ from: accounts[0] });
+        break;
+      case 3:
+        await contract.methods.endVotingSession().send({ from: accounts[0] });
+        break;
+      case 4:
+        await contract.methods.tallyVotes().send({ from: accounts[0] });
+        break;
+
+      default:
+        console.log("vote inna bad state");
+    }
+  };
+
 
   const handleChange = (evt, val) => {
     // TODO: set active tab using current step
@@ -34,7 +69,15 @@ function MainOwner({ step }) {
       </Typography>
 
       {/* Button for step changing */}
-      <Fab variant="extended" size="medium" color="primary" aria-label="add" sx={{ float: 'right' }}>
+      <Fab
+        variant="extended"
+        size="medium"
+        color="primary"
+        aria-label="add"
+        sx={{ float: 'right' }}
+        onClick={increaseWstate}
+        disabled={nextBtnDisabled}
+      >
         Go to next step
         <ArrowForwardIcon sx={{ ml: 1 }} />
       </Fab>
@@ -119,9 +162,5 @@ function MainOwner({ step }) {
     </>
   );
 }
-
-MainOwner.propTypes = {
-  step: PropTypes.number.isRequired
-};
 
 export default MainOwner;
