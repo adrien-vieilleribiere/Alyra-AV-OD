@@ -12,7 +12,8 @@ import MainVoter from './MainVoter';
 
 function Main() {
   // temp
-  const { state: { user, currentStep } } = useEth();
+  let { state: { user, currentStep } } = useEth();
+  currentStep = currentStep || 0;
 
   return (
     <Box

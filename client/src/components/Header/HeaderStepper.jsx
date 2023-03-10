@@ -22,11 +22,11 @@ function HeaderStepper() {
 
   return (
     <>
-    {/* Mobile display */}
+      {/* Mobile display */}
       {mobile && (
         <Box
           component="header"
-          sx={{ 
+          sx={{
             p: 2, border: '1px solid grey', borderRadius: '10px',
             maxWidth: 600, flexGrow: 1, display: 'flex', flexDirection: 'column',
             alignItems: 'center'
@@ -48,28 +48,28 @@ function HeaderStepper() {
             steps={stepsLabel.length}
             position="static"
             activeStep={currentStep}
-            sx={{ backgroundColor: 'var(--light-grey)'}}
+            sx={{ backgroundColor: 'var(--light-grey)' }}
           />
         </Box>
       )}
       {/* Desktop display */}
       {!mobile && (
-      <Box
-        component="header"
-        sx={{ p: 2, border: '1px solid grey', borderRadius: '10px' }}
-        className="App-header"
-      >
-        {/* Stepper */}
-        <Box sx={{ width: '100%' }}>
-          <Stepper activeStep={currentStep} alternativeLabel>
-            {stepsLabel.map((label) => (
-              <Step key={label}>
-                <StepLabel>{label}</StepLabel>
-              </Step>
-            ))}
-          </Stepper>
+        <Box
+          component="header"
+          sx={{ p: 2, border: '1px solid grey', borderRadius: '10px' }}
+          className="App-header"
+        >
+          {/* Stepper */}
+          <Box sx={{ width: '100%' }}>
+            <Stepper activeStep={currentStep} alternativeLabel>
+              {stepsLabel.map((label) => (
+                <Step key={label}>
+                  <StepLabel>{label}</StepLabel>
+                </Step>
+              ))}
+            </Stepper>
+          </Box>
         </Box>
-      </Box>
       )}
     </>
   );
