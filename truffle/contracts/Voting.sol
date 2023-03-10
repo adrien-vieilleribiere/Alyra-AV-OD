@@ -27,16 +27,16 @@ contract Voting is Ownable {
         VotesTallied
     }
 
-    ///@dev a current proposal id with maximal votes
-    uint256 private currentWinningProposalID;
-    ///@dev the number of votes a the currentWinningProposalID
-    uint256 private currentMaxVotes;
-
     ///@dev the current step of the vote
     WorkflowStatus public workflowStatus;
     ///@dev all the proposals
     Proposal[] proposalsArray;
     mapping(address => Voter) voters;
+
+    ///@dev a current proposal id with maximal votes
+    uint256 private currentWinningProposalID;
+    ///@dev the number of votes a the currentWinningProposalID
+    uint256 private currentMaxVotes;
 
     event VoterRegistered(address voterAddress);
     event WorkflowStatusChange(
