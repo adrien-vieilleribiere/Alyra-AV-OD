@@ -7,6 +7,14 @@ export const stepsLabel = [
     'VotesTallied'
 ]
 
+export const stepsNextLabel = [
+    'Start the Proposals Registration',
+    'End the Proposals Registration',
+    'Start the Voting Session',
+    'End the Voting Session',
+    'Tally Votes'
+]
+
 export const roles = {
     NONE: 0,
     VOTER: 1,

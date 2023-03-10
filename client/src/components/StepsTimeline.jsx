@@ -1,6 +1,5 @@
 import {
   Box,
-  Paper,
   Typography,
   MobileStepper,
   Stepper,
@@ -11,10 +10,10 @@ import {
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 
-import useEth from "../../contexts/EthContext/useEth";
-import { stepsLabel } from '../../helper/const';
+import useEth from "./../contexts/EthContext/useEth";
+import { stepsLabel } from './../helper/const';
 
-function HeaderStepper() {
+function StepsTimeline() {
   const theme = useTheme();
   const mobile = !useMediaQuery(theme.breakpoints.up('sm'));
 
@@ -75,4 +74,4 @@ function HeaderStepper() {
   );
 };
 
-export default HeaderStepper;
+export default StepsTimeline;
