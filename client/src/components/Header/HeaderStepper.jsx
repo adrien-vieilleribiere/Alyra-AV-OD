@@ -18,8 +18,7 @@ function HeaderStepper() {
   const theme = useTheme();
   const mobile = !useMediaQuery(theme.breakpoints.up('sm'));
 
-  let { state: { currentStep } } = useEth();
-  currentStep = currentStep || 0;
+  const { state: { currentStep } } = useEth();
 
   return (
     <>
