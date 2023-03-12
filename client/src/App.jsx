@@ -6,34 +6,26 @@ import {
 import { EthProvider } from "./contexts/EthContext";
 
 import Header from './components/Header/Header';
-import Aside from './components/Aside';
-import Main from './components/Main/Main';
 import Footer from './components/Footer';
+import ActionTabs from './components/ActionTabs';
 
 
 function App() {
+  let myParams = { step: 0, isVoter: true, isOwner: true };
   return (
     <EthProvider>
       <Container className="App">
 
         <Header />
 
-        <Grid container spacing={{ xs: 0, md: 2 }}>
-          {/* Aside with vote statistics */}
-          <Grid item xs={12} md={2}>
-            <Aside />
-          </Grid>
-
-          {/* Main */}
-          <Grid item xs={12} md={10}>
-            <Main />
-          </Grid>
-        </Grid>
+        <Container container>
+          <ActionTabs params={myParams} ></ActionTabs>
+        </Container>
 
         <Footer />
 
       </Container >
-    </EthProvider>
+    </EthProvider >
   );
 }
 
