@@ -1,5 +1,3 @@
-import { roles } from "../../helper/const";
-
 const actions = {
   // reset: "RESET",
   init: "INIT",
@@ -21,15 +19,16 @@ const initialState = {
   // Vote process step
   deployBlock: null,
 
-  // contract owner
+  // contract owner address
   owner: null,
 
   /* Dapp user info */
   user: {
-    connected: false,
-    role: roles.NONE,
+    isConnected: false,
+    isOwner: false,
+    isVoter: false,
     hasVoted: false,
-    proposals: []
+    proposals: [],
   },
 
   /* Voters info 

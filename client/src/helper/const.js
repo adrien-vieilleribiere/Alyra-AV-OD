@@ -6,9 +6,3 @@ export const stepsLabel = [
     'Voting Session Ended',
     'VotesTallied'
 ]
-
-export const roles = {
-    NONE: 0,
-    VOTER: 1,
-    OWNER: 2,
-};

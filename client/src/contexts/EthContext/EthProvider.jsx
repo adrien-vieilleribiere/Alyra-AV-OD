@@ -1,6 +1,5 @@
 import React, { useReducer, useCallback, useEffect } from "react";
 import Web3 from "web3";
-import { roles } from "../../helper/const";
 import EthContext from "./EthContext";
 import { reducer, actions, initialState } from "./state";
 
@@ -32,7 +31,7 @@ function EthProvider({ children }) {
         dispatch({
           type: actions.init,
           data: {
-            artifact, web3, accounts, networkID, contract, 
+            artifact, web3, accounts, networkID, contract,
             currentStep: step, owner: contractOwner
           }
         });
@@ -48,29 +47,25 @@ function EthProvider({ children }) {
   useEffect(() => {
     const getUserInfo = () => {
       const user = {
-        connected: false,
-        role: roles.NONE,
+        isConnected: false,
+        isOwner: false,
+        isVoter: false,
       };
-
+      // isConnected ?
       if (state.accounts && state.accounts.length !== 0) {
-        user.connected = true;
-
+        user.isConnected = true;
+        // isOwner ?
         if (state.accounts[0] === state.owner) {
-          user.role = roles.OWNER;
-          // console.log("owner");
-        } else {
-          const voter = state.voters.filter((voter) => 
-            voter.address === state.accounts[0]
-          )
-          if (voter.length !== 0) {
-            user.role = roles.VOTER;
-            // console.log("voter");
-          } else {
-            // console.log("none");
-          }
+          user.isOwner = true;
+        }
+        // isVoter ?
+        const voter = state.voters.filter((voter) =>
+          voter.address === state.accounts[0]
+        )
+        if (voter.length !== 0) {
+          user.isVoter = true;
         }
       }
-      console.log(user);
       dispatch({
         type: actions.updateUserInfo,
         data: user,

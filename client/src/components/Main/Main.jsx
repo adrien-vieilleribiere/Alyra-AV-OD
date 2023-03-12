@@ -5,7 +5,6 @@ import {
 } from '@mui/material';
 
 import useEth from "../../contexts/EthContext/useEth";
-import { roles } from "../../helper/const";
 
 import MainOwner from './MainOwner';
 import MainVoter from './MainVoter';
@@ -23,12 +22,12 @@ function Main() {
       className="App-main"
     >
       {/* Conditionnal display */}
-      {user.connected
+      {user.isConnected
         ?
         /* user connected */
         <>
           {/* user unknown: connected but not voter or admin */}
-          {user.role === roles.NONE &&
+          {!user.isOwner && !user.isVoter &&
             <Alert
               variant="outlined"
               severity="warning"
@@ -37,11 +36,11 @@ function Main() {
             </Alert>
           }
           {/* user voter */}
-          {user.role === roles.VOTER &&
+          {user.isVoter &&
             <MainVoter step={currentStep} hasVoted={user.hasVoted} />
           }
           {/* user owner */}
-          {user.role === roles.OWNER &&
+          {user.isOwner &&
             <MainOwner step={currentStep} />
           }
         </>
