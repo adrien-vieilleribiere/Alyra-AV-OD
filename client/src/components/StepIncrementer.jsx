@@ -9,12 +9,9 @@ import {
 
 import ArrowForwardIcon from '@mui/icons-material/ArrowForwardIos';
 
-function StepIncrementer({ step }) {
-  console.log("step", step);
-  step = step || 0;
-  console.log("step", step);
+function StepIncrementer() {
   const [nextBtnDisabled, SetNextBtnDisabled] = useState(true);
-  const { state: { contract, currentStep, accounts } } = useEth();
+  const { state: { contract, accounts, step } } = useEth();
 
   useEffect(() => {
     // Next Step Button status management
@@ -48,7 +45,7 @@ function StepIncrementer({ step }) {
     <>
       {/* Button for step changing */}
       <Button variant="contained" onClick={increaseWstate}
-        disabled={nextBtnDisabled}> {stepsNextLabel[currentStep]}
+        disabled={nextBtnDisabled}> {stepsNextLabel[step]}
         <ArrowForwardIcon sx={{ ml: 1 }} /></Button>
     </>
   );

@@ -1,8 +1,7 @@
-import { roles } from "../../helper/const";
-
 const actions = {
   init: "INIT",
-  updateCurrentStep: "UPDATE_CURRENT_STEP",
+  updateStep: "UPDATE_CURRENT_STEP",
+  updateUserInfo: "UPDATE_USER_INFO"
 };
 
 const initialState = {
@@ -13,26 +12,34 @@ const initialState = {
   contract: null,
 
   // Vote process step
-  currentStep: null,
+  step: 0,
 
   // contract owner
   owner: null,
 
   // Dapp user
   user: {
-    connected: true,
-    address: "0x123",
-    role: roles.OWNER,
-    // role: roles.VOTER,
+    isConnected: false,
+    isOwner: false,
+    isVoter: false,
     hasVoted: false,
     proposals: []
   },
 
   // All voters
-  voters: [],
+  voters: [
+    // structure: address, hasVoted, votedProposalId 
+    // {
+    //   address: "0x...",
+    //   hasVoted: false,
+    //   votedProposalId: 0,
+    // }
+  ],
 
   // All proposals
-  proposals: []
+  proposals: [
+    // id?, desc, voteCount
+  ]
 
 };
 
@@ -42,8 +49,11 @@ const reducer = (state, action) => {
     case actions.init:
       return { ...state, ...data };
 
-    case actions.updateCurrentStep:
-      return { ...state, currentStep: data.newStep };
+    case actions.updateStep:
+      return { ...state, step: data };
+
+    case actions.updateUserInfo:
+      return { ...state, user: { ...state.user , ...data } };
 
     default:
       throw new Error("Undefined reducer action type");

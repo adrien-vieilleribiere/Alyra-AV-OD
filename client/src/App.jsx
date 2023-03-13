@@ -10,15 +10,14 @@ import ActionTabs from './components/ActionTabs';
 
 
 function App() {
-  let myParams = { step: 0, isVoter: true, isOwner: true };
   return (
     <EthProvider>
       <Container className="App">
 
         <Header />
 
-        <Container container>
-          <ActionTabs params={myParams} ></ActionTabs>
+        <Container>
+          <ActionTabs />
         </Container>
 
         <Footer />

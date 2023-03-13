@@ -17,7 +17,7 @@ function StepsTimeline() {
   const theme = useTheme();
   const mobile = !useMediaQuery(theme.breakpoints.up('sm'));
 
-  const { state: { currentStep } } = useEth();
+  const { state: { step } } = useEth();
 
   return (
     <>
@@ -33,20 +33,20 @@ function StepsTimeline() {
           className="App-header"
         >
           <Typography sx={{ color: 'black', textAlign: 'center' }}>
-            {stepsLabel[currentStep]}
+            {stepsLabel[step]}
           </Typography>
           <MobileStepper
             variant="dots"
             steps={stepsLabel.length}
             position="static"
-            activeStep={currentStep}
+            activeStep={step}
             sx={{ backgroundColor: 'var(--light-grey)' }}
           />
           <MobileStepper
             variant="text"
             steps={stepsLabel.length}
             position="static"
-            activeStep={currentStep}
+            activeStep={step}
             sx={{ backgroundColor: 'var(--light-grey)' }}
           />
         </Box>
@@ -60,7 +60,7 @@ function StepsTimeline() {
         >
           {/* Stepper */}
           <Box sx={{ width: '100%' }}>
-            <Stepper activeStep={currentStep} alternativeLabel>
+            <Stepper activeStep={step} alternativeLabel>
               {stepsLabel.map((label) => (
                 <Step key={label}>
                   <StepLabel>{label}</StepLabel>
