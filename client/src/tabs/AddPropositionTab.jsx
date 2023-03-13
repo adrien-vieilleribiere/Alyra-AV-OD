@@ -1,10 +1,8 @@
-import React, { useState } from "react";
 import {
   Box,
 } from '@mui/material';
 import { TabPanel } from '@mui/lab';
 
-import AddIcon from '@mui/icons-material/Add';
 import AddProposition from "../components/AddProposition";
 
 
