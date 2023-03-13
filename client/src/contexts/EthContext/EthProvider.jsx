@@ -102,6 +102,7 @@ function EthProvider({ children }) {
         await state.contract.events.WorkflowStatusChange({ fromBlock: "latest" })
           .on('data', event => {
             const newStep = parseInt(event.returnValues.newStatus);
+            console.log(event.returnValues.newStatus)
             dispatch({
               type: actions.updateStep,
               data: newStep

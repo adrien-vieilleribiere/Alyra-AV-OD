@@ -21,19 +21,14 @@ import VoteTab from "../tabs/VoteTab";
 import GetVoteTab from "../tabs/GetVoteTab";
 import GetWinnerTab from "../tabs/GetWinnerTab";
 
-function ActionTabs({ params }) {
+function ActionTabs() {
   const { state: { step, user : { /*isConnected,*/ isOwner, isVoter } } } = useEth();
 
   const [currentTab, SetCurrentTab] = useState("info");
-  // console.log({ params });
   
   const handleChange = (evt, val) => {
     SetCurrentTab(val);
   }
-
-  // let step = params.step || 3;
-  // let isOwner = params.isOwner || false;
-  // let isVoter = params.isVoter || true;
 
   /* TODO : 
     - use !isConnected to manage what to display when no wallet connected
