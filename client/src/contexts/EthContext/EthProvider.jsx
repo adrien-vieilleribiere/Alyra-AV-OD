@@ -93,16 +93,48 @@ function EthProvider({ children }) {
   useEffect(() => {
     (async function () {
       if (state.contract) {
-        /* New voter registered 
-          VoterRegistered(address voterAddress) */
-        // TODO
+        /* 1 NEW VOTER REGISTERED: VoterRegistered(address voterAddress) */
+        const addVoter = (address) => {
+          dispatch({
+            type: actions.addVoter,
+            data: {
+              address: address,
+              hasVoted: false,
+              votedProposalId: 0,
+            }
+          });
+        };
 
-        /* Step change 
-          WorkflowStatusChange(WorkflowStatus previousStatus, WorkflowStatus newStatus) */
+        // 1-A get all already registered voters
+        let options = {
+          filter: {},
+          fromBlock: 0,
+          toBlock: 'latest'
+        };
+        state.contract.getPastEvents('VoterRegistered', options)
+          .then(voters => {
+            // console.log('getPastEvents');
+            voters.map((voter) => {
+              addVoter(voter.returnValues.voterAddress);
+            })
+          })
+          .catch(err => console.log(err));
+
+        // 1-B detect new voter addition
+        await state.contract.events.VoterRegistered({ fromBlock: "latest" })
+          .on('data', event => {
+            const voterAddress = event.returnValues.voterAddress;
+            // console.log(`event2: ${voterAddress}`);
+            // console.log(event);
+            addVoter(voterAddress);
+          })
+          .on('error', err => console.log(err))
+
+        /* 2 STEP CHANGE: WorkflowStatusChange(WorkflowStatus previousStatus, WorkflowStatus newStatus) */
         await state.contract.events.WorkflowStatusChange({ fromBlock: "latest" })
           .on('data', event => {
             const newStep = parseInt(event.returnValues.newStatus);
-            console.log(event.returnValues.newStatus)
+            // console.log(event.returnValues.newStatus)
             dispatch({
               type: actions.updateStep,
               data: newStep
@@ -110,13 +142,58 @@ function EthProvider({ children }) {
           })
           .on('error', err => console.log(err))
 
-        /* New propsal registered 
-          ProposalRegistered(uint proposalId) */
+        /* 3 New proposal registered: ProposalRegistered(uint proposalId) */
+        const addProposal = async (id, transactionHash) => {
+          // TODO: check desc doesn't exist: already done by SC
+          // => should be done before the form submission
+
+          // console.log(`Prop id: ${id}`);
+          // console.log(`hash: ${transactionHash}`);
+          const prop = await state.contract.methods.getOneProposal(id).call({ from: state.accounts[0] });
+          const transac = await state.web3.eth.getTransaction(transactionHash)
+          // console.log(transac);
+
+          dispatch({
+            type: actions.addProposal,
+            data: {
+              id: id,
+              description: prop.description,
+              submitter: transac.from,
+              voteCount: 0,
+            }
+          });
+        };
+        // 3-A get all already registered proposals
+        state.contract.getPastEvents('ProposalRegistered', options)
+          .then(proposals => {
+            proposals.map((proposal) => {
+              // console.log(proposal);
+              addProposal(
+                proposal.returnValues.proposalId,
+                proposal.transactionHash              ,
+              );
+            })
+          })
+          .catch(err => console.log(err));
+
+        // 3-B detect new proposal addition
+        await state.contract.events.ProposalRegistered({ fromBlock: "latest" })
+          .on('data', event => {
+            addProposal(
+              event.returnValues.proposalId,
+              event.transactionHash              ,
+            );
+          })
+          .on('error', err => console.log(err))
+
+        /* Voter submit a vote: Voted (address voter, uint proposalId) */
         // TODO
 
-        /* Voter submit a vote 
-          Voted (address voter, uint proposalId) */
-        // TODO
+        return () => {
+          state.contract.events.removeEventListener('VoterRegistered');
+          state.contract.events.removeEventListener('WorkflowStatusChange');
+          state.contract.events.removeEventListener('ProposalRegistered');
+        }
       }
     })();
   }, [state.contract])
