@@ -15,7 +15,7 @@ import useEth from "../contexts/EthContext/useEth";
 
 
 function Header() {
-  let { state: { accounts, user } } = useEth();
+  let { state: { accounts, user, voters } } = useEth();
   /* TEMP DEBUG BUTTON 
     - used to check state variable on click
     - TODO: Remove
@@ -23,6 +23,7 @@ function Header() {
   const debug = () => {
     console.log(accounts);
     console.log(user);
+    console.log(voters);
   }
   /* END TEMP DEBUG BUTTON */
   return (
