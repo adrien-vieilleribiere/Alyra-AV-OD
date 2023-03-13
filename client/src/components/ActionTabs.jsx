@@ -22,8 +22,7 @@ import GetVoteTab from "../tabs/GetVoteTab";
 import GetWinnerTab from "../tabs/GetWinnerTab";
 
 function ActionTabs({ params }) {
-  let { state: { step } } = useEth();
-  const { state: { user : { /*isConnected,*/ isOwner, isVoter } } } = useEth();
+  const { state: { step, user : { /*isConnected,*/ isOwner, isVoter } } } = useEth();
 
   const [currentTab, SetCurrentTab] = useState("info");
   // console.log({ params });
@@ -32,7 +31,6 @@ function ActionTabs({ params }) {
     SetCurrentTab(val);
   }
 
-  step = step || 0;
   // let step = params.step || 3;
   // let isOwner = params.isOwner || false;
   // let isVoter = params.isVoter || true;

@@ -17,8 +17,7 @@ function StepsTimeline() {
   const theme = useTheme();
   const mobile = !useMediaQuery(theme.breakpoints.up('sm'));
 
-  let { state: { step } } = useEth();
-  step = step || 0;
+  const { state: { step } } = useEth();
 
   return (
     <>

@@ -11,9 +11,7 @@ import ArrowForwardIcon from '@mui/icons-material/ArrowForwardIos';
 
 function StepIncrementer() {
   const [nextBtnDisabled, SetNextBtnDisabled] = useState(true);
-  let { state: { step } } = useEth();
-  const { state: { contract, accounts } } = useEth();
-  step = step || 0;
+  const { state: { contract, accounts, step } } = useEth();
 
   useEffect(() => {
     // Next Step Button status management

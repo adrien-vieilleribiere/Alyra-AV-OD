@@ -12,7 +12,7 @@ const initialState = {
   contract: null,
 
   // Vote process step
-  step: null,
+  step: 0,
 
   // contract owner
   owner: null,
