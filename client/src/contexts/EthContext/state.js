@@ -64,11 +64,11 @@ const reducer = (state, action) => {
       return { ...state, user: { ...state.user, ...data } };
 
     case actions.addVoter:
-      return { ...state, voters: [ ...state.voters , data ] };
-    
+      return { ...state, voters: [...state.voters, data] };
+
     case actions.addProposal:
-      return { ...state, proposals: [ ...state.proposals , data ] };
-  
+      return { ...state, proposals: [...state.proposals, data] };
+
     default:
       throw new Error("Undefined reducer action type");
   }
