@@ -9,12 +9,12 @@ import {
 
 import StepsTimeline from './../StepsTimeline';
 import StepIncrementer from './../StepIncrementer';
-import useEth from "../../contexts/EthContext/useEth";
+// import useEth from "../../contexts/EthContext/useEth";
 
 
 function Header() {
-  let { state: { currentStep } } = useEth();
-  currentStep = currentStep || 0;
+  // let { state: { step } } = useEth();
+  // step = step || 0;
   return (
     <>
       <Box sx={{ flexGrow: 1, mb: 2 }}>
@@ -31,7 +31,8 @@ function Header() {
 
       <StepsTimeline />
       <Box textAlign='center' sx={{ flexGrow: 1, mb: 2, marginTop: 1 }}>
-        <StepIncrementer step={currentStep} />
+        {/* <StepIncrementer step={step} /> */}
+        <StepIncrementer />
       </Box>
 
     </>

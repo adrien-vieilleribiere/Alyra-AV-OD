@@ -14,9 +14,3 @@ export const stepsNextLabel = [
     'End the Voting Session',
     'Tally Votes'
 ]
-
-export const roles = {
-    NONE: 0,
-    VOTER: 1,
-    OWNER: 2,
-};

@@ -12,20 +12,22 @@ function EthProvider({ children }) {
       if (artifact) {
         const web3 = new Web3(Web3.givenProvider || "ws://localhost:8545");
         const accounts = await web3.eth.requestAccounts();
+        console.log(`[init] account: ${accounts[0]}`);
         const networkID = await web3.eth.net.getId();
         const { abi } = artifact;
-        let address, contract, step, contractOwner;
+        let address, contract, currentStep, contractOwner;
         try {
           address = artifact.networks[networkID].address;
+          console.log(`[init] contract address: ${address}`);
           contract = new web3.eth.Contract(abi, address);
-          step = parseInt(await contract.methods.workflowStatus().call({ from: accounts[0] }));
+          currentStep = parseInt(await contract.methods.workflowStatus().call({ from: accounts[0] }));
           contractOwner = await contract.methods.owner().call({ from: accounts[0] });
         } catch (err) {
           console.error(err);
         }
         dispatch({
           type: actions.init,
-          data: { artifact, web3, accounts, networkID, contract, currentStep: step, owner: contractOwner }
+          data: { artifact, web3, accounts, networkID, contract, step: currentStep, owner: contractOwner }
         });
       }
     }, []);
@@ -95,14 +97,14 @@ function EthProvider({ children }) {
           VoterRegistered(address voterAddress) */
         // TODO
 
-        /* Status change 
+        /* Step change 
           WorkflowStatusChange(WorkflowStatus previousStatus, WorkflowStatus newStatus) */
         await state.contract.events.WorkflowStatusChange({ fromBlock: "latest" })
           .on('data', event => {
             const newStep = parseInt(event.returnValues.newStatus);
             dispatch({
-              type: actions.updateCurrentStep,
-              data: { newStep }
+              type: actions.updateStep,
+              data: newStep
             });
           })
           .on('error', err => console.log(err))

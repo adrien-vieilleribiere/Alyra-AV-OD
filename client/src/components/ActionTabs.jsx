@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-//import useEth from "./../../contexts/EthContext/useEth";
+import useEth from "./../contexts/EthContext/useEth";
 
 import {
   Tab,
@@ -22,17 +22,25 @@ import GetVoteTab from "../tabs/GetVoteTab";
 import GetWinnerTab from "../tabs/GetWinnerTab";
 
 function ActionTabs({ params }) {
-  const [currentTab, SetCurrentTab] = useState("info");
-  console.log({ params });
-  // const { state: { contract, currentStep, accounts } } = useEth();
+  let { state: { step } } = useEth();
+  const { state: { user : { /*isConnected,*/ isOwner, isVoter } } } = useEth();
 
+  const [currentTab, SetCurrentTab] = useState("info");
+  // console.log({ params });
+  
   const handleChange = (evt, val) => {
     SetCurrentTab(val);
   }
 
-  let step = params.step || 3;
-  let isOwner = params.isOwner || false;
-  let isVoter = params.isVoter || true;
+  step = step || 0;
+  // let step = params.step || 3;
+  // let isOwner = params.isOwner || false;
+  // let isVoter = params.isVoter || true;
+
+  /* TODO : 
+    - use !isConnected to manage what to display when no wallet connected
+    - use !isOwner && !isVoter to display a specific message for unknown wallet
+  */
 
   const addVoterTabHeader = isOwner && step === 0 && <Tab icon={<HowToRegIcon />} label="add Voter" value="addVoter" />;
   const addVoterTab = (isOwner && step === 0) ? <AddVoterTab /> : <></>;

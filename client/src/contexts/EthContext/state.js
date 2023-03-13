@@ -1,8 +1,6 @@
-import { roles } from "../../helper/const";
-
 const actions = {
   init: "INIT",
-  updateCurrentStep: "UPDATE_CURRENT_STEP",
+  updateStep: "UPDATE_CURRENT_STEP",
   updateUserInfo: "UPDATE_USER_INFO"
 };
 
@@ -14,7 +12,7 @@ const initialState = {
   contract: null,
 
   // Vote process step
-  currentStep: null,
+  step: null,
 
   // contract owner
   owner: null,
@@ -51,8 +49,8 @@ const reducer = (state, action) => {
     case actions.init:
       return { ...state, ...data };
 
-    case actions.updateCurrentStep:
-      return { ...state, currentStep: data.newStep };
+    case actions.updateStep:
+      return { ...state, step: data };
 
     case actions.updateUserInfo:
       return { ...state, user: { ...state.user , ...data } };
