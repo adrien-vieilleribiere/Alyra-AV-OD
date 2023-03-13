@@ -55,9 +55,39 @@ function EthProvider({ children }) {
     };
   }, [init, state.artifact]);
 
-  /* Smart contract events management 
-    used to update the state
-*/
+  /* User connection and role management */
+  useEffect(() => {
+    const getUserInfo = () => {
+      const user = {
+        isConnected: false,
+        isOwner: false,
+        isVoter: false,
+      };
+      // isConnected ?
+      if (state.accounts && state.accounts.length !== 0) {
+        user.isConnected = true;
+        // isOwner ?
+        if (state.accounts[0] === state.owner) {
+          user.isOwner = true;
+        }
+        // isVoter ?
+        const voter = state.voters.filter((voter) =>
+          voter.address === state.accounts[0]
+        )
+        if (voter.length !== 0) {
+          user.isVoter = true;
+        }
+      }
+      dispatch({
+        type: actions.updateUserInfo,
+        data: user,
+      });
+    };
+
+    getUserInfo();
+  }, [state.accounts]);
+
+  /* Events management used to update the state */
   useEffect(() => {
     (async function () {
       if (state.contract) {
