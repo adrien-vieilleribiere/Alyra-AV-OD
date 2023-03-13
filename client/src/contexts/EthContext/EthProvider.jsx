@@ -16,7 +16,7 @@ function EthProvider({ children }) {
 
         const networkID = await web3.eth.net.getId();
         const { abi } = artifact;
-        let address, contract, step, contractOwner;
+        let address, contract, step, contractOwner, deployBlock;
         /* TODO:
           - add deployBlock: limit search, trough ABI?
         */
@@ -25,6 +25,12 @@ function EthProvider({ children }) {
           contract = new web3.eth.Contract(abi, address);
           step = parseInt(await contract.methods.workflowStatus().call({ from: accounts[0] }));
           contractOwner = await contract.methods.owner().call({ from: accounts[0] });
+          web3.eth.getTransactionCount(address)
+            .then(console.log);
+          //web3.eth.getTransactionFromBlock("earliest", indexNumber)
+          //.then(console.log);
+          console.log(`[init] contract address: ${address}`);
+
         } catch (err) {
           console.error(err);
         }
@@ -102,33 +108,84 @@ function EthProvider({ children }) {
 
   /* Smart contract events management 
     used to update the state
-*/
+    Get past events on init
+  */
   useEffect(() => {
     (async function () {
       if (state.contract) {
-        /* New voter registered 
-          VoterRegistered(address voterAddress) */
-        // TODO
+        const addVoter = (address) => {
+          dispatch({
+            type: actions.addVoter,
+            data: {
+              address: address,
+              hasVoted: false,
+              votedProposalId: 0,
+            }
+          });
+        };
 
         /* Status change 
           WorkflowStatusChange(WorkflowStatus previousStatus, WorkflowStatus newStatus) */
-        await state.contract.events.WorkflowStatusChange({ fromBlock: "latest" })
-          .on('data', event => {
-            const newStep = parseInt(event.returnValues.newStatus);
-            dispatch({
-              type: actions.updateCurrentStep,
-              data: { newStep }
-            });
-          })
-          .on('error', err => console.log(err))
+        const statusChgEmitter = state.contract.events.WorkflowStatusChange({ fromBlock: "latest" })
+        .on('data', event => {
+          const newStep = parseInt(event.returnValues.newStatus);
+          console.log('New step');
+          dispatch({
+            type: actions.updateCurrentStep,
+            data: { newStep }
+          });
+        })
+        .on('error', err => console.log(err))
 
-        /* New propsal registered 
+        /* New voter registered 
+          VoterRegistered(address voterAddress) */
+        // get all already registered voters
+         let options = {
+          filter: {},
+          fromBlock: 0,
+          toBlock: 'latest'
+        };
+        state.contract.getPastEvents('VoterRegistered', options)
+        .then(voters => {
+          console.log('getPastEvents');
+          voters.map((voter) => {
+            addVoter(voter.returnValues.voterAddress);
+          })
+        })
+        .catch(err => console.log(err));
+        // detect new voter addition
+        // const voterRegEmitter = state.contract.events.VoterRegistered({ fromBlock: "latest" })
+        // .on('data', event => {
+        //   const voterAddress = event.returnValues.voterAddress;
+        //   console.log(`event2: ${voterAddress}`);
+        //   console.log(event);
+        //   addVoter(voterAddress);
+        // })
+        // .on('error', err => console.log(err))
+        await state.contract.events.VoterRegistered({ fromBlock: "latest" })
+        .on('data', event => {
+          const voterAddress = event.returnValues.voterAddress;
+          console.log(`event2: ${voterAddress}`);
+          console.log(event);
+          addVoter(voterAddress);
+        })
+        .on('error', err => console.log(err))
+
+        /* New proposal registered 
           ProposalRegistered(uint proposalId) */
-        // TODO
+        // TODO global // current user
 
         /* Voter submit a vote 
           Voted (address voter, uint proposalId) */
         // TODO
+
+        /* Unsubscribe to all events listeners */
+        return () => {
+          // voterRegEmitter.removeListener();
+          // statusChgEmitter.removeListener();
+          state.contract.events.removeEventListener('VoterRegistered');
+          state.contract.events.removeEventListener('WorkflowStatusChange');
+        };
       }
     })();
   }, [state.contract])

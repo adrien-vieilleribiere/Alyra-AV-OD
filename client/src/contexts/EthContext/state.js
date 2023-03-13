@@ -2,7 +2,8 @@ const actions = {
   // reset: "RESET",
   init: "INIT",
   updateCurrentStep: "UPDATE_CURRENT_STEP",
-  updateUserInfo: "UPDATE_USER_INFO"
+  updateUserInfo: "UPDATE_USER_INFO",
+  addVoter: "ADD_VOTER",
 };
 
 const initialState = {
@@ -38,7 +39,7 @@ const initialState = {
   voters: [
     // address, hasVoted, votedProposalId 
     { // added for test
-      address: "0xD5CaE5F93409A5bCc8DD057837EEbB741Fe5CF8C",
+      address: "0x4b90A997475B48e2D637B2ecE41FfA20a0110e93",
       hasVoted: false,
       votedProposalId: 0,
     }
@@ -68,6 +69,9 @@ const reducer = (state, action) => {
 
     case actions.updateUserInfo:
       return { ...state, user: { ...state.user , ...data } };
+
+    case actions.addVoter:
+      return { ...state, voters: [ ...state.voters , data ] };
 
     default:
       throw new Error("Undefined reducer action type");

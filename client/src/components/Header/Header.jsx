@@ -13,14 +13,15 @@ import HeaderWalletWidget from './HeaderWalletWidget';
 
 
 function Header() {
-  let { state: { accounts, user } } = useEth();
+  let { state: { accounts, user, voters } } = useEth();
   /* TEMP DEBUG BUTTON 
     - used to check state variable on click
     - TODO: Remove
   */
   const debug = () => {
-    console.log(accounts);
+    // console.log(accounts);
     console.log(user);
+    console.log(voters);
   }
   /* END TEMP DEBUG BUTTON */
 
