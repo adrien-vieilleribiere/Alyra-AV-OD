@@ -4,7 +4,7 @@ import { TabPanel } from '@mui/lab';
 
 function VoteTab() {
   return (
-    <TabPanel value="vote">
+    <TabPanel value="vote" key="vote">
       <Vote />
     </TabPanel>
   );

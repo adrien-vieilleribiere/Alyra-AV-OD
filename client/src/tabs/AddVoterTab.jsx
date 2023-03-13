@@ -6,7 +6,7 @@ import { TabPanel } from '@mui/lab';
 
 function AddVoterTab() {
   return (
-    <TabPanel value="addVoter">
+    <TabPanel value="addVoter" key="addVoter">
       <h3>Add a voter</h3>
       <Box sx={{
         display: 'flex',
