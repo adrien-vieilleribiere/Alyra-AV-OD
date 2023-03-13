@@ -1,6 +1,6 @@
 const actions = {
   init: "INIT",
-  updateStep: "UPDATE_CURRENT_STEP",
+  updateStep: "UPDATE_STEP",
   updateUserInfo: "UPDATE_USER_INFO"
 };
 
@@ -51,9 +51,6 @@ const reducer = (state, action) => {
 
     case actions.updateStep:
       return { ...state, step: data };
-
-    case actions.updateUserInfo:
-      return { ...state, user: { ...state.user, ...data } };
 
     case actions.updateUserInfo:
       return { ...state, user: { ...state.user, ...data } };
