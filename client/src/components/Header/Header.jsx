@@ -7,10 +7,14 @@ import {
   Button,
 } from '@mui/material';
 
-import HeaderStepper from './HeaderStepper';
+import StepsTimeline from './../StepsTimeline';
+import StepIncrementer from './../StepIncrementer';
+import useEth from "../../contexts/EthContext/useEth";
 
 
 function Header() {
+  let { state: { currentStep } } = useEth();
+  currentStep = currentStep || 0;
   return (
     <>
       <Box sx={{ flexGrow: 1, mb: 2 }}>
@@ -25,7 +29,10 @@ function Header() {
         </AppBar>
       </Box>
 
-      <HeaderStepper />
+      <StepsTimeline />
+      <Box textAlign='center' sx={{ flexGrow: 1, mb: 2, marginTop: 1 }}>
+        <StepIncrementer step={currentStep} />
+      </Box>
 
     </>
   );

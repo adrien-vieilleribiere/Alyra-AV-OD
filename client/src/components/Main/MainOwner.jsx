@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from "react";
-import useEth from "./../../contexts/EthContext/useEth";
+import React, { useState } from "react";
+//import useEth from "./../../contexts/EthContext/useEth";
 
 import {
   Typography,
-  Fab,
   Tab,
   Box,
   TextField,
@@ -12,7 +11,6 @@ import {
 } from '@mui/material';
 import { TabContext, TabPanel, TabList } from '@mui/lab';
 
-import ArrowForwardIcon from '@mui/icons-material/ArrowForwardIos';
 import AddIcon from '@mui/icons-material/Add';
 import PostAddIcon from '@mui/icons-material/PostAdd';
 import HowToRegIcon from '@mui/icons-material/HowToReg';
@@ -22,41 +20,8 @@ import PollIcon from '@mui/icons-material/Poll';
 
 function MainOwner({ step }) {
   const [currentTab, SetCurrentTab] = useState("0");
-  const [nextBtnDisabled, SetNextBtnDisabled] = useState(true);
 
-  const { state: { contract, currentStep, accounts } } = useEth();
-
-  useEffect(() => {
-    // Next Step Button status management
-    SetNextBtnDisabled(step > 3);
-  }, [step]);
-
-  const increaseWstate = async () => {
-    const _step = parseInt(await contract.methods.workflowStatus().call({ from: accounts[0] }));
-
-    // console.log(_step);
-    switch (_step) {
-      case 0:
-        contract.methods.startProposalsRegistering().send({ from: accounts[0] });
-        break;
-      case 1:
-        await contract.methods.endProposalsRegistering().send({ from: accounts[0] });
-        break;
-      case 2:
-        await contract.methods.startVotingSession().send({ from: accounts[0] });
-        break;
-      case 3:
-        await contract.methods.endVotingSession().send({ from: accounts[0] });
-        break;
-      case 4:
-        await contract.methods.tallyVotes().send({ from: accounts[0] });
-        break;
-
-      default:
-        console.log("vote inna bad state");
-    }
-  };
-
+  // const { state: { contract, currentStep, accounts } } = useEth();
 
   const handleChange = (evt, val) => {
     // TODO: set active tab using current step
@@ -67,26 +32,6 @@ function MainOwner({ step }) {
       <Typography component="h2" variant="h4" align="center">
         Main Owner component
       </Typography>
-
-      {/* Button for step changing */}
-      <Fab
-        variant="extended"
-        size="medium"
-        color="primary"
-        aria-label="add"
-        sx={{ float: 'right' }}
-        onClick={increaseWstate}
-        disabled={nextBtnDisabled}
-      >
-        Go to next step
-        <ArrowForwardIcon sx={{ ml: 1 }} />
-      </Fab>
-      {/* Controls to perform:
-            - one voter at least
-            - one proposal at least
-            - one vote at least
-            => to be discusssed
-        */}
 
       <TabContext value={currentTab}>
         <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
