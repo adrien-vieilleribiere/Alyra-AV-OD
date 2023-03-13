@@ -1,6 +1,6 @@
 const actions = {
   init: "INIT",
-  updateStep: "UPDATE_CURRENT_STEP",
+  updateStep: "UPDATE_STEP",
   updateUserInfo: "UPDATE_USER_INFO"
 };
 
@@ -53,7 +53,7 @@ const reducer = (state, action) => {
       return { ...state, step: data };
 
     case actions.updateUserInfo:
-      return { ...state, user: { ...state.user , ...data } };
+      return { ...state, user: { ...state.user, ...data } };
 
     default:
       throw new Error("Undefined reducer action type");
