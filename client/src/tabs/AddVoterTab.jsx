@@ -1,12 +1,8 @@
-import React, { useState } from "react";
 import AddVoter from "./../components/AddVoter";
 import {
   Box,
 } from '@mui/material';
-import { TabContext, TabPanel, TabList } from '@mui/lab';
-
-import AddIcon from '@mui/icons-material/Add';
-
+import { TabPanel } from '@mui/lab';
 
 function AddVoterTab() {
   return (

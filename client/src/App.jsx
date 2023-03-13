@@ -1,6 +1,5 @@
 import {
   Container,
-  Grid,
 } from '@mui/material';
 
 import { EthProvider } from "./contexts/EthContext";

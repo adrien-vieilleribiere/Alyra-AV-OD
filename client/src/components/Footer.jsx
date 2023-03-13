@@ -1,6 +1,5 @@
 import {
-  Box,
-  Divider
+  Box
 } from '@mui/material';
 
 

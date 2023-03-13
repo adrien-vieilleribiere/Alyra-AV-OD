@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import GetVote from "../components/GetVote";
 import { TabPanel } from '@mui/lab';
 
