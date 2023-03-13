@@ -21,7 +21,7 @@ function Link({ uri, text }) {
 
 function InfosTab() {
   return (
-    <TabPanel value="info">
+    <TabPanel value="info" key="info">
       <h3 className='h3'>Voting Dapp by Adrien Vieilleribiere &amp; Olivier David for Alyra</h3>
       <Divider />
       <ul>

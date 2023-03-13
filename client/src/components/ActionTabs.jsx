@@ -27,6 +27,7 @@ function ActionTabs() {
   const [currentTab, SetCurrentTab] = useState("info");
 
   const handleChange = (evt, val) => {
+    SetCurrentTab("info");
     SetCurrentTab(val);
   }
 
