@@ -144,13 +144,14 @@ function EthProvider({ children }) {
 
         /* 3 New proposal registered: ProposalRegistered(uint proposalId) */
         const addProposal = async (id, transactionHash) => {
-          // TODO: check desc doesn't exist
+          // TODO: check desc doesn't exist: already done by SC
+          // => should be done before the form submission
 
-          console.log(`Prop id: ${id}`);
-          console.log(`hash: ${transactionHash}`);
+          // console.log(`Prop id: ${id}`);
+          // console.log(`hash: ${transactionHash}`);
           const prop = await state.contract.methods.getOneProposal(id).call({ from: state.accounts[0] });
           const transac = await state.web3.eth.getTransaction(transactionHash)
-          console.log(transac);
+          // console.log(transac);
 
           dispatch({
             type: actions.addProposal,
@@ -162,11 +163,11 @@ function EthProvider({ children }) {
             }
           });
         };
-        // 3-A get all already registered voters
+        // 3-A get all already registered proposals
         state.contract.getPastEvents('ProposalRegistered', options)
           .then(proposals => {
             proposals.map((proposal) => {
-              console.log(proposal);
+              // console.log(proposal);
               addProposal(
                 proposal.returnValues.proposalId,
                 proposal.transactionHash              ,
