@@ -40,7 +40,7 @@ function Vote() {
 
   return (
     <>
-      {hasVoted && 
+      {hasVoted &&
         <Alert severity="info">You have already voted!</Alert>
       }
       <FormControl fullWidth>
@@ -54,7 +54,7 @@ function Vote() {
           disabled={hasVoted}
         >
           <MenuItem value={0}>Choose a proposal in the list</MenuItem>
-          {proposals.map((proposal) => 
+          {proposals.map((proposal) =>
             <MenuItem value={proposal.id} key={proposal.id}>{proposal.description}</MenuItem>
           )}
         </Select>
