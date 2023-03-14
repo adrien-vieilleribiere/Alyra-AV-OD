@@ -87,7 +87,7 @@ function EthProvider({ children }) {
     };
 
     getUserInfo();
-  }, [state.accounts]);
+  }, [state.accounts, state.owner, state.voters]);
 
   /* Events management used to update the state */
   useEffect(() => {
