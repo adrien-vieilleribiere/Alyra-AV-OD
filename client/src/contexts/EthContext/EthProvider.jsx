@@ -93,6 +93,12 @@ function EthProvider({ children }) {
   useEffect(() => {
     (async function () {
       if (state.contract) {
+        let options = {
+          filter: {},
+          fromBlock: 0,
+          toBlock: 'latest'
+        };
+
         /* 1 NEW VOTER REGISTERED: VoterRegistered(address voterAddress) */
         const addVoter = (address) => {
           dispatch({
@@ -106,19 +112,16 @@ function EthProvider({ children }) {
         };
 
         // 1-A get all already registered voters
-        let options = {
-          filter: {},
-          fromBlock: 0,
-          toBlock: 'latest'
-        };
-        state.contract.getPastEvents('VoterRegistered', options)
-          .then(voters => {
-            // console.log('getPastEvents');
-            voters.map((voter) => {
-              addVoter(voter.returnValues.voterAddress);
+        if (state.voters.length === 0) {
+          state.contract.getPastEvents('VoterRegistered', options)
+            .then(voters => {
+              // console.log('getPastEvents');
+              voters.map((voter) => {
+                addVoter(voter.returnValues.voterAddress);
+              })
             })
-          })
-          .catch(err => console.log(err));
+            .catch(err => console.log(err));
+        }
 
         // 1-B detect new voter addition
         await state.contract.events.VoterRegistered({ fromBlock: "latest" })
@@ -164,7 +167,8 @@ function EthProvider({ children }) {
           });
         };
         // 3-A get all already registered proposals
-        state.contract.getPastEvents('ProposalRegistered', options)
+        if (state.proposals.length === 0) {
+          state.contract.getPastEvents('ProposalRegistered', options)
           .then(proposals => {
             proposals.map((proposal) => {
               // console.log(proposal);
@@ -175,6 +179,7 @@ function EthProvider({ children }) {
             })
           })
           .catch(err => console.log(err));
+        }
 
         // 3-B detect new proposal addition
         await state.contract.events.ProposalRegistered({ fromBlock: "latest" })
