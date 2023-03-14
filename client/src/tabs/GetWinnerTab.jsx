@@ -3,7 +3,7 @@ import { TabPanel } from '@mui/lab';
 
 function GetWinnerTab() {
   return (
-    <TabPanel value="getWinner">
+    <TabPanel value="getWinner" key="getWinner">
       <GetWinner />
     </TabPanel>
   );

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+// import React, { useEffect, useState } from "react";
 //import useEth from "../contexts/EthContext/useEth";
 import {
   Button,
@@ -7,7 +7,6 @@ import {
   Select,
   MenuItem
 } from '@mui/material';
-import AddIcon from '@mui/icons-material/Add';
 
 function Vote() {
   return (

@@ -45,6 +45,19 @@ code {
   color: white;
 }
 
+.blockies{
+  border-radius: 50%;
+}
+
+.header-title{
+  margin-bottom: -0.3rem;
+}
+
+.header-subtitle{
+  font-size: 0.9rem;
+  font-style: italic;
+}
+
 .App-footer {
   text-align: center;
   color: var(--dark-gray);
