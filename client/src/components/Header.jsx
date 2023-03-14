@@ -15,15 +15,16 @@ import useEth from "../contexts/EthContext/useEth";
 
 
 function Header() {
-  let { state: { accounts, user, voters } } = useEth();
+  let { state: { accounts, user, voters, proposals } } = useEth();
   /* TEMP DEBUG BUTTON 
     - used to check state variable on click
     - TODO: Remove
   */
   const debug = () => {
-    console.log(accounts);
-    console.log(user);
+    // console.log(accounts);
+    // console.log(user);
     console.log(voters);
+    console.log(proposals);
   }
   /* END TEMP DEBUG BUTTON */
   return (

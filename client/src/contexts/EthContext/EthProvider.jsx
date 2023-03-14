@@ -142,8 +142,49 @@ function EthProvider({ children }) {
           })
           .on('error', err => console.log(err))
 
-        /* New proposal registered: ProposalRegistered(uint proposalId) */
-        // TODO
+        /* 3 New proposal registered: ProposalRegistered(uint proposalId) */
+        const addProposal = async (id, transactionHash) => {
+          // TODO: check desc doesn't exist: already done by SC
+          // => should be done before the form submission
+
+          // console.log(`Prop id: ${id}`);
+          // console.log(`hash: ${transactionHash}`);
+          const prop = await state.contract.methods.getOneProposal(id).call({ from: state.accounts[0] });
+          const transac = await state.web3.eth.getTransaction(transactionHash)
+          // console.log(transac);
+
+          dispatch({
+            type: actions.addProposal,
+            data: {
+              id: id,
+              description: prop.description,
+              submitter: transac.from,
+              voteCount: 0,
+            }
+          });
+        };
+        // 3-A get all already registered proposals
+        state.contract.getPastEvents('ProposalRegistered', options)
+          .then(proposals => {
+            proposals.map((proposal) => {
+              // console.log(proposal);
+              addProposal(
+                proposal.returnValues.proposalId,
+                proposal.transactionHash              ,
+              );
+            })
+          })
+          .catch(err => console.log(err));
+
+        // 3-B detect new proposal addition
+        await state.contract.events.ProposalRegistered({ fromBlock: "latest" })
+          .on('data', event => {
+            addProposal(
+              event.returnValues.proposalId,
+              event.transactionHash              ,
+            );
+          })
+          .on('error', err => console.log(err))
 
         /* Voter submit a vote: Voted (address voter, uint proposalId) */
         // TODO
@@ -151,6 +192,7 @@ function EthProvider({ children }) {
         return () => {
           state.contract.events.removeEventListener('VoterRegistered');
           state.contract.events.removeEventListener('WorkflowStatusChange');
+          state.contract.events.removeEventListener('ProposalRegistered');
         }
       }
     })();
