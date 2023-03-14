@@ -16,6 +16,7 @@ function AddVoter() {
   async function handleVoterAddressChange(evt) {
     console.log("in handleVoterAdressChange", evt.target.value);
     if (evt.target.value) {
+      //TODO change it with version in Web3, remove ethereum_address dependency
       if (ethereum_address.isAddress(evt.target.value)) {
         try {
           var tryAddVoter = await contract.methods.addVoter(evt.target.value).call({ from: accounts[0] });
