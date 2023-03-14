@@ -52,7 +52,7 @@ function AddVoter() {
     [
       <TextField fullWidth id={voterAddress} label="Voter address" variant="outlined" onChange={handleVoterAddressChange} error={!addressIsValid} />
       ,
-      <Button variant="contained" size='large' title='Add' onClick={registerVoter}>
+      <Button variant="contained" size='large' title='Add' onClick={registerVoter} disabled={!addressIsValid}>
         <AddIcon></AddIcon>
       </Button>
     ]

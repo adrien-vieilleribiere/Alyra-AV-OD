@@ -37,7 +37,7 @@ function ActionTabs() {
 
   const addVoterTabHeader = isOwner && step === 0 && <Tab icon={<HowToRegIcon />} label="add Voter" value="addVoter" />;
   const addVoterTab = (isOwner && step === 0) ? <AddVoterTab /> : <></>;
-  const addPropositionTabHeader = isVoter && step === 1 && <Tab icon={<PostAddIcon />} label="add Proposition" value="addProp" />;
+  const addPropositionTabHeader = isVoter && step === 1 && <Tab icon={<PostAddIcon />} label="add Proposal" value="addProp" />;
   const addPropositionTab = (isVoter && step === 1) ? <AddPropositionTab /> : <></>;
   const voteTabHeader = isVoter && step === 3 && <Tab icon={<HowToVoteIcon />} label="Vote" value="vote" />;
   const voteTab = (isVoter && step === 3) ? <VoteTab /> : <></>;
