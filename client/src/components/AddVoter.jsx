@@ -7,21 +7,17 @@ import {
 import AddIcon from '@mui/icons-material/Add';
 
 function AddVoter() {
-  const { state: { contract, accounts } } = useEth();
+  const { state: { contract, accounts, web3 } } = useEth();
   const [voterAddress, setVoterAddress] = useState("");
   const [addressIsValid, setAddressIsValid] = useState(false);
   const [error, setError] = useState("")
-  var ethereum_address = require('ethereum-address');
 
   async function handleVoterAddressChange(evt) {
-    console.log("in handleVoterAdressChange", evt.target.value);
     if (evt.target.value) {
-      if (ethereum_address.isAddress(evt.target.value)) {
+      if (web3.utils.isAddress(evt.target.value)) {
         try {
           var tryAddVoter = await contract.methods.addVoter(evt.target.value).call({ from: accounts[0] });
           setAddressIsValid(true);
-
-          console.log("tryAddVoter", tryAddVoter);
         } catch (error) {
           setAddressIsValid(false);
           console.log(error);
