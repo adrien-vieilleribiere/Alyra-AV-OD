@@ -12,6 +12,10 @@ const initialState = {
   accounts: null,
   networkID: null,
   contract: null,
+  txhash: null,
+  deployTx: null,
+  deployBlock: null,
+  latestBlock: null,
 
   // Vote process step
   step: 0,
@@ -40,12 +44,20 @@ const initialState = {
 
   // All proposals
   proposals: [
-    // id?, desc, voteCount
+    // structure: id?, desc, voteCount
     // {
     //   id: 0,
     //   submitter: 0x
     //   description: "bla bla",
     //   voteCount: 0,
+    // }
+  ],
+
+  // All votes
+  votes: [
+    // {
+    //    voter: 0x
+    //    proposalId: 1,
     // }
   ]
 
@@ -64,11 +76,15 @@ const reducer = (state, action) => {
       return { ...state, user: { ...state.user, ...data } };
 
     case actions.addVoter:
-      return { ...state, voters: [ ...state.voters , data ] };
-    
+      return { ...state, voters: [...state.voters, data] };
+
     case actions.addProposal:
-      return { ...state, proposals: [ ...state.proposals , data ] };
-  
+      return { ...state, proposals: [...state.proposals, data] };
+
+    case actions.addVote:
+      return { ...state, votes: [...state.votes, data] };
+
+
     default:
       throw new Error("Undefined reducer action type");
   }

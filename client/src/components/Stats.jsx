@@ -13,7 +13,7 @@ import HowToVoteIcon from '@mui/icons-material/HowToVote';
 
 
 function Stats() {
-  const { state: { voters, proposals } } = useEth();
+  const { state: { voters, proposals, votes } } = useEth();
   return (
     <Box
       mt={2}
@@ -32,7 +32,7 @@ function Stats() {
           <Chip icon={<PostAddIcon />} label="Proposals" title="Proposals" />
         </Badge>
         {/* TODO plug the real context variable */}
-        <Badge sx={{ my: 2 }} badgeContent={"?"} color="primary">
+        <Badge sx={{ my: 2 }} badgeContent={Object.keys(votes).length || 0} color="primary">
           <Chip icon={<HowToVoteIcon />} label="Votes" title="Votes" />
         </Badge>
       </Stack>

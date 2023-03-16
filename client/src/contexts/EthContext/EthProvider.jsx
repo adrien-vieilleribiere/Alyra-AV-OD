@@ -15,19 +15,25 @@ function EthProvider({ children }) {
         console.log(`[init] account: ${accounts[0]}`);
         const networkID = await web3.eth.net.getId();
         const { abi } = artifact;
-        let address, contract, currentStep, contractOwner;
+        let address, contract, currentStep, contractOwner, txhash, deployTx, deployBlock, latestBlock;
+        latestBlock = await web3.eth.getBlockNumber();
         try {
           address = artifact.networks[networkID].address;
           console.log(`[init] contract address: ${address}`);
           contract = new web3.eth.Contract(abi, address);
           currentStep = parseInt(await contract.methods.workflowStatus().call({ from: accounts[0] }));
           contractOwner = await contract.methods.owner().call({ from: accounts[0] });
+          txhash = artifact.networks[networkID].transactionHash;
+          deployTx = await web3.eth.getTransaction(txhash);
+          deployBlock = deployTx.blockNumber;
+
+
         } catch (err) {
           console.error(err);
         }
         dispatch({
           type: actions.init,
-          data: { artifact, web3, accounts, networkID, contract, step: currentStep, owner: contractOwner }
+          data: { artifact, web3, accounts, networkID, contract, txhash, deployTx, deployBlock, latestBlock, step: currentStep, owner: contractOwner }
         });
       }
     }, []);
@@ -96,7 +102,7 @@ function EthProvider({ children }) {
       if (state.contract) {
         let options = {
           filter: {},
-          fromBlock: 0,
+          fromBlock: state.deployBlock,
           toBlock: 'latest'
         };
 
@@ -127,35 +133,35 @@ function EthProvider({ children }) {
         // 1-B detect new voter addition
         await state.contract.events.VoterRegistered({ fromBlock: "latest" })
           .on('data', event => {
-            const voterAddress = event.returnValues.voterAddress;
-            // console.log(`event2: ${voterAddress}`);
-            // console.log(event);
-            addVoter(voterAddress);
+            if (event.blockNumber > state.latestBlock) {
+              const voterAddress = event.returnValues.voterAddress;
+              addVoter(voterAddress);
+              state.latestBlock = event.blockNumber
+            }
           })
           .on('error', err => console.log(err))
+
 
         /* 2 STEP CHANGE: WorkflowStatusChange(WorkflowStatus previousStatus, WorkflowStatus newStatus) */
         await state.contract.events.WorkflowStatusChange({ fromBlock: "latest" })
           .on('data', event => {
-            const newStep = parseInt(event.returnValues.newStatus);
-            // console.log(event.returnValues.newStatus)
-            dispatch({
-              type: actions.updateStep,
-              data: newStep
-            });
+            if (event.blockNumber > state.latestBlock) {
+              const newStep = parseInt(event.returnValues.newStatus);
+              state.latestBlock = event.blockNumber;
+              dispatch({
+                type: actions.updateStep,
+                data: newStep
+              });
+            }
           })
           .on('error', err => console.log(err))
 
         /* 3 New proposal registered: ProposalRegistered(uint proposalId) */
         const addProposal = async (id, transactionHash) => {
-          // TODO: check desc doesn't exist: already done by SC
+          // TODO: check desc doesn't exist
           // => should be done before the form submission
-
-          // console.log(`Prop id: ${id}`);
-          // console.log(`hash: ${transactionHash}`);
           const prop = await state.contract.methods.getOneProposal(id).call({ from: state.accounts[0] });
-          const transac = await state.web3.eth.getTransaction(transactionHash)
-          // console.log(transac);
+          const transac = await state.web3.eth.getTransaction(transactionHash);
 
           dispatch({
             type: actions.addProposal,
@@ -170,30 +176,60 @@ function EthProvider({ children }) {
         // 3-A get all already registered proposals
         if (state.proposals.length === 0) {
           state.contract.getPastEvents('ProposalRegistered', options)
-          .then(proposals => {
-            proposals.map((proposal) => {
-              // console.log(proposal);
-              addProposal(
-                proposal.returnValues.proposalId,
-                proposal.transactionHash              ,
-              );
+            .then(proposals => {
+              proposals.map((proposal) => {
+                // console.log(proposal);
+                addProposal(
+                  proposal.returnValues.proposalId,
+                  proposal.transactionHash,
+                );
+              })
             })
-          })
-          .catch(err => console.log(err));
+            .catch(err => console.log(err));
         }
 
         // 3-B detect new proposal addition
         await state.contract.events.ProposalRegistered({ fromBlock: "latest" })
           .on('data', event => {
-            addProposal(
-              event.returnValues.proposalId,
-              event.transactionHash,
-            );
+            if (event.blockNumber > state.latestBlock) {
+              addProposal(
+                event.returnValues.proposalId,
+                event.transactionHash,
+              );
+              state.latestBlock = event.blockNumber;
+            }
+          })
+          .on('error', err => console.log(err));
+
+        const addVote = async (addr, propId) => {
+          dispatch({
+            type: actions.addVote,
+            data: {
+              voter: addr,
+              proposalId: propId,
+            }
+          });
+        };
+
+        // 4.A get all previous votes
+        if (state.votes.length === 0) {
+          state.contract.getPastEvents('Voted', options)
+            .then(votes => {
+              votes.map((vote) => {
+                addVote(vote.returnValues.voter, vote.returnValues.proposalId);
+              })
+            })
+            .catch(err => console.log(err));
+        }
+        /* 4.B Voter submit a vote: Voted (address voter, uint proposalId) */
+        await state.contract.events.Voted({ fromBlock: "latest" })
+          .on('data', event => {
+            if (event.blockNumber > state.latestBlock) {
+              addVote(event.returnValues.address, event.returnValues.proposalId);
+              state.latestBlock = event.blockNumber;
+            }
           })
           .on('error', err => console.log(err))
-
-        /* Voter submit a vote: Voted (address voter, uint proposalId) */
-        // TODO
 
         return () => {
           state.contract.events.removeEventListener('VoterRegistered');
