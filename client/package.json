@@ -1,6 +1,13 @@
 {
-  "name": "truffle-client",
+  "name": "voting-dapp",
   "version": "0.1.0",
+  "description": "Alyra Formation, Project 3 - React Dapp",
+  "author": "Adrien Vieilleribiere, Olivier David",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/adrien-vieilleribiere/Alyra-AV-OD/issues"
+  },
+  "homepage": "https://github.com/adrien-vieilleribiere/Alyra-AV-OD#readme",
   "private": true,
   "scripts": {
     "build": "webpack",
@@ -12,7 +19,6 @@
     "@mui/icons-material": "^5.11.11",
     "@mui/lab": "^5.0.0-alpha.122",
     "@mui/material": "^5.11.12",
-    "ethereum-address": "^0.0.4",
     "react": "^18.2.0",
     "react-blockies": "^1.4.1",
     "react-dom": "^18.2.0",
