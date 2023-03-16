@@ -1,7 +1,13 @@
 {
-  "name": "truffle-project",
+  "name": "voting-chain",
   "version": "0.1.0",
-  "description": "Truffle project with SimpleStorage contract",
+  "description": "Alyra Formation, Project 3 - Solidity Backend",
+  "author": "Adrien Vieilleribiere, Olivier David",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/adrien-vieilleribiere/Alyra-AV-OD/issues"
+  },
+  "homepage": "https://github.com/adrien-vieilleribiere/Alyra-AV-OD#readme",
   "scripts": {
     "test": "truffle test",
     "doc": "npx hardhat docgen"
