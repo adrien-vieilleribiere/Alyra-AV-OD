@@ -37,6 +37,7 @@ function EthProvider({ children }) {
       try {
         const artifact = require("../../contracts/Voting.json");
         init(artifact);
+        console.log(window.ethereum);
       } catch (err) {
         console.error(err);
       }
@@ -169,16 +170,16 @@ function EthProvider({ children }) {
         // 3-A get all already registered proposals
         if (state.proposals.length === 0) {
           state.contract.getPastEvents('ProposalRegistered', options)
-          .then(proposals => {
-            proposals.map((proposal) => {
-              // console.log(proposal);
-              addProposal(
-                proposal.returnValues.proposalId,
-                proposal.transactionHash              ,
-              );
+            .then(proposals => {
+              proposals.map((proposal) => {
+                // console.log(proposal);
+                addProposal(
+                  proposal.returnValues.proposalId,
+                  proposal.transactionHash,
+                );
+              })
             })
-          })
-          .catch(err => console.log(err));
+            .catch(err => console.log(err));
         }
 
         // 3-B detect new proposal addition
@@ -186,7 +187,7 @@ function EthProvider({ children }) {
           .on('data', event => {
             addProposal(
               event.returnValues.proposalId,
-              event.transactionHash              ,
+              event.transactionHash,
             );
           })
           .on('error', err => console.log(err))
