@@ -37,6 +37,7 @@ function EthProvider({ children }) {
       try {
         const artifact = require("../../contracts/Voting.json");
         init(artifact);
+        console.log(window.ethereum);
       } catch (err) {
         console.error(err);
       }
@@ -186,7 +187,7 @@ function EthProvider({ children }) {
           .on('data', event => {
             addProposal(
               event.returnValues.proposalId,
-              event.transactionHash              ,
+              event.transactionHash,
             );
           })
           .on('error', err => console.log(err))
