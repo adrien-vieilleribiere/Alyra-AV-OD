@@ -232,7 +232,7 @@ function EthProvider({ children }) {
               state.latestBlock = event.blockNumber;
             }
           })
-          .on('error', err => console.log(err))
+          .on('error', err => console.log(err));
 
         return () => {
           state.contract.events.removeEventListener('VoterRegistered');
