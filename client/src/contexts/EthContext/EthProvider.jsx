@@ -235,6 +235,8 @@ function EthProvider({ children }) {
           state.contract.events.removeEventListener('VoterRegistered');
           state.contract.events.removeEventListener('WorkflowStatusChange');
           state.contract.events.removeEventListener('ProposalRegistered');
+          state.contract.events.removeEventListener('Voted');
+
         }
       }
     })();
