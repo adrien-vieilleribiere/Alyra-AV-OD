@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import useEth from "./../contexts/EthContext/useEth";
 
 import {
+  Alert,
   Tab,
   Box,
 } from '@mui/material';
@@ -22,7 +23,7 @@ import GetVoteTab from "../tabs/GetVoteTab";
 import GetWinnerTab from "../tabs/GetWinnerTab";
 
 function ActionTabs() {
-  const { state: { step, user: { /*isConnected,*/ isOwner, isVoter } } } = useEth();
+  const { state: { step, user: { isConnected, isOwner, isVoter } } } = useEth();
 
   const [currentTab, SetCurrentTab] = useState("info");
 
@@ -56,6 +57,17 @@ function ActionTabs() {
     - use !isConnected to manage what to display when no wallet connected
     - use !isOwner && !isVoter to display a specific message for unknown wallet
   */
+  if (!window.ethereum) {
+    return (
+      <Alert severity="warning">The MetaMask extension was not detected in your browser!</Alert>
+    )
+  }
+
+  if (!isConnected) {
+    return (
+      <Alert severity="info">You should connect yourself with MetaMask!</Alert>
+    )
+  }
 
   const addVoterTabHeader = <Tab sx={{ my: 2 }} icon={<HowToRegIcon />} label="add Voter" value="addVoter" disabled={!(isOwner && step === 0)} />;
   const addVoterTab = <AddVoterTab disabled={!(isOwner && step === 0)} />;
