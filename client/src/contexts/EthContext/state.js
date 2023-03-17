@@ -67,8 +67,8 @@ const initialState = {
   // All votes
   votes: [
     // {
-    //    voter: 0x
-    //    proposalId: 1,
+    //   voter: 0x
+    //   proposalId: 1,
     // }
   ]
 
