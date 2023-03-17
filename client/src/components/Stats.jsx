@@ -25,14 +25,14 @@ function Stats() {
         justifyContent='space-around'
         alignItems='center'
       >
-        <Badge sx={{ my: 2 }} badgeContent={Object.keys(voters).length || 0} color="primary">
+        <Badge sx={{ my: 2 }} badgeContent={Object.keys(voters).length || 0} color="primary" showZero>
           <Chip icon={<HowToRegIcon />} label="Voters" title="Voters" />
         </Badge>
-        <Badge sx={{ my: 2 }} badgeContent={Object.keys(proposals).length || 0} color="primary">
+        <Badge sx={{ my: 2 }} badgeContent={Object.keys(proposals).length || 0} color="primary" showZero>
           <Chip icon={<PostAddIcon />} label="Proposals" title="Proposals" />
         </Badge>
         {/* TODO plug the real context variable */}
-        <Badge sx={{ my: 2 }} badgeContent={Object.keys(votes).length || 0} color="primary">
+        <Badge sx={{ my: 2 }} badgeContent={Object.keys(votes).length || 0} color="primary" showZero>
           <Chip icon={<HowToVoteIcon />} label="Votes" title="Votes" />
         </Badge>
       </Stack>

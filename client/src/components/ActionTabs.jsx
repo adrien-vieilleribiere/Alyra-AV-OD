@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import useEth from "./../contexts/EthContext/useEth";
 
 import {
@@ -30,23 +30,43 @@ function ActionTabs() {
     SetCurrentTab(val);
   }
 
+  useEffect(() => {
+    if (currentTab == "addVoter" && step > 0) {
+      if (isVoter && step == 1) {
+        SetCurrentTab("addProposal");
+      }
+      else {
+        SetCurrentTab("info");
+      }
+    }
+    if (currentTab == "addProposal" && step > 1) {
+      SetCurrentTab("info");
+    }
+    if (currentTab == "vote" && step > 3) {
+      if (step > 4) {
+        SetCurrentTab("getWinner");
+      }
+      else {
+        SetCurrentTab("getVote");
+      }
+    }
+  });
+
   /* TODO : 
     - use !isConnected to manage what to display when no wallet connected
     - use !isOwner && !isVoter to display a specific message for unknown wallet
   */
 
-  const addVoterTabHeader = isOwner && step === 0 && <Tab icon={<HowToRegIcon />} label="add Voter" value="addVoter" />;
-  const addVoterTab = (isOwner && step === 0) ? <AddVoterTab /> : <></>;
-  const addPropositionTabHeader = isVoter && step === 1 && <Tab icon={<PostAddIcon />} label="add Proposal" value="addProp" />;
-  const addPropositionTab = (isVoter && step === 1) ? <AddPropositionTab /> : <></>;
-  const voteTabHeader = isVoter && step === 3 && <Tab icon={<HowToVoteIcon />} label="Vote" value="vote" />;
-  const voteTab = (isVoter && step === 3) ? <VoteTab /> : <></>;
-  const getVoteTabHeader = isVoter && step >= 3 && <Tab icon={<VisibilityIcon />} label="See Votes" value="getVote" />;
-  const getVoteTab = (isVoter && step >= 3) ? <GetVoteTab /> : <></>;
-  const getWinnerTabHeader = isVoter && step >= 5 && <Tab icon={<EmojiEventsIcon />} label="Winning Proposal" value="getWinner" />;
-  const getWinnerTab = (isVoter && step >= 5) ? <GetWinnerTab /> : <></>;
-
-  console.log("tabs params", step, isOwner, isVoter);
+  const addVoterTabHeader = <Tab sx={{ my: 2 }} icon={<HowToRegIcon />} label="add Voter" value="addVoter" disabled={!(isOwner && step === 0)} />;
+  const addVoterTab = <AddVoterTab disabled={!(isOwner && step === 0)} />;
+  const addPropositionTabHeader = <Tab sx={{ my: 2 }} icon={<PostAddIcon />} label="add Proposal" value="addProp" disabled={!(isVoter && step === 1)} />;
+  const addPropositionTab = <AddPropositionTab disabled={!(isVoter && step === 1)} />;
+  const voteTabHeader = <Tab icon={<HowToVoteIcon />} label="Vote" value="vote" disabled={!(isVoter && step === 3)} />;
+  const voteTab = <VoteTab />;
+  const getVoteTabHeader = <Tab icon={<VisibilityIcon />} label="See Votes" value="getVote" disabled={!(isVoter && step >= 3)} />;
+  const getVoteTab = <GetVoteTab disabled={!(isVoter && step >= 3)} />;
+  const getWinnerTabHeader = <Tab icon={<EmojiEventsIcon />} label="Winning Proposal" value="getWinner" disabled={!(isVoter && step >= 5)} />;
+  const getWinnerTab = <GetWinnerTab disabled={!(isVoter && step >= 5)} />;
 
   return (
     <>
@@ -59,9 +79,9 @@ function ActionTabs() {
             {voteTabHeader}
             {getVoteTabHeader}
             {getWinnerTabHeader}
+
           </TabList>
         </Box>
-
         <InfoTab />
         {addVoterTab}
         {addPropositionTab}
