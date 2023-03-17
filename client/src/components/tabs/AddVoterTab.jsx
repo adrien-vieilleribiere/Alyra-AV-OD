@@ -1,4 +1,4 @@
-import AddVoter from "./../components/AddVoter";
+import AddVoter from "../AddVoter";
 import {
   Box,
 } from '@mui/material';

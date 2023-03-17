@@ -1,5 +1,5 @@
 
-import Vote from "../components/Vote";
+import Vote from "../Vote";
 import { TabPanel } from '@mui/lab';
 
 function VoteTab() {

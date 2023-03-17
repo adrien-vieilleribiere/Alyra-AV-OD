@@ -3,7 +3,7 @@ import {
 } from '@mui/material';
 import { TabPanel } from '@mui/lab';
 
-import AddProposition from "../components/AddProposition";
+import AddProposition from "../AddProposition";
 
 
 function AddPropositionTab() {
