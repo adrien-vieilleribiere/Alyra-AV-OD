@@ -1,4 +1,4 @@
-import GetVote from "../components/GetVote";
+import GetVote from "../GetVote";
 import { TabPanel } from '@mui/lab';
 
 function GetVoteTab() {

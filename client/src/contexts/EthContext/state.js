@@ -4,6 +4,7 @@ const actions = {
   updateUserInfo: "UPDATE_USER_INFO",
   addVoter: "ADD_VOTER",
   addProposal: "ADD_PROPOSAL",
+  addVote: "ADD_VOTE"
 };
 
 const initialState = {
@@ -15,7 +16,6 @@ const initialState = {
   txhash: null,
   deployTx: null,
   deployBlock: null,
-  latestBlock: null,
 
   // Vote process step
   step: 0,
@@ -56,8 +56,8 @@ const initialState = {
   // All votes
   votes: [
     // {
-    //    voter: 0x
-    //    proposalId: 1,
+    //   voter: 0x
+    //   proposalId: 1,
     // }
   ]
 
