@@ -47,4 +47,6 @@ function VoterRegisteredEvents() {
 
 }
 
+
+
 export default VoterRegisteredEvents;
