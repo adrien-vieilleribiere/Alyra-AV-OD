@@ -1,65 +1,57 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import useEth from "../../contexts/EthContext/useEth";
 
 function ProposalRegisteredEvents() {
   const { state: { web3, contract, accounts, proposals, deployBlock }, actions, dispatch } = useEth();
+  const [lastBlockPR, setLastBlockPR] = useState(deployBlock);
+
+
+  const addProposal = async (id, txHash) => {
+    const prop = await contract.methods.getOneProposal(id).call({ from: accounts[0] });
+    const transac = await web3.eth.getTransaction(txHash)
+
+    dispatch({
+      type: actions.addProposal,
+      data: {
+        id: id,
+        description: prop.description,
+        submitter: transac.from,
+        voteCount: 0,
+        txHash: txHash,
+      }
+    });
+  };
 
   /* NEW PROPOSAL REGISTERED: ProposalRegistered(uint proposalId) */
+  // Detect old and new proposal addition using gestPastEvents and txHash
+  // This is REALLY DIRTY don't do this at home !!!!!
   useEffect(() => {
     (async function () {
 
       if (contract) {
         let options = {
-          filter: {},
-          fromBlock: deployBlock,
+          fromBlock: lastBlockPR,
           toBlock: 'latest'
         };
 
-        const addProposal = async (id, transactionHash) => {
-          const prop = await contract.methods.getOneProposal(id).call({ from: accounts[0] });
-          const transac = await web3.eth.getTransaction(transactionHash)
-
-          dispatch({
-            type: actions.addProposal,
-            data: {
-              id: id,
-              description: prop.description,
-              submitter: transac.from,
-              voteCount: 0,
-            }
-          });
-        };
-
-        // Get all already registered proposals
-        if (proposals.length === 0) {
-          contract.getPastEvents('ProposalRegistered', options)
-            .then(proposals => {
-              proposals.map((proposal) => {
+        contract.getPastEvents('ProposalRegistered', options)
+          .then(events => {
+            events.map((event) => {
+              const find = proposals.filter((proposal) => proposal.txHash === event.transactionHash);
+              if (find.length === 0) {
                 addProposal(
-                  proposal.returnValues.proposalId,
-                  proposal.transactionHash,
+                  event.returnValues.proposalId,
+                  event.transactionHash
                 );
-              })
+                setLastBlockPR(event.blockNumber);
+              }
             })
-            .catch(err => console.log(err));
-        }
-
-        // Detect new proposal addition
-        await contract.events.ProposalRegistered({ fromBlock: "latest" })
-          .on('data', event => {
-            addProposal(
-              event.returnValues.proposalId,
-              event.transactionHash,
-            );
           })
-          .on('error', err => console.log(err))
+          .catch(err => console.log(err));
 
-        return () => {
-          contract.events.removeEventListener('ProposalRegistered');
-        }
       }
     })();
-  }, [])
+  })
 }
 
 export default ProposalRegisteredEvents;

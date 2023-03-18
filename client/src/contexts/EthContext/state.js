@@ -39,6 +39,7 @@ const initialState = {
     //   address: "0x...",
     //   hasVoted: false,
     //   votedProposalId: 0,
+    //   txHash: "0x...",
     // }
   ],
 
@@ -50,6 +51,7 @@ const initialState = {
     //   submitter: 0x
     //   description: "bla bla",
     //   voteCount: 0,
+    //   txHash: "0x...",
     // }
   ],
 
@@ -58,6 +60,7 @@ const initialState = {
     // {
     //   voter: 0x
     //   proposalId: 1,
+    //   txHash: "0x...",
     // }
   ]
 
