@@ -1,22 +1,25 @@
-import AddVoter from "./../components/AddVoter";
 import {
   Box,
 } from '@mui/material';
 import { TabPanel } from '@mui/lab';
 
-function AddVoterTab() {
+import AddProposition from "../AddProposition";
+
+
+function AddPropositionTab() {
   return (
-    <TabPanel value="addVoter" key="addVoter">
-      <h3>Add a voter</h3>
+    <TabPanel value="addProp" key="addProp">
+      <h3>Add a proposal</h3>
+      <br />
       <Box sx={{
         display: 'flex',
         alignItems: 'center',
         '& > :not(style)': { m: 1 },
       }}>
-        <AddVoter></AddVoter>
+        <AddProposition />
       </Box>
     </TabPanel>
   );
 }
 
-export default AddVoterTab;
+export default AddPropositionTab;

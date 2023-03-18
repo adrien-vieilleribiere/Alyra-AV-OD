@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import useEth from "../contexts/EthContext/useEth";
 import {
   Button,
@@ -34,13 +34,14 @@ function Vote() {
   async function setVote(evt) {
     if (validProposal) {
       await contract.methods.setVote(selectedProposal).send({ from: accounts[0] });
+      setSelectedProposal(0);
       setValidProposal(false);
     }
   };
 
   return (
     <>
-      {hasVoted && 
+      {hasVoted &&
         <Alert severity="info">You have already voted!</Alert>
       }
       <FormControl fullWidth>
@@ -54,7 +55,7 @@ function Vote() {
           disabled={hasVoted}
         >
           <MenuItem value={0}>Choose a proposal in the list</MenuItem>
-          {proposals.map((proposal) => 
+          {proposals.map((proposal) =>
             <MenuItem value={proposal.id} key={proposal.id}>{proposal.description}</MenuItem>
           )}
         </Select>

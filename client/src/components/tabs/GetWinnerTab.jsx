@@ -1,4 +1,4 @@
-import GetWinner from "../components/GetWinner";
+import GetWinner from "../GetWinner";
 import { TabPanel } from '@mui/lab';
 
 function GetWinnerTab() {

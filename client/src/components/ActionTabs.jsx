@@ -15,12 +15,17 @@ import InfoIcon from '@mui/icons-material/Info';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
 
-import InfoTab from "../tabs/InfosTab";
-import AddVoterTab from "./../tabs/AddVoterTab";
-import AddPropositionTab from "../tabs/AddPropositionTab";
-import VoteTab from "../tabs/VoteTab";
-import GetVoteTab from "../tabs/GetVoteTab";
-import GetWinnerTab from "../tabs/GetWinnerTab";
+import VoterRegisteredEvents from "./Events/VoterRegisteredEvents";
+import WorkflowStatusChangeEvents from "./Events/WorkflowStatusChangeEvents";
+import ProposalRegisteredEvents from "./Events/ProposalRegisteredEvents";
+import VotedEvents from "./Events/VotedEvents";
+
+import InfoTab from "./tabs/InfosTab";
+import AddVoterTab from "./tabs/AddVoterTab";
+import AddPropositionTab from "./tabs/AddPropositionTab";
+import VoteTab from "./tabs/VoteTab";
+import GetVoteTab from "./tabs/GetVoteTab";
+import GetWinnerTab from "./tabs/GetWinnerTab";
 
 function ActionTabs() {
   const { state: { step, user: { isConnected, isOwner, isVoter } } } = useEth();
@@ -82,6 +87,16 @@ function ActionTabs() {
 
   return (
     <>
+      {/* Event listeners */}
+      {isConnected &&
+        <>
+          <VoterRegisteredEvents />
+          <WorkflowStatusChangeEvents />
+          <ProposalRegisteredEvents />
+          <VotedEvents />
+        </>
+      }
+
       <TabContext value={currentTab}>
         <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
           <TabList onChange={handleChange} aria-label="icon label tabs example">

@@ -34,6 +34,7 @@ function AddProposition() {
   async function registerProposal(evt) {
     if (descriptionIsValid) {
       await contract.methods.addProposal(proposalDescription).send({ from: accounts[0] });
+      setProposalDescription("");
       setDescriptionIsValid(false);
     }
   };

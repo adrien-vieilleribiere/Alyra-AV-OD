@@ -1,10 +1,10 @@
 
-import useEth from "../contexts/EthContext/useEth";
+import useEth from "../../contexts/EthContext/useEth";
 import { TabPanel } from '@mui/lab';
 import {
   Divider,
 } from '@mui/material';
-import Stats from "../components/Stats";
+import Stats from "../Stats";
 
 function Link({ uri, text }) {
   return <a
