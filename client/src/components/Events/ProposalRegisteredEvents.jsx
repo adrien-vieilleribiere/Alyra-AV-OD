@@ -53,7 +53,6 @@ function ProposalRegisteredEvents() {
       }
     })();
   })
-
 }
 
 export default ProposalRegisteredEvents;

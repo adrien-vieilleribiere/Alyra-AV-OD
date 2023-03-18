@@ -69,6 +69,7 @@ const initialState = {
     // {
     //   voter: 0x
     //   proposalId: 1,
+    //   txHash: "0x...",
     // }
   ]
 
