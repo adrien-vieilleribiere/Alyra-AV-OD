@@ -22,7 +22,7 @@ import VotedEvents from "./Events/VotedEvents";
 
 import InfoTab from "./tabs/InfosTab";
 import AddVoterTab from "./tabs/AddVoterTab";
-import AddPropositionTab from "./tabs/AddPropositionTab";
+import AddProposalTab from "./tabs/AddProposalTab";
 import VoteTab from "./tabs/VoteTab";
 import GetVoteTab from "./tabs/GetVoteTab";
 import GetWinnerTab from "./tabs/GetWinnerTab";
@@ -76,8 +76,8 @@ function ActionTabs() {
 
   const addVoterTabHeader = <Tab sx={{ my: 2 }} icon={<HowToRegIcon />} label="add Voter" value="addVoter" disabled={!(isOwner && step === 0)} />;
   const addVoterTab = <AddVoterTab disabled={!(isOwner && step === 0)} />;
-  const addPropositionTabHeader = <Tab sx={{ my: 2 }} icon={<PostAddIcon />} label="add Proposal" value="addProp" disabled={!(isVoter && step === 1)} />;
-  const addPropositionTab = <AddPropositionTab disabled={!(isVoter && step === 1)} />;
+  const addProposalTabHeader = <Tab sx={{ my: 2 }} icon={<PostAddIcon />} label="add Proposal" value="addProp" disabled={!(isVoter && step === 1)} />;
+  const addProposalTab = <AddProposalTab disabled={!(isVoter && step === 1)} />;
   const voteTabHeader = <Tab icon={<HowToVoteIcon />} label="Vote" value="vote" disabled={!(isVoter && step === 3)} />;
   const voteTab = <VoteTab />;
   const getVoteTabHeader = <Tab icon={<VisibilityIcon />} label="See Votes" value="getVote" disabled={!(isVoter && step >= 3)} />;
@@ -86,7 +86,10 @@ function ActionTabs() {
   const getWinnerTab = <GetWinnerTab disabled={!(isVoter && step >= 5)} />;
 
   return (
-    <>
+    <Box
+      mt={2}
+      sx={{ p: 2, border: '1px solid grey', borderRadius: '10px', background: 'var(--mid-gray)' }}
+    >
       {/* Event listeners */}
       {isConnected &&
         <>
@@ -102,7 +105,7 @@ function ActionTabs() {
           <TabList onChange={handleChange} aria-label="icon label tabs example">
             <Tab icon={<InfoIcon />} label="Info" value="info" />
             {addVoterTabHeader}
-            {addPropositionTabHeader}
+            {addProposalTabHeader}
             {voteTabHeader}
             {getVoteTabHeader}
             {getWinnerTabHeader}
@@ -111,12 +114,12 @@ function ActionTabs() {
         </Box>
         <InfoTab />
         {addVoterTab}
-        {addPropositionTab}
+        {addProposalTab}
         {voteTab}
         {getVoteTab}
         {getWinnerTab}
       </TabContext>
-    </>
+    </Box>
   );
 }
 

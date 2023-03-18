@@ -7,8 +7,6 @@ import {
 } from '@mui/material';
 
 import WalletWidget from './WalletWidget';
-import StepsTimeline from './StepsTimeline';
-import StepIncrementer from './StepIncrementer';
 
 import useEth from "../contexts/EthContext/useEth";
 
@@ -46,13 +44,6 @@ function Header() {
           </Toolbar>
         </AppBar>
       </Box>
-
-      <StepsTimeline />
-      <Box textAlign='center' sx={{ flexGrow: 1, mb: 2, marginTop: 1 }}>
-        {/* <StepIncrementer step={step} /> */}
-        <StepIncrementer />
-      </Box>
-
     </>
   );
 };

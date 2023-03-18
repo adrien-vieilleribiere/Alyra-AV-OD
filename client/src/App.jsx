@@ -4,10 +4,12 @@ import {
 
 import { EthProvider } from "./contexts/EthContext";
 
+import UserStatus from './components/UserStatus';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import ActionTabs from './components/ActionTabs';
-import UserStatus from './components/UserStatus';
+import Timeline from './components/Timeline';
+
 
 
 function App() {
@@ -20,13 +22,12 @@ function App() {
       <Container className="App">
         <Header />
 
-        <Container>
-          <ActionTabs />
-        </Container>
+        <Timeline />
+        <ActionTabs />
 
         <Footer />
-
       </Container >
+
     </EthProvider >
   );
 }

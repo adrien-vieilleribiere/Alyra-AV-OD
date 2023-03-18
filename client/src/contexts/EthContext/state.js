@@ -62,6 +62,15 @@ const initialState = {
     //   proposalId: 1,
     //   txHash: "0x...",
     // }
+  ],
+
+  // All votes
+  votes: [
+    // {
+    //   voter: 0x
+    //   proposalId: 1,
+    //   txHash: "0x...",
+    // }
   ]
 
 };
