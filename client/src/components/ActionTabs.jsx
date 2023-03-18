@@ -76,8 +76,8 @@ function ActionTabs() {
 
   const addVoterTabHeader = <Tab sx={{ my: 2 }} icon={<HowToRegIcon />} label="add Voter" value="addVoter" disabled={!(isOwner && step === 0)} />;
   const addVoterTab = <AddVoterTab disabled={!(isOwner && step === 0)} />;
-  const addPropositionTabHeader = <Tab sx={{ my: 2 }} icon={<PostAddIcon />} label="add Proposal" value="addProp" disabled={!(isVoter && step === 1)} />;
-  const addPropositionTab = <AddPropositionTab disabled={!(isVoter && step === 1)} />;
+  const addProposalTabHeader = <Tab sx={{ my: 2 }} icon={<PostAddIcon />} label="add Proposal" value="addProp" disabled={!(isVoter && step === 1)} />;
+  const addProposalTab = <AddProposalTab disabled={!(isVoter && step === 1)} />;
   const voteTabHeader = <Tab icon={<HowToVoteIcon />} label="Vote" value="vote" disabled={!(isVoter && step === 3)} />;
   const voteTab = <VoteTab />;
   const getVoteTabHeader = <Tab icon={<VisibilityIcon />} label="See Votes" value="getVote" disabled={!(isVoter && step >= 3)} />;
