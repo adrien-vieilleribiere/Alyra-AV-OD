@@ -38,7 +38,7 @@ const initialState = {
     // {
     //   address: "0x...",
     //   hasVoted: false,
-    //   votedProposalId: 0,
+    //   votedProposalId: 0, [NOT USED]
     //   txHash: "0x...",
     // }
   ],
@@ -50,7 +50,7 @@ const initialState = {
     //   id: 0,
     //   submitter: 0x
     //   description: "bla bla",
-    //   voteCount: 0,
+    //   voteCount: 0, [NOT USED]
     //   txHash: "0x...",
     // }
   ],
@@ -79,13 +79,31 @@ const reducer = (state, action) => {
       return { ...state, user: { ...state.user, ...data } };
 
     case actions.addVoter:
-      return { ...state, voters: [...state.voters, data] };
+      // console.log(data, state.voters);
+      const foundVoter = state.voters.filter(voter => voter.txHash === data.txHash);
+      // console.log("FOUND", foundVoter);
+      if (foundVoter.length === 0) {
+        return { ...state, voters: [...state.voters, data] };
+      }
+      return { ...state }
 
     case actions.addProposal:
-      return { ...state, proposals: [...state.proposals, data] };
+      // console.log(data, state.proposals);
+      const foundProp = state.proposals.filter(proposal => proposal.txHash === data.txHash);
+      // console.log("FOUND", foundProp);
+      if (foundProp.length === 0) {
+        return { ...state, proposals: [...state.proposals, data] };
+      }
+      return { ...state }
 
     case actions.addVote:
-      return { ...state, votes: [...state.votes, data] };
+      // console.log(data, state.votes);
+      const foundVote = state.votes.filter(vote => vote.txHash === data.txHash);
+      // console.log("FOUND", foundVote);
+      if (foundVote.length === 0) {
+        return { ...state, votes: [...state.votes, data] };
+      }
+      return { ...state }
 
 
     default:

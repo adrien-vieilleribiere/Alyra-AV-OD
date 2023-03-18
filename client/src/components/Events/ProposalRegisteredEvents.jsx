@@ -5,7 +5,6 @@ function ProposalRegisteredEvents() {
   const { state: { web3, contract, accounts, proposals, deployBlock }, actions, dispatch } = useEth();
   const [lastBlockPR, setLastBlockPR] = useState(deployBlock);
 
-
   const addProposal = async (id, txHash) => {
     const prop = await contract.methods.getOneProposal(id).call({ from: accounts[0] });
     const transac = await web3.eth.getTransaction(txHash)
@@ -37,7 +36,9 @@ function ProposalRegisteredEvents() {
         contract.getPastEvents('ProposalRegistered', options)
           .then(events => {
             events.map((event) => {
-              const find = proposals.filter((proposal) => proposal.txHash === event.transactionHash);
+              const find = proposals.filter(
+                (proposal) => proposal.txHash === event.transactionHash
+              );
               if (find.length === 0) {
                 addProposal(
                   event.returnValues.proposalId,
@@ -52,6 +53,7 @@ function ProposalRegisteredEvents() {
       }
     })();
   })
+
 }
 
 export default ProposalRegisteredEvents;
