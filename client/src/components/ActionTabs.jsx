@@ -36,19 +36,20 @@ function ActionTabs() {
     SetCurrentTab(val);
   }
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
-    if (currentTab == "addVoter" && step > 0) {
-      if (isVoter && step == 1) {
+    if (currentTab === "addVoter" && step > 0) {
+      if (isVoter && step === 1) {
         SetCurrentTab("addProposal");
       }
       else {
         SetCurrentTab("info");
       }
     }
-    if (currentTab == "addProposal" && step > 1) {
+    if (currentTab === "addProposal" && step > 1) {
       SetCurrentTab("info");
     }
-    if (currentTab == "vote" && step > 3) {
+    if (currentTab === "vote" && step > 3) {
       if (step > 4) {
         SetCurrentTab("getWinner");
       }
@@ -58,19 +59,17 @@ function ActionTabs() {
     }
   });
 
-  /* TODO : 
-    - use !isConnected to manage what to display when no wallet connected
-    - use !isOwner && !isVoter to display a specific message for unknown wallet
-  */
+  // No MetaMask extension detected
   if (!window.ethereum) {
     return (
       <Alert severity="warning">The MetaMask extension was not detected in your browser!</Alert>
     )
   }
 
+  // User is not connected
   if (!isConnected) {
     return (
-      <Alert severity="info">You should connect yourself with MetaMask!</Alert>
+      <Alert severity="info">You should connect with MetaMask!</Alert>
     )
   }
 

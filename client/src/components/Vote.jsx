@@ -15,20 +15,19 @@ function Vote() {
   const { state: { contract, accounts, proposals, user: { hasVoted } } } = useEth();
   const [selectedProposal, setSelectedProposal] = useState(0);
   const [validProposal, setValidProposal] = useState(false);
-  const [error, setError] = useState("")
+  // const [error, setError] = useState("")
 
   async function handleVoteChange(evt) {
-    console.log("in handleVoteChange", evt.target.value);
     if (evt.target.value) {
       try {
         const trySetVote = await contract.methods.setVote(selectedProposal).call({ from: accounts[0] });;
         setSelectedProposal(evt.target.value);
         setValidProposal(true);
-        console.log("trySetVote", trySetVote);
+        // console.log("trySetVote", trySetVote);
       } catch (error) {
         setValidProposal(false);
         console.log(error);
-        setError(error);
+        // setError(error);
       }
     }
   }

@@ -30,6 +30,7 @@ function VotedEvents() {
 
         contract.getPastEvents('Voted', options)
           .then(events => {
+            // eslint-disable-next-line array-callback-return
             events.map((event) => {
               const find = votes.filter((vote) => vote.txHash === event.transactionHash);
               if (find.length === 0) {
@@ -45,6 +46,7 @@ function VotedEvents() {
           .catch(err => console.log(err));
       }
     })();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   })
 }
 

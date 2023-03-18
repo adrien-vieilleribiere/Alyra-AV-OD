@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import useEth from "../contexts/EthContext/useEth";
 import {
   TextField,
@@ -16,7 +16,7 @@ function AddVoter() {
     if (evt.target.value) {
       if (web3.utils.isAddress(evt.target.value)) {
         try {
-          var tryAddVoter = await contract.methods.addVoter(evt.target.value).call({ from: accounts[0] });
+          await contract.methods.addVoter(evt.target.value).call({ from: accounts[0] });
           setAddressIsValid(true);
         } catch (error) {
           setAddressIsValid(false);
@@ -39,15 +39,21 @@ function AddVoter() {
     }
   };
 
-
-
   return (
     [
-      <TextField fullWidth id={voterAddress} label="Voter address" variant="outlined" onChange={handleVoterAddressChange} error={!addressIsValid} />
-      ,
-      <Button variant="contained" size='large' title='Add' onClick={registerVoter} disabled={!addressIsValid}>
-        <AddIcon></AddIcon>
-      </Button>
+      <>
+        <TextField
+          fullWidth
+          id={voterAddress}
+          label="Voter address"
+          variant="outlined"
+          onChange={handleVoterAddressChange}
+          error={!addressIsValid}
+        />
+        <Button variant="contained" size='large' title='Add' onClick={registerVoter} disabled={!addressIsValid}>
+          <AddIcon></AddIcon>
+        </Button>
+      </>
     ]
   );
 }

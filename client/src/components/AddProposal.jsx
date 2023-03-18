@@ -1,5 +1,5 @@
 
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import useEth from "../contexts/EthContext/useEth";
 import {
   TextField,
@@ -12,7 +12,7 @@ function AddProposal() {
   const { state: { contract, accounts } } = useEth();
   const [proposalDescription, setProposalDescription] = useState("");
   const [descriptionIsValid, setDescriptionIsValid] = useState(false);
-  const [error, setError] = useState("")
+  // const [error, setError] = useState("")
 
   async function handleDescriptionChange(evt) {
     if (evt.target.value) {
@@ -22,7 +22,7 @@ function AddProposal() {
       } catch (error) {
         setDescriptionIsValid(false);
         console.log(error);
-        setError(error);
+        // setError(error);
       }
     }
     else {

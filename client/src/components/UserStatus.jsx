@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import useEth from "./../contexts/EthContext/useEth";
 
 function UserStatus() {
@@ -36,6 +36,7 @@ function UserStatus() {
     };
 
     getUserInfo();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [accounts, owner, voters]);
 
 };

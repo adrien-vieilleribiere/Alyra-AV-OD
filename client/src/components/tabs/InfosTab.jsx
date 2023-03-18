@@ -1,4 +1,3 @@
-
 import { TabPanel } from '@mui/lab';
 import {
   Box,
@@ -17,7 +16,6 @@ import Stats from "../Stats";
 
 
 function InfosTab() {
-
   return (
     <TabPanel value="info" key="info">
 
