@@ -24,13 +24,10 @@ function StepsTimeline() {
       {/* Mobile display */}
       {mobile && (
         <Box
-          component="header"
           sx={{
-            p: 2, border: '1px solid grey', borderRadius: '10px',
             maxWidth: 600, flexGrow: 1, display: 'flex', flexDirection: 'column',
             alignItems: 'center'
           }}
-          className="App-header"
         >
           <Typography sx={{ color: 'black', textAlign: 'center' }}>
             {stepsLabel[step]}
@@ -53,21 +50,15 @@ function StepsTimeline() {
       )}
       {/* Desktop display */}
       {!mobile && (
-        <Box
-          component="header"
-          sx={{ p: 2, border: '1px solid grey', borderRadius: '10px' }}
-          className="App-header"
-        >
-          {/* Stepper */}
-          <Box sx={{ width: '100%' }}>
-            <Stepper activeStep={step} alternativeLabel>
-              {stepsLabel.map((label) => (
-                <Step key={label}>
-                  <StepLabel>{label}</StepLabel>
-                </Step>
-              ))}
-            </Stepper>
-          </Box>
+        /* Stepper */
+        <Box sx={{ width: '100%' }}>
+          <Stepper activeStep={step} alternativeLabel>
+            {stepsLabel.map((label) => (
+              <Step key={label}>
+                <StepLabel>{label}</StepLabel>
+              </Step>
+            ))}
+          </Stepper>
         </Box>
       )}
     </>

@@ -3,10 +3,10 @@ import {
 } from '@mui/material';
 import { TabPanel } from '@mui/lab';
 
-import AddProposition from "../AddProposition";
+import AddProposal from "../AddProposal";
 
 
-function AddPropositionTab() {
+function AddProposalTab() {
   return (
     <TabPanel value="addProp" key="addProp">
       <h3>Add a proposal</h3>
@@ -16,10 +16,10 @@ function AddPropositionTab() {
         alignItems: 'center',
         '& > :not(style)': { m: 1 },
       }}>
-        <AddProposition />
+        <AddProposal />
       </Box>
     </TabPanel>
   );
 }
 
-export default AddPropositionTab;
+export default AddProposalTab;

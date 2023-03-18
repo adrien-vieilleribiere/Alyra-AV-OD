@@ -7,7 +7,7 @@ import {
 } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 
-function AddProposition() {
+function AddProposal() {
 
   const { state: { contract, accounts } } = useEth();
   const [proposalDescription, setProposalDescription] = useState("");
@@ -49,4 +49,4 @@ function AddProposition() {
   );
 }
 
-export default AddProposition;
+export default AddProposal;

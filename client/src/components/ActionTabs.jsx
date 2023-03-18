@@ -22,7 +22,7 @@ import VotedEvents from "./Events/VotedEvents";
 
 import InfoTab from "./tabs/InfosTab";
 import AddVoterTab from "./tabs/AddVoterTab";
-import AddPropositionTab from "./tabs/AddPropositionTab";
+import AddProposalTab from "./tabs/AddProposalTab";
 import VoteTab from "./tabs/VoteTab";
 import GetVoteTab from "./tabs/GetVoteTab";
 import GetWinnerTab from "./tabs/GetWinnerTab";
@@ -86,7 +86,10 @@ function ActionTabs() {
   const getWinnerTab = <GetWinnerTab disabled={!(isVoter && step >= 5)} />;
 
   return (
-    <>
+    <Box
+      mt={2}
+      sx={{ p: 2, border: '1px solid grey', borderRadius: '10px', background: 'var(--mid-gray)' }}
+    >
       {/* Event listeners */}
       {isConnected &&
         <>
@@ -102,7 +105,7 @@ function ActionTabs() {
           <TabList onChange={handleChange} aria-label="icon label tabs example">
             <Tab icon={<InfoIcon />} label="Info" value="info" />
             {addVoterTabHeader}
-            {addPropositionTabHeader}
+            {addProposalTabHeader}
             {voteTabHeader}
             {getVoteTabHeader}
             {getWinnerTabHeader}
@@ -111,12 +114,12 @@ function ActionTabs() {
         </Box>
         <InfoTab />
         {addVoterTab}
-        {addPropositionTab}
+        {addProposalTab}
         {voteTab}
         {getVoteTab}
         {getWinnerTab}
       </TabContext>
-    </>
+    </Box>
   );
 }
 
