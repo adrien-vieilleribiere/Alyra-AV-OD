@@ -10,7 +10,7 @@ function AddVoter() {
   const { state: { contract, accounts, web3 } } = useEth();
   const [voterAddress, setVoterAddress] = useState("");
   const [addressIsValid, setAddressIsValid] = useState(false);
-  const [error, setError] = useState("")
+  //const [error, setError] = useState("")
 
   async function handleVoterAddressChange(evt) {
     if (evt.target.value) {
@@ -21,10 +21,8 @@ function AddVoter() {
         } catch (error) {
           setAddressIsValid(false);
           console.log(error);
-          setError(error);
+          //setError(error);
         }
-
-
       }
       else {
         setAddressIsValid(false);
@@ -39,7 +37,6 @@ function AddVoter() {
       await contract.methods.addVoter(voterAddress).send({ from: accounts[0] });
       setVoterAddress("");
     }
-
   };
 
 
