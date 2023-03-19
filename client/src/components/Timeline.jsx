@@ -8,8 +8,8 @@ import StepsTimeline from './StepsTimeline';
 import StepIncrementer from './StepIncrementer';
 
 function Timeline() {
-  const { state: { user: { isConnected } } } = useEth();
-
+  const { state: { user: { isConnected, isOwner } } } = useEth();
+  console.log(isOwner);
   return (
     <>
       {isConnected &&
@@ -17,10 +17,12 @@ function Timeline() {
           sx={{ p: 2, border: '1px solid grey', borderRadius: '10px', background: 'var(--mid-gray)' }}
         >
           <StepsTimeline />
-          <Box textAlign='center' sx={{ flexGrow: 1, marginTop: 1 }}>
+
+          {isOwner && <Box textAlign='center' sx={{ flexGrow: 1, marginTop: 1 }}>
             {/* <StepIncrementer step={step} /> */}
             <StepIncrementer />
           </Box>
+          }
         </Box>
       }
     </>

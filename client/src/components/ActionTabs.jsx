@@ -82,7 +82,7 @@ function ActionTabs() {
   const voteTab = <VoteTab />;
   const getVoteTabHeader = <Tab icon={<VisibilityIcon />} label="See Votes" value="getVote" disabled={!(isVoter && step >= 3)} />;
   const getVoteTab = <GetVoteTab disabled={!(isVoter && step >= 3)} />;
-  const getWinnerTabHeader = <Tab icon={<EmojiEventsIcon />} label="Winning Proposal" value="getWinner" disabled={!(isVoter && step >= 5)} />;
+  const getWinnerTabHeader = <Tab icon={<EmojiEventsIcon />} label="Results" value="getWinner" disabled={!(isVoter && step >= 5)} />;
   const getWinnerTab = <GetWinnerTab disabled={!(isVoter && step >= 5)} />;
 
   return (

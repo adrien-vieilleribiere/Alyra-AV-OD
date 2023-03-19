@@ -44,9 +44,11 @@ function StepIncrementer() {
   return (
     <>
       {/* Button for step changing */}
-      <Button variant="contained" onClick={increaseWstate}
-        disabled={nextBtnDisabled}> {stepsNextLabel[step]}
-        <ArrowForwardIcon sx={{ ml: 1 }} /></Button>
+      {step < 5 &&
+        <Button variant="contained" onClick={increaseWstate}
+          disabled={nextBtnDisabled}> {stepsNextLabel[step]}
+          <ArrowForwardIcon sx={{ ml: 1 }} /></Button>
+      }
     </>
   );
 }
