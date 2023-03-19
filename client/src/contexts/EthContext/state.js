@@ -4,7 +4,8 @@ const actions = {
   updateUserInfo: "UPDATE_USER_INFO",
   addVoter: "ADD_VOTER",
   addProposal: "ADD_PROPOSAL",
-  addVote: "ADD_VOTE"
+  addVote: "ADD_VOTE",
+  updateVoteCounts: "UPDATE_VOTE_COUNT"
 };
 
 const initialState = {
@@ -110,22 +111,28 @@ const reducer = (state, action) => {
           }
           return voter;
         });
-
-        console.log("PROPSSSSS", state.proposals);
-        const proposals = state.proposals.map((proposal) => {
-          console.log("in increase", proposals)
-          if (proposal.id === data.proposalId) {
-            // increment
-            proposal.voteCount = proposal.voteCount + 1;
-          }
-          return proposal;
-        });
+        // if (state.proposals) {
+        //   console.log("PROPSSSSS", state.proposals);
+        //   const proposals = state.proposals.map((proposal) => {
+        //     console.log("in increase", proposals)
+        //     if (proposal.id === data.proposalId) {
+        //       // increment
+        //       proposal.voteCount = proposal.voteCount + 1;
+        //     }
+        //     return proposal;
+        //   });
+        //   return {
+        //     ...state,
+        //     votes: [...state.votes, data],
+        //     voters: voters,
+        //     proposals: proposals,
+        //   };
+        // }
 
         return {
           ...state,
           votes: [...state.votes, data],
           voters: voters,
-          proposals: proposals,
         };
       }
       return { ...state }
@@ -143,12 +150,11 @@ const reducer = (state, action) => {
     //   });
     //   return { ...state, proposals: proposals };
 
-    // case actions.updateVoteCounts:
-    //   console.log("in incrementVoteCount", state.proposals, data);
-    //   const proposalsAll = state.proposals.map((prop) => {
-    //     return prop;
-    //   });
-    //   return { ...state, proposals: proposals };
+    case actions.updateVoteCounts:
+      return {
+        ...state,
+        proposals: data
+      };
 
 
     default:
