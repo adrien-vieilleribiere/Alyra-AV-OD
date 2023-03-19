@@ -9,7 +9,6 @@ import StepIncrementer from './StepIncrementer';
 
 function Timeline() {
   const { state: { user: { isConnected, isOwner } } } = useEth();
-  console.log(isOwner);
   return (
     <>
       {isConnected &&
