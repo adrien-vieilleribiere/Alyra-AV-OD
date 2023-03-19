@@ -30,7 +30,7 @@ function Header() {
   /* END TEMP DEBUG BUTTON */
   return (
     <>
-      <Box sx={{ flexGrow: 1, mb: 2 }}>
+      <Box sx={{ mt: 1, mb: 2 }}>
         <AppBar position="static">
           <Toolbar>
             <Typography variant="h5" component="h1" sx={{ flexGrow: 1 }}>

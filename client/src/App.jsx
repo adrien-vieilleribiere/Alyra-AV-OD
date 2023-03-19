@@ -19,7 +19,11 @@ function App() {
       {/* User status update */}
       <UserStatus />
 
-      <Container className="App">
+      <Container className="App" sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'space-between',
+      }}>
         <Header />
 
         <Timeline />

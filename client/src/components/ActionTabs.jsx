@@ -3,6 +3,7 @@ import useEth from "./../contexts/EthContext/useEth";
 
 import {
   Alert,
+  Typography,
   Tab,
   Box,
 } from '@mui/material';
@@ -88,7 +89,7 @@ function ActionTabs() {
   return (
     <Box
       mt={2}
-      sx={{ p: 2, border: '1px solid grey', borderRadius: '10px', background: 'var(--mid-gray)' }}
+      sx={{ p: 2, border: '1px solid grey', borderRadius: '10px', background: 'var(--mid-gray)', flexGrow: 1 }}
     >
       {/* Event listeners */}
       {isConnected &&
@@ -99,6 +100,10 @@ function ActionTabs() {
           <VotedEvents />
         </>
       }
+
+      <Typography variant="h5" component="h2" mb={-1}>
+        <b>Poll:</b> <em>Hey Cyril, what are we going to do this evening ?</em>
+      </Typography>
 
       <TabContext value={currentTab}>
         <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>

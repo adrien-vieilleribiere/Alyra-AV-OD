@@ -9,6 +9,7 @@ function Footer() {
     <Box
       component="footer"
       mt={2}
+      mb={1}
       sx={{ p: 2, border: '1px solid grey', borderRadius: '10px' }}
       className="App-footer"
     >
