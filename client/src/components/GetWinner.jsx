@@ -1,9 +1,14 @@
 import React, { useEffect, useState } from "react";
 import useEth from "../contexts/EthContext/useEth";
 import { Box } from '@mui/material';
+import { Fireworks } from '@fireworks-js/react'
+
+
 function GetWinner() {
+
   let { state: { contract, accounts, proposals } } = useEth();
   const [winner, setWinner] = useState(0);
+
   useEffect(() => {
     (async function () {
       console.log("PROPS STATR", proposals);
@@ -21,9 +26,24 @@ function GetWinner() {
   },);
 
   return (
-    <Box sx={{ minHeigth: "3rem" }}>
+    <Box sx={{ minHeigth: "3rem" }} className="firework">
       <p>And the winner proposal is: {winner} !!!</p>
-      <div class="firework"></div>
+      <Fireworks
+        options={{
+          rocketsPoint: {
+            min: 0,
+            max: 100
+          }
+        }}
+        style={{
+          top: "40%",
+          left: "50%",
+          //   width: '100%',
+          //   height: '100%',
+          position: 'fixed',
+          //   background: '#000'
+        }}
+      />
     </Box>
   );
 }
