@@ -1,41 +1,63 @@
 
-import useEth from "../../contexts/EthContext/useEth";
 import { TabPanel } from '@mui/lab';
 import {
-  Divider,
+  Box,
+  Typography,
+  List,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
+  Link
 } from '@mui/material';
+import GitHubIcon from '@mui/icons-material/GitHub';
+import WebIcon from '@mui/icons-material/Web';
+
 import Stats from "../Stats";
 
-function Link({ uri, text }) {
-  return <a
-    href={uri}
-    className="App-link"
-    target="_blank"
-    rel="noopener noreferrer">{text}
-  </a>;
-}
 
 function InfosTab() {
-  const { state: { voters, proposals } } = useEth();
+
   return (
     <TabPanel value="info" key="info">
-      <h3 className='h3'>Voting Dapp by Adrien Vieilleribiere &amp; Olivier David for Alyra</h3>
-      <Divider />
-      <ul>
-        <li><Link
-          uri={"https://github.com/adrien-vieilleribiere/Alyra-AV-OD"}
-          text={"Deployed demo"}
-        /></li>
-        <li><Link
-          uri={"https://github.com/adrien-vieilleribiere/Alyra-AV-OD"}
-          text={"Github Repository"}
-        /></li>
-      </ul>
-      <Divider />
 
       <Stats />
 
-    </TabPanel>
+      <Box
+        mt={2}
+        sx={{ p: 2, border: '1px solid grey', borderRadius: '10px' }}
+      >
+        <Typography variant="h6" component="h3">
+          Voting Dapp
+        </Typography>
+        <Typography variant="subtitle1">
+          by Adrien Vieilleribiere &amp; Olivier David for Alyra
+        </Typography>
+
+        <List>
+          <ListItem
+            component={Link}
+            href="https://alyra-av-od-adrien-vieilleribiere.vercel.app/"
+            children="Deployed demo"
+          >
+            <ListItemIcon>
+              <WebIcon />
+            </ListItemIcon>
+            <ListItemText primary="Deployed demo" />
+          </ListItem>
+          <ListItem
+            component={Link}
+            href="https://github.com/adrien-vieilleribiere/Alyra-AV-OD"
+            children="Github Repository"
+          >
+            <ListItemIcon>
+              <GitHubIcon />
+            </ListItemIcon>
+            <ListItemText primary="Github Repository" />
+          </ListItem>
+        </List>
+      </Box>
+
+    </TabPanel >
   );
 }
 
