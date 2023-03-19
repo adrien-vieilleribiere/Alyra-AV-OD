@@ -37,7 +37,7 @@ function GetWinner() {
         }}
         style={{
           top: "40%",
-          left: "50%",
+          left: "30%",
           //   width: '100%',
           //   height: '100%',
           position: 'fixed',
