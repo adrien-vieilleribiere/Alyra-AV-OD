@@ -34,6 +34,7 @@ function Vote() {
   async function setVote(evt) {
     if (validProposal) {
       await contract.methods.setVote(selectedProposal).send({ from: accounts[0] });
+
       setSelectedProposal(0);
       setValidProposal(false);
     }

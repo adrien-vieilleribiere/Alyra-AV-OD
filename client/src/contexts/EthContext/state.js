@@ -4,7 +4,9 @@ const actions = {
   updateUserInfo: "UPDATE_USER_INFO",
   addVoter: "ADD_VOTER",
   addProposal: "ADD_PROPOSAL",
-  addVote: "ADD_VOTE"
+  addVote: "ADD_VOTE",
+  setVoted: "setVoted",
+  incrementVoteCount: "incrementVoteCount"
 };
 
 const initialState = {
@@ -97,23 +99,41 @@ const reducer = (state, action) => {
       return { ...state }
 
     case actions.addProposal:
-      // console.log(data, state.proposals);
       const foundProp = state.proposals.filter(proposal => proposal.txHash === data.txHash);
-      // console.log("FOUND", foundProp);
       if (foundProp.length === 0) {
         return { ...state, proposals: [...state.proposals, data] };
       }
       return { ...state }
 
     case actions.addVote:
-      // console.log(data, state.votes);
       const foundVote = state.votes.filter(vote => vote.txHash === data.txHash);
-      // console.log("FOUND", foundVote);
       if (foundVote.length === 0) {
         return { ...state, votes: [...state.votes, data] };
       }
-      return { ...state }
+      return { ...state };
 
+    case actions.setVoted:
+      const voters = state.voters.map((voter) => {
+        if (voter.address == data.address) {
+          console.log("in setVoted", voter.address, data.address);
+          console.log("put IT TRUE");
+          voter.hasVoted = true;
+        }
+        return voter;
+      });
+      return { ...state, voters: voters };
+
+    case actions.incrementVoteCount:
+      console.log("in incrementVoteCount", state.proposals, data);
+      const proposals = state.proposals.map((prop) => {
+        console.log("in prop", prop.id);
+        if (prop.id == data.proposalId) {
+          console.log("in incrementVoteCount");
+          prop.voteCount++;
+        }
+        return prop;
+      });
+      return { ...state, proposals: proposals };
 
     default:
       throw new Error("Undefined reducer action type");

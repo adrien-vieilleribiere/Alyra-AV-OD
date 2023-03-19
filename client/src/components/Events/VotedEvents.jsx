@@ -4,14 +4,18 @@ import useEth from "../../contexts/EthContext/useEth";
 function VotedEvents() {
   const { state: { contract, votes, deployBlock }, actions, dispatch } = useEth();
   const [lastBlockV, setLastBlockV] = useState(deployBlock);
+  const [votedDispached, setVotedDispached] = useState(false);
+  const [voteCountDispached, setVoteCountDispached] = useState(false);
 
   const addVote = (addr, propId, txHash) => {
+
+  };
+
+  const setVoted = (addr, propId, txHash) => {
     dispatch({
-      type: actions.addVote,
+      type: actions.setVoted,
       data: {
-        voter: addr,
-        proposalId: propId,
-        txHash: txHash,
+        address: addr,
       }
     });
   };
@@ -33,19 +37,44 @@ function VotedEvents() {
             events.map((event) => {
               const find = votes.filter((vote) => vote.txHash === event.transactionHash);
               if (find.length === 0) {
-                addVote(
-                  event.returnValues.voter,
-                  event.returnValues.proposalId,
-                  event.transactionHash
-                );
-                setLastBlockV(event.blockNumber);
+                console.log("goAddVote")
+                dispatch({
+                  type: actions.addVote,
+                  data: {
+                    voter: event.returnValues.voter,
+                    proposalId: event.returnValues.proposalId,
+                    txHash: event.transactionHash,
+                  }
+                });
               }
+              if (!votedDispached) {
+                console.log("dispatch voted", event.returnValues.voter);
+                setVotedDispached(true);
+                dispatch({
+                  type: actions.setVoted,
+                  data: {
+                    adress: event.returnValues.voter,
+                    txHash: event.transactionHash,
+                  }
+                });
+              }
+              if (!voteCountDispached) {
+                setVoteCountDispached(true);
+                dispatch({
+                  type: actions.incrementVoteCount,
+                  data: {
+                    proposalId: event.returnValues.proposalId,
+                  }
+                });
+              }
+              setLastBlockV(event.blockNumber);
+
             })
           })
           .catch(err => console.log(err));
       }
     })();
-  })
+  },)
 }
 
 export default VotedEvents;

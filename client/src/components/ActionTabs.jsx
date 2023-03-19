@@ -25,7 +25,7 @@ import AddVoterTab from "./tabs/AddVoterTab";
 import AddProposalTab from "./tabs/AddProposalTab";
 import VoteTab from "./tabs/VoteTab";
 import GetVoteTab from "./tabs/GetVoteTab";
-import GetWinnerTab from "./tabs/GetWinnerTab";
+import GetResultTab from "./tabs/GetResultTab";
 
 function ActionTabs() {
   const { state: { step, user: { isConnected, isOwner, isVoter } } } = useEth();
@@ -37,6 +37,7 @@ function ActionTabs() {
   }
 
   useEffect(() => {
+    console.log("in useEffet Action tabs", currentTab, step, isVoter, isOwner)
     if (currentTab == "addVoter" && step > 0) {
       if (isVoter && step == 1) {
         SetCurrentTab("addProposal");
@@ -50,7 +51,7 @@ function ActionTabs() {
     }
     if (currentTab == "vote" && step > 3) {
       if (step > 4) {
-        SetCurrentTab("getWinner");
+        SetCurrentTab("getResult");
       }
       else {
         SetCurrentTab("getVote");
@@ -82,8 +83,8 @@ function ActionTabs() {
   const voteTab = <VoteTab />;
   const getVoteTabHeader = <Tab icon={<VisibilityIcon />} label="See Votes" value="getVote" disabled={!(isVoter && step >= 3)} />;
   const getVoteTab = <GetVoteTab disabled={!(isVoter && step >= 3)} />;
-  const getWinnerTabHeader = <Tab icon={<EmojiEventsIcon />} label="Winning Proposal" value="getWinner" disabled={!(isVoter && step >= 5)} />;
-  const getWinnerTab = <GetWinnerTab disabled={!(isVoter && step >= 5)} />;
+  const getResultTabHeader = <Tab icon={<EmojiEventsIcon />} label="Winning Proposal" value="getResult" disabled={!(isVoter && step >= 5)} />;
+  const getResultTab = <GetResultTab disabled={!(isVoter && step >= 5)} />;
 
   return (
     <Box
@@ -108,7 +109,7 @@ function ActionTabs() {
             {addProposalTabHeader}
             {voteTabHeader}
             {getVoteTabHeader}
-            {getWinnerTabHeader}
+            {getResultTabHeader}
 
           </TabList>
         </Box>
@@ -117,7 +118,7 @@ function ActionTabs() {
         {addProposalTab}
         {voteTab}
         {getVoteTab}
-        {getWinnerTab}
+        {getResultTab}
       </TabContext>
     </Box>
   );
