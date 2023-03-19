@@ -14,6 +14,14 @@ function VotedEvents() {
         txHash: txHash,
       }
     });
+    // dispatch({
+    //   type: actions.setVoted,
+    //   data: {
+    //     address: addr,
+    //     proposalId: propId,
+    //     txHash: txHash,
+    //   }
+    // });
   };
 
   /* NEW VOTE : Voted (address voter, uint proposalId) */

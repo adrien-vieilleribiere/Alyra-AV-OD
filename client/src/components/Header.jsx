@@ -23,6 +23,7 @@ function Header() {
     console.log('voters:', voters);
     console.log('proposals:', proposals);
     console.log('accounts:', accounts);
+    console.log('votes:', votes);
     console.log('ethereum:', window.ethereum);
     console.log('selectedAddress:', window.ethereum.selectedAddress);
   }

@@ -64,14 +64,6 @@ const initialState = {
     // }
   ],
 
-  // All votes
-  votes: [
-    // {
-    //   voter: 0x
-    //   proposalId: 1,
-    //   txHash: "0x...",
-    // }
-  ]
 
 };
 
@@ -110,9 +102,53 @@ const reducer = (state, action) => {
       const foundVote = state.votes.filter(vote => vote.txHash === data.txHash);
       // console.log("FOUND", foundVote);
       if (foundVote.length === 0) {
-        return { ...state, votes: [...state.votes, data] };
+
+        const voters = state.voters.map((voter) => {
+          if (voter.address === data.voter) {
+            voter.hasVoted = true;
+            voter.votedProposalId = data.proposalId;
+          }
+          return voter;
+        });
+
+        console.log("PROPSSSSS", state.proposals);
+        const proposals = state.proposals.map((proposal) => {
+          console.log("in increase", proposals)
+          if (proposal.id === data.proposalId) {
+            // increment
+            proposal.voteCount = proposal.voteCount + 1;
+          }
+          return proposal;
+        });
+
+        return {
+          ...state,
+          votes: [...state.votes, data],
+          voters: voters,
+          proposals: proposals,
+        };
       }
       return { ...state }
+
+
+    // case actions.incrementVoteCount:
+    //   console.log("in incrementVoteCount", state.proposals, data);
+    //   const proposals = state.proposals.map((prop) => {
+    //     console.log("in prop", prop.id);
+    //     if (prop.id == data.proposalId) {
+    //       console.log("in incrementVoteCount");
+    //       prop.voteCount++;
+    //     }
+    //     return prop;
+    //   });
+    //   return { ...state, proposals: proposals };
+
+    // case actions.updateVoteCounts:
+    //   console.log("in incrementVoteCount", state.proposals, data);
+    //   const proposalsAll = state.proposals.map((prop) => {
+    //     return prop;
+    //   });
+    //   return { ...state, proposals: proposals };
 
 
     default:
