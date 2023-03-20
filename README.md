@@ -29,14 +29,6 @@ truffle migrate
 truffle test
 ```
 
-To test the contract from a specific state:
-```sh
-mv truffle/docs/02_deployTest.js truffle/migrations/02_deployTest.js
-```
-Adapt `02_deployTest.js` to the initial situation you want and run
-```sh
-truffle migrate --f 2 --reset 
-```
 ### Frontend
 
 ```sh
@@ -48,4 +40,17 @@ npm start
 
 ## Remarques sur le rendu
 
+Chaque onglet nous permet de mettre en avant une des métodes du smart contract.
 
+Les initialisations se font via une récupération des évènements du smart contract et nous avons passé un temps énorme à essayer de mettre en place une gestion des évènements précise (à la fois passés et en directs). Malheursement, les cas des évènements en direct (l'équivalent du .on de l'exercice de cyril sur les évènements) nous a posé beaucoup de difficultés (réception multiple d'évèments, comportement cahotique quand plusieurs comptes métamask sont connectés simultanément). Après plusieurs jours d'acharnement, nous avons du nous résoudre, avec grande frustration, à ne gérer que les évènement passés. Un changement d'onglet ou un rafraichissement de page est alors nécessaire pour mettre à jour l'application suite à de nouveaux évènements qui auraient eu lieu sur le contract (en dehors de l'app).
+
+La documentation du smart contract générée par docgen est située dans [./truffle/docs/index.md](truffle/docs/index.md).
+
+Les commits sur les branches principales re-déclenchent l'ensemble des tests sur le smart contract et le déploiment sur versel est également automatique.
+
+Les points que nous aurions voulu avoir le temps de rajouter: 
+- la vue des propositions n'est accessible que dans l'onglet "Vote" ou l'onglet "Result", elle aurrait sûrement mérité son propre onglet pour être accessible plus tôt dans le flow du vote.
+- Nous arrions aimé documenter le react et automatiser la génération de la documention du front.
+- l'aspect responsive est encore perfectible sur quelques composants 
+- Pour tester l'app depuis un état particulier nous utilisions les lignes commentés de `truffle/migrations/01_deployVoting.js`, un système d'initialisation paramétrable aurrait été encore mieux.
+- La connection à metamask se fait de manière automatique car les changements de réseau nous ont confronté à de nombreux comportements étonnants de metamask. Il serait pertinent d'utiliser une solution plus aboutie et pour plus de portefeuilles (wagmi).
