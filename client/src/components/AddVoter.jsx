@@ -46,7 +46,7 @@ function AddVoter() {
   async function registerVoter(evt) {
     console.log("voterAddress", voterAddress);
     if (addressIsValid) {
-      await contract.methods.addVoter(voterAddress).send({ from: accounts[0] })
+      await contract.methods.addVoter(voterAddress).send({ from: accounts[0] });
       setVoterAddress("");
       setAlertVisible(true);
       setAlertContent({ severity: "success", msg: "Address added" })
