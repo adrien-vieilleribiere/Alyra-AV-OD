@@ -69,3 +69,6 @@ Les points que nous aurions voulu avoir le temps de rajouter:
 - La connection à `MetaMask` se fait de manière automatique car les changements de réseau nous ont confronté à de nombreux comportements étonnants de `MetaMask`. Il serait pertinent d'utiliser une solution plus aboutie et pour plus de portefeuilles (WAGMI).
 
 ### Un aperçu de notre suivi de projet sous Notion.so
+
+![Organisation](./truffle/docs/notion-organisation-AV-OD.png)
+
