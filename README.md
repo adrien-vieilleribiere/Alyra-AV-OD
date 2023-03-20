@@ -54,3 +54,8 @@ Les points que nous aurions voulu avoir le temps de rajouter:
 - l'aspect responsive est encore perfectible sur quelques composants 
 - Pour tester l'application depuis un état particulier nous utilisions les lignes commentés de `truffle/migrations/01_deployVoting.js`, un système d'initialisation paramétrable aurrait été encore mieux.
 - La connection à MetaMask se fait de manière automatique car les changements de réseau nous ont confronté à de nombreux comportements étonnants de MetaMask. Il serait pertinent d'utiliser une solution plus aboutie et pour plus de portefeuilles (WAGMI).
+
+## Organisation
+Nous avons gérer l'organisation avec notion, travaillés par branches sur github, et partagés de multiples appel discord / Live Share VScode.
+
+ ![in memory of AV_OD Notion](truffle/docs/notion-organisation-AV-OD.png)
