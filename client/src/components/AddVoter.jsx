@@ -13,6 +13,7 @@ function AddVoter() {
   //const [error, setError] = useState("")
 
   async function handleVoterAddressChange(evt) {
+    setVoterAddress(evt.target.value);
     if (evt.target.value) {
       if (web3.utils.isAddress(evt.target.value)) {
         try {
@@ -27,14 +28,13 @@ function AddVoter() {
       else {
         setAddressIsValid(false);
       }
-      setVoterAddress(evt.target.value);
     }
   }
 
   async function registerVoter(evt) {
     console.log("voterAddress", voterAddress);
     if (addressIsValid) {
-      await contract.methods.addVoter(voterAddress).send({ from: accounts[0] });
+      await contract.methods.addVoter(voterAddress).send({ from: accounts[0] })
       setVoterAddress("");
     }
   };
@@ -44,7 +44,7 @@ function AddVoter() {
       <>
         <TextField
           fullWidth
-          id={voterAddress}
+          value={voterAddress}
           label="Voter address"
           variant="outlined"
           onChange={handleVoterAddressChange}

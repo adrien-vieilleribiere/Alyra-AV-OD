@@ -15,6 +15,7 @@ function AddProposal() {
   // const [error, setError] = useState("")
 
   async function handleDescriptionChange(evt) {
+    setProposalDescription(evt.target.value);
     if (evt.target.value) {
       try {
         await contract.methods.addProposal(evt.target.value).call({ from: accounts[0] });
@@ -28,7 +29,6 @@ function AddProposal() {
     else {
       setDescriptionIsValid(false);
     }
-    setProposalDescription(evt.target.value);
   }
 
   async function registerProposal(evt) {
@@ -41,7 +41,7 @@ function AddProposal() {
 
   return (
     [
-      <TextField fullWidth id="addProposal" label="Proposal description" variant="outlined" onChange={handleDescriptionChange} error={!descriptionIsValid} />,
+      <TextField fullWidth id="addProposal" value={proposalDescription} label="Proposal description" variant="outlined" onChange={handleDescriptionChange} error={!descriptionIsValid} />,
       <Button variant="contained" size='large' title='Add' onClick={registerProposal} disabled={!descriptionIsValid}>
         <AddIcon></AddIcon>
       </Button>
