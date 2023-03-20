@@ -40,13 +40,13 @@ function ActionTabs() {
   useEffect(() => {
     if (currentTab === "addVoter" && step > 0) {
       if (isVoter && step === 1) {
-        SetCurrentTab("addProposal");
+        SetCurrentTab("addProp");
       }
       else {
         SetCurrentTab("info");
       }
     }
-    if (currentTab === "addProposal" && step > 1) {
+    if (currentTab === "addProp" && step > 1) {
       SetCurrentTab("info");
     }
     if (currentTab === "vote" && step > 3) {
