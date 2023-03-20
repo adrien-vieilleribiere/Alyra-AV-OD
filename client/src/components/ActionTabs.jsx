@@ -29,8 +29,7 @@ import GetVoteTab from "./tabs/GetVoteTab";
 import GetWinnerTab from "./tabs/GetWinnerTab";
 
 function ActionTabs() {
-  const { state: { /*step,*/ user: { isConnected, isOwner, isVoter } } } = useEth();
-  const step = 3;
+  const { state: { step, user: { isConnected, isOwner, isVoter } } } = useEth();
   const [currentTab, SetCurrentTab] = useState("info");
 
   const handleChange = (evt, val) => {
