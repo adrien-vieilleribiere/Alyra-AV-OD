@@ -22,7 +22,6 @@ function AddVoter() {
         setAlertVisible(false);
       }, 5000);
     }
-
   }, [alertVisible])
 
   async function handleVoterAddressChange(evt) {
