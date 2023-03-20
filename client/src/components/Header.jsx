@@ -12,7 +12,7 @@ import useEth from "../contexts/EthContext/useEth";
 
 
 function Header() {
-  let { state: { accounts, voters, proposals } } = useEth();
+  let { state: { accounts, voters, proposals, votes } } = useEth();
   /* TEMP DEBUG BUTTON 
     - used to check state variable on click
     - TODO: Remove
