@@ -11,13 +11,9 @@ function AddVoterTab() {
         <Typography variant="h6" component="h3">
           Add a voter to this poll
         </Typography>
-        <Box sx={{
-          display: 'flex',
-          alignItems: 'center',
-          '& > :not(style)': { m: 1 },
-        }}>
-          <AddVoter />
-        </Box>
+
+        <AddVoter />
+
       </Box>
     </TabPanel>
   );
