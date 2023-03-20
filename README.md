@@ -54,7 +54,7 @@ Nous avons utilisé la librairie `Material UI (MUI)` pour disposer de composants
 
 Chaque onglet met en avant une des méthodes du smart contract.
 
-Nous avons centralisé, une partie des variables d'état de l'application dans le state du contexte `EthContext`. Ces dernières sont mises à jour avec des événements qui sont dispatchés en utilisant le hook `useDispatch`. C'est le cas notamment des variables: `user`, `voters`, `proposals`, `votes`.
+Nous avons centralisé, une partie des variables d'état de l'application dans le state du contexte `EthContext`. Ces dernières sont mises à jour avec des actions qui sont dispatchées en utilisant le hook `useDispatch`. C'est le cas notamment des variables: `user`, `voters`, `proposals`, `votes`.
 
 La documentation du smart contract générée par docgen est située dans [./truffle/docs/index.md](truffle/docs/index.md).
 
