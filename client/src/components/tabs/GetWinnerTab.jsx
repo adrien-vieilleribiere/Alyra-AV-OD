@@ -8,5 +8,4 @@ function GetWinnerTab() {
     </TabPanel>
   );
 }
-
 export default GetWinnerTab;

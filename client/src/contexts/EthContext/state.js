@@ -4,7 +4,8 @@ const actions = {
   updateUserInfo: "UPDATE_USER_INFO",
   addVoter: "ADD_VOTER",
   addProposal: "ADD_PROPOSAL",
-  addVote: "ADD_VOTE"
+  addVote: "ADD_VOTE",
+  updateVoteCounts: "UPDATE_VOTE_COUNT"
 };
 
 const initialState = {
@@ -64,14 +65,6 @@ const initialState = {
     // }
   ],
 
-  // All votes
-  votes: [
-    // {
-    //   voter: 0x
-    //   proposalId: 1,
-    //   txHash: "0x...",
-    // }
-  ]
 
 };
 
@@ -88,31 +81,44 @@ const reducer = (state, action) => {
       return { ...state, user: { ...state.user, ...data } };
 
     case actions.addVoter:
-      // console.log(data, state.voters);
       const foundVoter = state.voters.filter(voter => voter.txHash === data.txHash);
-      // console.log("FOUND", foundVoter);
       if (foundVoter.length === 0) {
         return { ...state, voters: [...state.voters, data] };
       }
       return { ...state }
 
     case actions.addProposal:
-      // console.log(data, state.proposals);
       const foundProp = state.proposals.filter(proposal => proposal.txHash === data.txHash);
-      // console.log("FOUND", foundProp);
       if (foundProp.length === 0) {
         return { ...state, proposals: [...state.proposals, data] };
       }
       return { ...state }
 
     case actions.addVote:
-      // console.log(data, state.votes);
       const foundVote = state.votes.filter(vote => vote.txHash === data.txHash);
-      // console.log("FOUND", foundVote);
       if (foundVote.length === 0) {
-        return { ...state, votes: [...state.votes, data] };
+
+        const voters = state.voters.map((voter) => {
+          if (voter.address === data.voter) {
+            voter.hasVoted = true;
+            voter.votedProposalId = data.proposalId;
+          }
+          return voter;
+        });
+
+        return {
+          ...state,
+          votes: [...state.votes, data],
+          voters: voters,
+        };
       }
       return { ...state }
+
+    case actions.updateVoteCounts:
+      return {
+        ...state,
+        proposals: data
+      };
 
 
     default:

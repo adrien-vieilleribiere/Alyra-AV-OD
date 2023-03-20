@@ -23,13 +23,14 @@ function Header() {
     console.log('voters:', voters);
     console.log('proposals:', proposals);
     console.log('accounts:', accounts);
+    console.log('votes:', votes);
     console.log('ethereum:', window.ethereum);
     console.log('selectedAddress:', window.ethereum.selectedAddress);
   }
   /* END TEMP DEBUG BUTTON */
   return (
     <>
-      <Box sx={{ flexGrow: 1, mb: 2 }}>
+      <Box sx={{ mt: 1, mb: 2 }}>
         <AppBar position="static">
           <Toolbar>
             <Typography variant="h5" component="h1" sx={{ flexGrow: 1 }}>

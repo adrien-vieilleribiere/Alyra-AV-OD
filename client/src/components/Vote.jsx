@@ -6,7 +6,9 @@ import {
   InputLabel,
   Select,
   MenuItem,
-  Alert
+  Alert,
+  Typography,
+  Box
 } from '@mui/material';
 
 function Vote() {
@@ -41,27 +43,36 @@ function Vote() {
 
   return (
     <>
-      {hasVoted &&
-        <Alert severity="info">You have already voted!</Alert>
-      }
-      <FormControl fullWidth>
-        <InputLabel id="proposal-select-label">Select a proposal</InputLabel>
-        <Select
-          label="Select a proposal"
-          labelId="proposal-select-label"
-          id="proposal-select"
-          value={selectedProposal}
-          onChange={handleVoteChange}
-          disabled={hasVoted}
-        >
-          <MenuItem value={0}>Choose a proposal in the list</MenuItem>
-          {proposals.map((proposal) =>
-            <MenuItem value={proposal.id} key={proposal.id}>{proposal.description}</MenuItem>
-          )}
-        </Select>
-        <br />
-        <Button variant="contained" onClick={setVote} disabled={!validProposal || hasVoted}>Vote</Button>
-      </FormControl>
+
+      <Box
+        sx={{ p: 2, border: '1px solid grey', borderRadius: '10px' }}
+      >
+        <Typography variant="h6" component="h3" mb={2}>
+          Vote for this poll
+        </Typography>
+
+        <FormControl fullWidth>
+          <InputLabel id="proposal-select-label">Select a proposal</InputLabel>
+          <Select
+            label="Select a proposal"
+            labelId="proposal-select-label"
+            id="proposal-select"
+            value={selectedProposal}
+            onChange={handleVoteChange}
+            disabled={hasVoted}
+          >
+            <MenuItem value={0}>Choose a proposal in the list</MenuItem>
+            {proposals.map((proposal) =>
+              <MenuItem value={proposal.id} key={proposal.id}>{proposal.description}</MenuItem>
+            )}
+          </Select>
+          <br />
+          <Button variant="contained" onClick={setVote} disabled={!validProposal || hasVoted}>Vote</Button>
+        </FormControl>
+        {hasVoted &&
+          <Alert severity="info">You have already voted!</Alert>
+        }
+      </Box>
     </>
   );
 }

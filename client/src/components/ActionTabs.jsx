@@ -3,6 +3,7 @@ import useEth from "./../contexts/EthContext/useEth";
 
 import {
   Alert,
+  Typography,
   Tab,
   Box,
 } from '@mui/material';
@@ -29,7 +30,6 @@ import GetWinnerTab from "./tabs/GetWinnerTab";
 
 function ActionTabs() {
   const { state: { step, user: { isConnected, isOwner, isVoter } } } = useEth();
-
   const [currentTab, SetCurrentTab] = useState("info");
 
   const handleChange = (evt, val) => {
@@ -82,13 +82,13 @@ function ActionTabs() {
   const voteTab = <VoteTab />;
   const getVoteTabHeader = <Tab icon={<VisibilityIcon />} label="See Votes" value="getVote" disabled={!(isVoter && step >= 3)} />;
   const getVoteTab = <GetVoteTab disabled={!(isVoter && step >= 3)} />;
-  const getWinnerTabHeader = <Tab icon={<EmojiEventsIcon />} label="Winning Proposal" value="getWinner" disabled={!(isVoter && step >= 5)} />;
+  const getWinnerTabHeader = <Tab icon={<EmojiEventsIcon />} label="Results" value="getWinner" disabled={!(isVoter && step >= 5)} />;
   const getWinnerTab = <GetWinnerTab disabled={!(isVoter && step >= 5)} />;
 
   return (
     <Box
       mt={2}
-      sx={{ p: 2, border: '1px solid grey', borderRadius: '10px', background: 'var(--mid-gray)' }}
+      sx={{ p: 2, border: '1px solid grey', borderRadius: '10px', background: 'var(--mid-gray)', flexGrow: 1 }}
     >
       {/* Event listeners */}
       {isConnected &&
@@ -99,6 +99,10 @@ function ActionTabs() {
           <VotedEvents />
         </>
       }
+
+      <Typography variant="h5" component="h2" mb={-1}>
+        <b>Poll:</b> <em>Hey Cyril, what are we going to do this evening ?</em>
+      </Typography>
 
       <TabContext value={currentTab}>
         <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>

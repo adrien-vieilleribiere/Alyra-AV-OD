@@ -2,6 +2,7 @@
 import useEth from "../contexts/EthContext/useEth";
 import {
   Box,
+  Typography,
   Stack,
   Badge,
   Chip,
@@ -16,9 +17,11 @@ function Stats() {
   const { state: { voters, proposals, votes } } = useEth();
   return (
     <Box
-      mt={2}
       sx={{ p: 2, border: '1px solid grey', borderRadius: '10px' }}
     >
+      <Typography variant="h6" component="h3">
+        Statistics
+      </Typography>
 
       <Stack
         direction={{ xs: 'row', md: 'row' }}
