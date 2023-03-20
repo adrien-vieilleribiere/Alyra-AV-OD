@@ -38,7 +38,7 @@ function Header() {
               <div className='header-subtitle'>Secure your vote, secure your future</div>
             </Typography>
             {/* TODO: remove debug button*/}
-            <Button color="inherit" onClick={debug} title="Don't touch">DEBUG</Button>
+            {/* <Button color="inherit" onClick={debug} title="Don't touch">DEBUG</Button> */}
             {accounts && accounts.length !== 0 && (
               <WalletWidget address={accounts[0]} />
             )}
