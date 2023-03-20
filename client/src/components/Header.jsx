@@ -12,7 +12,7 @@ import useEth from "../contexts/EthContext/useEth";
 
 
 function Header() {
-  let { state: { accounts, user, voters, proposals, votes } } = useEth();
+  let { state: { accounts, voters, proposals, votes } } = useEth();
   /* TEMP DEBUG BUTTON 
     - used to check state variable on click
     - TODO: Remove
@@ -38,7 +38,7 @@ function Header() {
               <div className='header-subtitle'>Secure your vote, secure your future</div>
             </Typography>
             {/* TODO: remove debug button*/}
-            <Button color="inherit" onClick={debug} title="Don't touch">DEBUG</Button>
+            {/* <Button color="inherit" onClick={debug} title="Don't touch">DEBUG</Button> */}
             {accounts && accounts.length !== 0 && (
               <WalletWidget address={accounts[0]} />
             )}

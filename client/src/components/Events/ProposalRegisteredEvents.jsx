@@ -35,6 +35,7 @@ function ProposalRegisteredEvents() {
 
         contract.getPastEvents('ProposalRegistered', options)
           .then(events => {
+            // eslint-disable-next-line array-callback-return
             events.map((event) => {
               const find = proposals.filter(
                 (proposal) => proposal.txHash === event.transactionHash
@@ -52,6 +53,7 @@ function ProposalRegisteredEvents() {
 
       }
     })();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   })
 
 }
