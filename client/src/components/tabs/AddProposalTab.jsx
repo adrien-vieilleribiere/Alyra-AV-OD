@@ -13,13 +13,9 @@ function AddProposalTab() {
         <Typography variant="h6" component="h3">
           Add a proposal to this poll
         </Typography>
-        <Box sx={{
-          display: 'flex',
-          alignItems: 'center',
-          '& > :not(style)': { m: 1 },
-        }}>
-          <AddProposal />
-        </Box>
+
+        <AddProposal />
+
       </Box>
     </TabPanel>
   );

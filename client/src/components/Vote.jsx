@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import useEth from "../contexts/EthContext/useEth";
 import {
   Button,
@@ -15,7 +15,17 @@ function Vote() {
   const { state: { contract, accounts, proposals, user: { hasVoted } } } = useEth();
   const [selectedProposal, setSelectedProposal] = useState(0);
   const [validProposal, setValidProposal] = useState(false);
+  const [alertVisible, setAlertVisible] = useState(false);
+  const [alertContent, setAlertContent] = useState("");
   // const [error, setError] = useState("")
+
+  useEffect(() => {
+    if (alertVisible) {
+      setTimeout(() => {
+        setAlertVisible(false);
+      }, 5000);
+    }
+  }, [alertVisible])
 
   async function handleVoteChange(evt) {
     if (evt.target.value) {
@@ -37,12 +47,13 @@ function Vote() {
       await contract.methods.setVote(selectedProposal).send({ from: accounts[0] });
       setSelectedProposal(0);
       setValidProposal(false);
+      setAlertVisible(true);
+      setAlertContent({ severity: "success", msg: "Address added" })
     }
   };
 
   return (
     <>
-
       <Box
         sx={{ p: 2, border: '1px solid grey', borderRadius: '10px' }}
       >
@@ -69,7 +80,10 @@ function Vote() {
           <Button variant="contained" onClick={setVote} disabled={!validProposal || hasVoted}>Vote</Button>
         </FormControl>
         {hasVoted &&
-          <Alert severity="info">You have already voted!</Alert>
+          <Alert mt={1} severity="info">You have already voted!</Alert>
+        }
+        {alertVisible &&
+          <Alert mt={1} severity={alertContent.severity}>{alertContent.msg}</Alert>
         }
       </Box>
     </>
