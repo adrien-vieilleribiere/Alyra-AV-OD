@@ -24,7 +24,6 @@ function GetWinner() {
       const getWinningProp = parseInt(await contract.methods.winningProposalID().call({ from: accounts[0] }));
       if (getWinningProp > 0) {
         const bestProposalDescription = proposals.filter(prop => parseInt(prop.id) === getWinningProp);
-        console.log("bp", bestProposalDescription);
         if (bestProposalDescription.length > 0) {
           setWinner(bestProposalDescription[0].description);
         }
