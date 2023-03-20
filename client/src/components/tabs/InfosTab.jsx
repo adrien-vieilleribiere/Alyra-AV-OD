@@ -7,7 +7,8 @@ import {
   ListItem,
   ListItemIcon,
   ListItemText,
-  Link
+  Link,
+  Divider
 } from '@mui/material';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import WebIcon from '@mui/icons-material/Web';
@@ -34,28 +35,33 @@ function InfosTab() {
         </Typography>
 
         <List>
-          <ListItem
-            component={Link}
-            href="https://alyra-av-od-adrien-vieilleribiere.vercel.app/"
-            children="Deployed demo"
-          >
-            <ListItemIcon>
-              <WebIcon />
-            </ListItemIcon>
-            <ListItemText primary="Deployed demo" />
-          </ListItem>
-          <ListItem
-            component={Link}
-            href="https://github.com/adrien-vieilleribiere/Alyra-AV-OD"
-            children="Github Repository"
-          >
-            <ListItemIcon>
-              <GitHubIcon />
-            </ListItemIcon>
-            <ListItemText primary="Github Repository" />
-          </ListItem>
+          <Box sx={{ display: 'inline-flex' }}>
+            <ListItem
+              component={Link}
+              href="https://alyra-av-od-adrien-vieilleribiere.vercel.app/"
+              children="Deployed demo"
+            >
+              <ListItemIcon>
+                <WebIcon />
+              </ListItemIcon>
+              <ListItemText primary="Deployed demo" />
+            </ListItem>
+          </Box>
+          <Divider />
+          <Box sx={{ display: 'inline-flex' }}>
+            <ListItem
+              component={Link}
+              href="https://github.com/adrien-vieilleribiere/Alyra-AV-OD"
+              children="Github Repository"
+            >
+              <ListItemIcon>
+                <GitHubIcon />
+              </ListItemIcon>
+              <ListItemText primary="Github Repository" />
+            </ListItem>
+          </Box>
         </List>
-      </Box>
+      </Box >
 
     </TabPanel >
   );
