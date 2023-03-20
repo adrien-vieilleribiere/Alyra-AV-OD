@@ -14,7 +14,6 @@ function GetVote() {
   const { state: { contract, accounts, voters, proposals } } = useEth();
   const [voterAddress, setVoterAddress] = useState("");
   const [hasVoted, setHasVoted] = useState(false);
-  const [votedProposal, setVotedProposal] = useState(0);
   const [votedProposalDescription, setVotedProposalDescription] = useState("");
 
   async function voterSelectionHandle(evt) {
@@ -22,9 +21,7 @@ function GetVote() {
     if (evt.target.value) {
       var tryAddVoter = await contract.methods.getVoter(evt.target.value).call({ from: accounts[0] });
       setHasVoted(tryAddVoter.hasVoted);
-      setVotedProposal(tryAddVoter.votedProposalId);
       proposals.map(proposal => {
-        console.log(proposal);
         if (proposal.id == tryAddVoter.votedProposalId) {
           setVotedProposalDescription(proposal.description);
         }
@@ -32,7 +29,6 @@ function GetVote() {
     }
     else {
       setHasVoted(false);
-      setVotedProposal(0)
     }
   }
 
@@ -64,14 +60,13 @@ function GetVote() {
           </Select>
           <br />
 
-          <p >{hasVoted
+          {hasVoted
             ? <Alert severity="success">
               The address selected voted for proposal: "<b><em>{votedProposalDescription}</em></b>"
             </Alert>
             : (voterAddress ?
               <Alert severity="warning">The address selected didn't vote</Alert> : ""
             )}
-          </p>
         </FormControl >
       </Box>
     </>
