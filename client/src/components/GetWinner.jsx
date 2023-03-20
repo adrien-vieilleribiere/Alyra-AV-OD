@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import useEth from "../contexts/EthContext/useEth";
-import { Box, List, ListItem, Chip, Avatar, Stack } from '@mui/material';
+import { Box, List, ListItem, Chip, Avatar, Typography } from '@mui/material';
 import { Fireworks } from '@fireworks-js/react'
+import useEth from "../contexts/EthContext/useEth";
 
 function GetWinner() {
 
@@ -54,11 +54,14 @@ function GetWinner() {
             setSortedProposals(orderedProposals)
           }
           if (orderedProposals.length) {
-            setOrderedItems(orderedProposals.map((sortedProp) => <ListItem><Chip
-              key={"prop" + sortedProp.id}
-              label={sortedProp.description}
-              avatar={<Avatar>{sortedProp.voteCount}</Avatar>}
-            ></Chip></ListItem>));
+            setOrderedItems(orderedProposals.map((sortedProp) =>
+              <ListItem key={"prop" + sortedProp.id}>
+                <Chip
+                  key={"prop" + sortedProp.id}
+                  label={sortedProp.description}
+                  avatar={<Avatar>{sortedProp.voteCount}</Avatar>}
+                ></Chip>
+              </ListItem>));
             setSortProposals(false);
           }
         });
@@ -70,28 +73,47 @@ function GetWinner() {
 
   return (
     <Box >
-      <p>And the winner proposal is: {winner} !!!</p>
+      <Box
+        sx={{ p: 2, border: '1px solid grey', borderRadius: '10px' }}
+      >
+        <Typography variant="h6" component="h3">
+          Winning proposal
+        </Typography>
+        <Typography variant="subtitle1">
+          And the winner proposal is: "<b><em>{winner}</em></b>" !!!
+        </Typography>
+      </Box>
+      <Box
+        mt={2}
+        sx={{ p: 2, border: '1px solid grey', borderRadius: '10px' }}
+      >
+        <Typography variant="h6" component="h3">
+          Detailed results
+        </Typography>
+        <Typography variant="subtitle1">
+          Proposals with their respective number of votes.
+        </Typography>
+        <List>
+          {orderedItems}
+        </List>
 
-      <List>
-        {orderedItems}
-      </List>
+        <Fireworks
+          options={{
+            rocketsPoint: {
+              min: 0,
+              max: 100
+            }
+          }}
+          style={{
+            top: "40%",
+            left: "30%",
+            //   width: '100%',
+            //   height: '100%',
+            position: 'fixed',
+            //   background: '#000'
+          }}
+        /></Box>
 
-      <Fireworks
-        options={{
-          rocketsPoint: {
-            min: 0,
-            max: 100
-          }
-        }}
-        style={{
-          top: "40%",
-          left: "30%",
-          //   width: '100%',
-          //   height: '100%',
-          position: 'fixed',
-          //   background: '#000'
-        }}
-      />
     </Box >
   );
 }

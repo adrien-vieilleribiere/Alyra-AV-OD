@@ -17,7 +17,6 @@ function Stats() {
   const { state: { voters, proposals, votes } } = useEth();
   return (
     <Box
-      mt={2}
       sx={{ p: 2, border: '1px solid grey', borderRadius: '10px' }}
     >
       <Typography variant="h6" component="h3">
